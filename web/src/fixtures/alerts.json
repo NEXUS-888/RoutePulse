@@ -1,0 +1,24 @@
+[
+  {
+    "alert_id": "ALT-001",
+    "code": "A2",
+    "severity": "hard-risk",
+    "title": "Capacity Risk on Route R3",
+    "detail": "P80 demand (74 pax) exceeds bus capacity (45 pax) on trip T_R3_01 departing 07:45.",
+    "entity_type": "trip",
+    "entity_id": "T_R3_01",
+    "time_min": 465,
+    "pax_affected": 29
+  },
+  {
+    "alert_id": "ALT-002",
+    "code": "A4",
+    "severity": "soft",
+    "title": "Tight Connection at Hub",
+    "detail": "Feeder trip T_R3_01 projected to arrive S03 at 07:44:30; connecting trip T_R2_01 departs 07:45.",
+    "entity_type": "trip",
+    "entity_id": "T_R2_01",
+    "time_min": 465,
+    "pax_affected": 14
+  }
+]

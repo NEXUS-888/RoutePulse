@@ -12,6 +12,7 @@
           "System"
         ],
         "summary": "Get Health",
+        "description": "Return system health status, versions, model hash, and master seed.",
         "operationId": "get_health_api_health_get",
         "responses": {
           "200": {
@@ -33,6 +34,7 @@
           "Network"
         ],
         "summary": "Get Network",
+        "description": "Return all stops, routes, vehicles, and hub transfers across the network.",
         "operationId": "get_network_api_network_get",
         "responses": {
           "200": {
@@ -54,6 +56,7 @@
           "Plans"
         ],
         "summary": "Get Plan",
+        "description": "Return operating plan (baseline or proposed/applied) by ID.",
         "operationId": "get_plan_api_plans__plan_id__get",
         "parameters": [
           {
@@ -98,6 +101,7 @@
           "Plans"
         ],
         "summary": "Validate Plan",
+        "description": "Validate plan against H1-H12 hard constraints and soft alerts via validate.validator.validate.",
         "operationId": "validate_plan_api_plans_validate_post",
         "requestBody": {
           "content": {
@@ -139,7 +143,7 @@
           "Live"
         ],
         "summary": "Live Stream",
-        "description": "SSE endpoint streaming live vehicle pings, ETAs, and alerts.",
+        "description": "SSE endpoint streaming live vehicle GPS pings, ETAs, and active alerts.\nPaces ticks with accelerated simulation time (e.g. 30x real-time).",
         "operationId": "live_stream_api_live_stream_get",
         "parameters": [
           {
@@ -148,11 +152,139 @@
             "required": false,
             "schema": {
               "type": "integer",
+              "maximum": 120,
+              "minimum": 1,
               "description": "Replay speed multiplier",
               "default": 30,
               "title": "Speed"
             },
             "description": "Replay speed multiplier"
+          },
+          {
+            "name": "scenario_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Scenario ID (S0, S1, S2, S3)",
+              "default": "S0",
+              "title": "Scenario Id"
+            },
+            "description": "Scenario ID (S0, S1, S2, S3)"
+          },
+          {
+            "name": "start_time_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 1440,
+              "minimum": 0,
+              "description": "Start time in minutes from midnight (07:30 = 450)",
+              "default": 450,
+              "title": "Start Time Min"
+            },
+            "description": "Start time in minutes from midnight (07:30 = 450)"
+          },
+          {
+            "name": "max_ticks",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Optional limit of ticks (useful for tests/batch queries)",
+              "title": "Max Ticks"
+            },
+            "description": "Optional limit of ticks (useful for tests/batch queries)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/live/status": {
+      "get": {
+        "tags": [
+          "Live"
+        ],
+        "summary": "Get Live Status",
+        "description": "Return current replayer clock, scenario, and active fleet counts.",
+        "operationId": "get_live_status_api_live_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/live/reset": {
+      "post": {
+        "tags": [
+          "Live"
+        ],
+        "summary": "Reset Live",
+        "description": "Reset live replayer clock and scenario.",
+        "operationId": "reset_live_api_live_reset_post",
+        "parameters": [
+          {
+            "name": "speed",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 30,
+              "title": "Speed"
+            }
+          },
+          {
+            "name": "scenario_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "S0",
+              "title": "Scenario Id"
+            }
+          },
+          {
+            "name": "start_time_min",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 450,
+              "title": "Start Time Min"
+            }
           }
         ],
         "responses": {
@@ -183,6 +315,7 @@
           "ETA"
         ],
         "summary": "Get Stop Eta",
+        "description": "Return next arriving vehicles at stop_id with P10/P50/P90 arrival windows and reasoning.",
         "operationId": "get_stop_eta_api_eta_get",
         "parameters": [
           {
@@ -246,6 +379,7 @@
           "ETA"
         ],
         "summary": "Get Vehicle Eta",
+        "description": "Return downstream stop arrivals and current progress for vehicle_id.",
         "operationId": "get_vehicle_eta_api_eta_vehicle__vehicle_id__get",
         "parameters": [
           {
@@ -258,6 +392,24 @@
               "title": "Vehicle Id"
             },
             "description": "Vehicle identifier, e.g. B1"
+          },
+          {
+            "name": "t",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Query time in minutes from midnight",
+              "title": "T"
+            },
+            "description": "Query time in minutes from midnight"
           }
         ],
         "responses": {
@@ -290,6 +442,7 @@
           "Demand"
         ],
         "summary": "Get Demand",
+        "description": "Return demand forecast bands (P50, P80, P90) and actual counts for stop_id across morning peak slots.",
         "operationId": "get_demand_api_demand_get",
         "parameters": [
           {
@@ -353,6 +506,7 @@
           "Alerts"
         ],
         "summary": "Get Alerts",
+        "description": "Return active typed alerts A1-A8 (overcrowding, tight connections, delays, fleet risks).",
         "operationId": "get_alerts_api_alerts_get",
         "parameters": [
           {
@@ -368,8 +522,10 @@
                   "type": "null"
                 }
               ],
+              "description": "Filter by plan ID",
               "title": "Plan Id"
-            }
+            },
+            "description": "Filter by plan ID"
           },
           {
             "name": "scenario_id",
@@ -384,8 +540,28 @@
                   "type": "null"
                 }
               ],
+              "description": "Filter by scenario ID (S0, S1, S2, S3)",
               "title": "Scenario Id"
-            }
+            },
+            "description": "Filter by scenario ID (S0, S1, S2, S3)"
+          },
+          {
+            "name": "severity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Filter by severity (hard-risk or soft)",
+              "title": "Severity"
+            },
+            "description": "Filter by severity (hard-risk or soft)"
           }
         ],
         "responses": {
@@ -422,6 +598,7 @@
           "Optimization"
         ],
         "summary": "Get Recommendations",
+        "description": "Return ranked recommendation cards with trade-off explanations and constraint checks.",
         "operationId": "get_recommendations_api_recommendations_post",
         "requestBody": {
           "content": {
@@ -463,6 +640,7 @@
           "Optimization"
         ],
         "summary": "Apply Recommendation",
+        "description": "Apply recommendation to working plan, run hard-constraint validation, and compute KPI deltas.",
         "operationId": "apply_recommendation_api_recommendations__id__apply_post",
         "parameters": [
           {
@@ -524,6 +702,7 @@
           "Optimization"
         ],
         "summary": "Evaluate Whatif",
+        "description": "Evaluate hypothetical schedule modifications, validate constraints, and simulate KPI deltas.",
         "operationId": "evaluate_whatif_api_whatif_post",
         "requestBody": {
           "content": {
@@ -565,6 +744,7 @@
           "Simulation"
         ],
         "summary": "Run Scenario",
+        "description": "Run stochastic simulation for scenario id and return resulting service KPIs.",
         "operationId": "run_scenario_api_scenarios__id__run_post",
         "parameters": [
           {
@@ -626,6 +806,7 @@
           "Evaluation"
         ],
         "summary": "Get Eval Results",
+        "description": "Return latest evaluation benchmark summary and generated chart artifact paths.",
         "operationId": "get_eval_results_api_eval_results_get",
         "responses": {
           "200": {
@@ -647,6 +828,7 @@
           "Ingest"
         ],
         "summary": "Ingest Gps",
+        "description": "Ingest external GPS pings, update live vehicle tracking state, and broadcast to stream.",
         "operationId": "ingest_gps_api_ingest_gps_post",
         "requestBody": {
           "content": {
@@ -688,6 +870,7 @@
           "Ingest"
         ],
         "summary": "Ingest Apc",
+        "description": "Ingest automated passenger count (APC) records, update vehicle occupancy, and trigger capacity alerts.",
         "operationId": "ingest_apc_api_ingest_apc_post",
         "requestBody": {
           "content": {
@@ -729,6 +912,7 @@
           "Student"
         ],
         "summary": "Get Student Route",
+        "description": "Compute passenger trip options between from_stop and to_stop with ETA windows and crowding warnings.",
         "operationId": "get_student_route_api_student_route_get",
         "parameters": [
           {
@@ -737,8 +921,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "description": "Origin stop ID, e.g. S13",
               "title": "From"
-            }
+            },
+            "description": "Origin stop ID, e.g. S13"
           },
           {
             "name": "to",
@@ -746,8 +932,10 @@
             "required": true,
             "schema": {
               "type": "string",
+              "description": "Destination stop ID, e.g. S04",
               "title": "To"
-            }
+            },
+            "description": "Destination stop ID, e.g. S04"
           },
           {
             "name": "t",
@@ -762,9 +950,11 @@
                   "type": "null"
                 }
               ],
+              "description": "Query departure minute from midnight (07:40 = 460)",
               "default": 460,
               "title": "T"
-            }
+            },
+            "description": "Query departure minute from midnight (07:40 = 460)"
           },
           {
             "name": "accessible",
@@ -779,9 +969,11 @@
                   "type": "null"
                 }
               ],
+              "description": "Wheelchair accessibility required",
               "default": true,
               "title": "Accessible"
-            }
+            },
+            "description": "Wheelchair accessibility required"
           }
         ],
         "responses": {

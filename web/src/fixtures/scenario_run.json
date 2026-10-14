@@ -1,0 +1,12 @@
+{
+  "scenario_id": "S0",
+  "plan_id": "baseline_w1",
+  "seed": 20261014,
+  "kpis": {
+    "mean_wait_min": 6.9,
+    "left_behind_pax": 47.0,
+    "missed_connections": 15.0,
+    "fleet_utilization": 0.78,
+    "violations": 0.0
+  }
+}

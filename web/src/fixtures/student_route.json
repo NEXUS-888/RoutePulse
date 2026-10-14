@@ -1,0 +1,39 @@
+{
+  "from_stop": "S13",
+  "to_stop": "S04",
+  "query_time_min": 460,
+  "options": [
+    {
+      "itinerary_id": "ITIN-01",
+      "route_id": "R3",
+      "from_stop": "S13",
+      "to_stop": "S04",
+      "departure_min": 465,
+      "eta_p10_min": 479.0,
+      "eta_p50_min": 482.0,
+      "eta_p90_min": 485.0,
+      "is_transfer": true,
+      "transfer_stop": "S03",
+      "transfer_safe_prob": 0.94,
+      "accessible": true,
+      "crowding_level": "moderate",
+      "recommendation_note": "Transfer at Central Hub S03 to Route R1 (4 min connection buffer)"
+    },
+    {
+      "itinerary_id": "ITIN-02",
+      "route_id": "R3",
+      "from_stop": "S13",
+      "to_stop": "S04",
+      "departure_min": 477,
+      "eta_p10_min": 491.0,
+      "eta_p50_min": 494.0,
+      "eta_p90_min": 497.0,
+      "is_transfer": true,
+      "transfer_stop": "S03",
+      "transfer_safe_prob": 0.98,
+      "accessible": true,
+      "crowding_level": "low",
+      "recommendation_note": "Less crowded departure; highly reliable transfer"
+    }
+  ]
+}

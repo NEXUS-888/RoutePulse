@@ -1,0 +1,13 @@
+# RoutePulse Frozen Dataset SHA-256 Hashes
+# Master Seed: 20261014
+# Total Days: 30
+combined_data_hash: 888f28dbeacd57856bb9e5a4d40adc4726635a8775b1a21ee697922e5ee4cd97
+
+# Per-file SHA-256 digests:
+network.json: 8226eb28673a528d58ad7b0473417ec5eb5cd7a736c18ff3f59ce6e8b21c81e9
+baseline_plan.json: 44cb51c94f8ab01ebf288b069be63cb7cdffda5fe0b102c1f78e0248a39b4593
+events.csv: 7e80a50d8d5676111a0dbe23d852eeec707a6341c4e2e440036d33fdc81e5a1c
+scenarios.json: 561b58a9b3c3bd62741ac2263f13a6426eb55a41b482a0516af39055a557bbba
+demand_obs.parquet: 5402316e39d8cc07003e8d1030ec626ec47faed43d6561adf0efc4c73643a1c3
+apc_records.parquet: 89025b37caf1bf9533e91a66ae01c79591fec3320aba7a6ed8c58b817f675b50
+gps_pings.parquet: 365de0b676f1c8906bde9463329af66db79affcfabd438d77f895b493e309658

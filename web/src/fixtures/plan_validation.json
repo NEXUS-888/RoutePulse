@@ -1,0 +1,14 @@
+{
+  "is_valid": true,
+  "hard_violations_count": 0,
+  "soft_violations_count": 1,
+  "violations": [
+    {
+      "code": "A1",
+      "severity": "soft",
+      "entity": "T_R3_01",
+      "time": 465,
+      "detail": "Peak departure load projected at 88% rated capacity."
+    }
+  ]
+}

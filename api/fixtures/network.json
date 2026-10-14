@@ -437,20 +437,38 @@
       "min_transfer_min": 4
     },
     {
+      "from_route": "R1",
+      "to_route": "R3",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    },
+    {
+      "from_route": "R1",
+      "to_route": "R4",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    },
+    {
       "from_route": "R2",
       "to_route": "R1",
       "hub_stop_id": "S03",
       "min_transfer_min": 4
     },
     {
-      "from_route": "R3",
-      "to_route": "R1",
+      "from_route": "R2",
+      "to_route": "R3",
       "hub_stop_id": "S03",
       "min_transfer_min": 4
     },
     {
-      "from_route": "R1",
-      "to_route": "R3",
+      "from_route": "R2",
+      "to_route": "R4",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    },
+    {
+      "from_route": "R3",
+      "to_route": "R1",
       "hub_stop_id": "S03",
       "min_transfer_min": 4
     },
@@ -461,8 +479,26 @@
       "min_transfer_min": 4
     },
     {
+      "from_route": "R3",
+      "to_route": "R4",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    },
+    {
       "from_route": "R4",
       "to_route": "R1",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    },
+    {
+      "from_route": "R4",
+      "to_route": "R2",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    },
+    {
+      "from_route": "R4",
+      "to_route": "R3",
       "hub_stop_id": "S03",
       "min_transfer_min": 4
     }

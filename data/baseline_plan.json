@@ -1,0 +1,4752 @@
+{
+  "plan_id": "baseline_plan",
+  "name": "All-Day Baseline Campus Transit Timetable",
+  "window": [
+    "06:30",
+    "22:00"
+  ],
+  "trips": [
+    {
+      "trip_id": "TR1_001",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 390,
+      "scheduled_stop_times": {
+        "S02": 392,
+        "S03": 395,
+        "S04": 398,
+        "S05": 401,
+        "S06": 404,
+        "S07": 406,
+        "S01": 409
+      }
+    },
+    {
+      "trip_id": "TR2_001",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 390,
+      "scheduled_stop_times": {
+        "S10": 392,
+        "S08": 394,
+        "S09": 396,
+        "S03": 399
+      }
+    },
+    {
+      "trip_id": "TR3_001",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 390,
+      "scheduled_stop_times": {
+        "S13": 390,
+        "S01": 394,
+        "S02": 396,
+        "S03": 398
+      }
+    },
+    {
+      "trip_id": "TR4_001",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 390,
+      "scheduled_stop_times": {
+        "S03": 390,
+        "S14": 392,
+        "S12": 394,
+        "S11": 396
+      }
+    },
+    {
+      "trip_id": "TR4_002",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 398,
+      "scheduled_stop_times": {
+        "S11": 398,
+        "S12": 400,
+        "S14": 402,
+        "S03": 404
+      }
+    },
+    {
+      "trip_id": "TR1_002",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 402,
+      "scheduled_stop_times": {
+        "S02": 404,
+        "S03": 407,
+        "S04": 410,
+        "S05": 413,
+        "S06": 416,
+        "S07": 418,
+        "S01": 421
+      }
+    },
+    {
+      "trip_id": "TR3_003",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 402,
+      "scheduled_stop_times": {
+        "S13": 402,
+        "S01": 406,
+        "S02": 408,
+        "S03": 410
+      }
+    },
+    {
+      "trip_id": "TR2_002",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 405,
+      "scheduled_stop_times": {
+        "S10": 407,
+        "S08": 409,
+        "S09": 411,
+        "S03": 414
+      }
+    },
+    {
+      "trip_id": "TR3_002",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 408,
+      "scheduled_stop_times": {
+        "S03": 408,
+        "S02": 410,
+        "S01": 412,
+        "S13": 416
+      }
+    },
+    {
+      "trip_id": "TR1_003",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 414,
+      "scheduled_stop_times": {
+        "S02": 416,
+        "S03": 419,
+        "S04": 422,
+        "S05": 425,
+        "S06": 428,
+        "S07": 430,
+        "S01": 433
+      }
+    },
+    {
+      "trip_id": "TR3_005",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 414,
+      "scheduled_stop_times": {
+        "S13": 414,
+        "S01": 418,
+        "S02": 420,
+        "S03": 422
+      }
+    },
+    {
+      "trip_id": "TR2_003",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 420,
+      "scheduled_stop_times": {
+        "S10": 422,
+        "S08": 424,
+        "S09": 426,
+        "S03": 429
+      }
+    },
+    {
+      "trip_id": "TR3_004",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 420,
+      "scheduled_stop_times": {
+        "S03": 420,
+        "S02": 422,
+        "S01": 424,
+        "S13": 428
+      }
+    },
+    {
+      "trip_id": "TR4_003",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 420,
+      "scheduled_stop_times": {
+        "S03": 420,
+        "S14": 422,
+        "S12": 424,
+        "S11": 426
+      }
+    },
+    {
+      "trip_id": "TR4_004",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 428,
+      "scheduled_stop_times": {
+        "S11": 428,
+        "S12": 430,
+        "S14": 432,
+        "S03": 434
+      }
+    },
+    {
+      "trip_id": "TR3_006",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 432,
+      "scheduled_stop_times": {
+        "S03": 432,
+        "S02": 434,
+        "S01": 436,
+        "S13": 440
+      }
+    },
+    {
+      "trip_id": "TR2_004",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 435,
+      "scheduled_stop_times": {
+        "S10": 437,
+        "S08": 439,
+        "S09": 441,
+        "S03": 444
+      }
+    },
+    {
+      "trip_id": "TR1_004",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 450,
+      "scheduled_stop_times": {
+        "S02": 452,
+        "S03": 455,
+        "S04": 458,
+        "S05": 461,
+        "S06": 464,
+        "S07": 466,
+        "S01": 469
+      }
+    },
+    {
+      "trip_id": "TR2_005",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 450,
+      "scheduled_stop_times": {
+        "S10": 452,
+        "S08": 454,
+        "S09": 456,
+        "S03": 459
+      }
+    },
+    {
+      "trip_id": "TR3_007",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 450,
+      "scheduled_stop_times": {
+        "S13": 450,
+        "S01": 454,
+        "S02": 456,
+        "S03": 458
+      }
+    },
+    {
+      "trip_id": "TR4_005",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 450,
+      "scheduled_stop_times": {
+        "S03": 450,
+        "S14": 452,
+        "S12": 454,
+        "S11": 456
+      }
+    },
+    {
+      "trip_id": "TR4_006",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 458,
+      "scheduled_stop_times": {
+        "S11": 458,
+        "S12": 460,
+        "S14": 462,
+        "S03": 464
+      }
+    },
+    {
+      "trip_id": "TR1_005",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 462,
+      "scheduled_stop_times": {
+        "S02": 464,
+        "S03": 467,
+        "S04": 470,
+        "S05": 473,
+        "S06": 476,
+        "S07": 478,
+        "S01": 481
+      }
+    },
+    {
+      "trip_id": "TR3_009",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 462,
+      "scheduled_stop_times": {
+        "S13": 462,
+        "S01": 466,
+        "S02": 468,
+        "S03": 470
+      }
+    },
+    {
+      "trip_id": "TR2_006",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 465,
+      "scheduled_stop_times": {
+        "S10": 467,
+        "S08": 469,
+        "S09": 471,
+        "S03": 474
+      }
+    },
+    {
+      "trip_id": "TR3_008",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 468,
+      "scheduled_stop_times": {
+        "S03": 468,
+        "S02": 470,
+        "S01": 472,
+        "S13": 476
+      }
+    },
+    {
+      "trip_id": "TR1_006",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 474,
+      "scheduled_stop_times": {
+        "S02": 476,
+        "S03": 479,
+        "S04": 482,
+        "S05": 485,
+        "S06": 488,
+        "S07": 490,
+        "S01": 493
+      }
+    },
+    {
+      "trip_id": "TR3_011",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 474,
+      "scheduled_stop_times": {
+        "S13": 474,
+        "S01": 478,
+        "S02": 480,
+        "S03": 482
+      }
+    },
+    {
+      "trip_id": "TR2_007",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 480,
+      "scheduled_stop_times": {
+        "S10": 482,
+        "S08": 484,
+        "S09": 486,
+        "S03": 489
+      }
+    },
+    {
+      "trip_id": "TR3_010",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 480,
+      "scheduled_stop_times": {
+        "S03": 480,
+        "S02": 482,
+        "S01": 484,
+        "S13": 488
+      }
+    },
+    {
+      "trip_id": "TR4_007",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 480,
+      "scheduled_stop_times": {
+        "S03": 480,
+        "S14": 482,
+        "S12": 484,
+        "S11": 486
+      }
+    },
+    {
+      "trip_id": "TR1_007",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 486,
+      "scheduled_stop_times": {
+        "S02": 488,
+        "S03": 491,
+        "S04": 494,
+        "S05": 497,
+        "S06": 500,
+        "S07": 502,
+        "S01": 505
+      }
+    },
+    {
+      "trip_id": "TR3_013",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 486,
+      "scheduled_stop_times": {
+        "S13": 486,
+        "S01": 490,
+        "S02": 492,
+        "S03": 494
+      }
+    },
+    {
+      "trip_id": "TR4_008",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 488,
+      "scheduled_stop_times": {
+        "S11": 488,
+        "S12": 490,
+        "S14": 492,
+        "S03": 494
+      }
+    },
+    {
+      "trip_id": "TR3_012",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 492,
+      "scheduled_stop_times": {
+        "S03": 492,
+        "S02": 494,
+        "S01": 496,
+        "S13": 500
+      }
+    },
+    {
+      "trip_id": "TR2_008",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 495,
+      "scheduled_stop_times": {
+        "S10": 497,
+        "S08": 499,
+        "S09": 501,
+        "S03": 504
+      }
+    },
+    {
+      "trip_id": "TR1_008",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 498,
+      "scheduled_stop_times": {
+        "S02": 500,
+        "S03": 503,
+        "S04": 506,
+        "S05": 509,
+        "S06": 512,
+        "S07": 514,
+        "S01": 517
+      }
+    },
+    {
+      "trip_id": "TR3_015",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 498,
+      "scheduled_stop_times": {
+        "S13": 498,
+        "S01": 502,
+        "S02": 504,
+        "S03": 506
+      }
+    },
+    {
+      "trip_id": "TR3_014",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 504,
+      "scheduled_stop_times": {
+        "S03": 504,
+        "S02": 506,
+        "S01": 508,
+        "S13": 512
+      }
+    },
+    {
+      "trip_id": "TR1_009",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 510,
+      "scheduled_stop_times": {
+        "S02": 512,
+        "S03": 515,
+        "S04": 518,
+        "S05": 521,
+        "S06": 524,
+        "S07": 526,
+        "S01": 529
+      }
+    },
+    {
+      "trip_id": "TR2_009",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 510,
+      "scheduled_stop_times": {
+        "S10": 512,
+        "S08": 514,
+        "S09": 516,
+        "S03": 519
+      }
+    },
+    {
+      "trip_id": "TR3_017",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 510,
+      "scheduled_stop_times": {
+        "S13": 510,
+        "S01": 514,
+        "S02": 516,
+        "S03": 518
+      }
+    },
+    {
+      "trip_id": "TR4_009",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 510,
+      "scheduled_stop_times": {
+        "S03": 510,
+        "S14": 512,
+        "S12": 514,
+        "S11": 516
+      }
+    },
+    {
+      "trip_id": "TR3_016",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 516,
+      "scheduled_stop_times": {
+        "S03": 516,
+        "S02": 518,
+        "S01": 520,
+        "S13": 524
+      }
+    },
+    {
+      "trip_id": "TR4_010",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 518,
+      "scheduled_stop_times": {
+        "S11": 518,
+        "S12": 520,
+        "S14": 522,
+        "S03": 524
+      }
+    },
+    {
+      "trip_id": "TR1_010",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 522,
+      "scheduled_stop_times": {
+        "S02": 524,
+        "S03": 527,
+        "S04": 530,
+        "S05": 533,
+        "S06": 536,
+        "S07": 538,
+        "S01": 541
+      }
+    },
+    {
+      "trip_id": "TR3_019",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 522,
+      "scheduled_stop_times": {
+        "S13": 522,
+        "S01": 526,
+        "S02": 528,
+        "S03": 530
+      }
+    },
+    {
+      "trip_id": "TR2_010",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 525,
+      "scheduled_stop_times": {
+        "S10": 527,
+        "S08": 529,
+        "S09": 531,
+        "S03": 534
+      }
+    },
+    {
+      "trip_id": "TR3_018",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 528,
+      "scheduled_stop_times": {
+        "S03": 528,
+        "S02": 530,
+        "S01": 532,
+        "S13": 536
+      }
+    },
+    {
+      "trip_id": "TR1_011",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 534,
+      "scheduled_stop_times": {
+        "S02": 536,
+        "S03": 539,
+        "S04": 542,
+        "S05": 545,
+        "S06": 548,
+        "S07": 550,
+        "S01": 553
+      }
+    },
+    {
+      "trip_id": "TR3_021",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 534,
+      "scheduled_stop_times": {
+        "S13": 534,
+        "S01": 538,
+        "S02": 540,
+        "S03": 542
+      }
+    },
+    {
+      "trip_id": "TR2_011",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 540,
+      "scheduled_stop_times": {
+        "S10": 542,
+        "S08": 544,
+        "S09": 546,
+        "S03": 549
+      }
+    },
+    {
+      "trip_id": "TR3_020",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 540,
+      "scheduled_stop_times": {
+        "S03": 540,
+        "S02": 542,
+        "S01": 544,
+        "S13": 548
+      }
+    },
+    {
+      "trip_id": "TR4_011",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 540,
+      "scheduled_stop_times": {
+        "S03": 540,
+        "S14": 542,
+        "S12": 544,
+        "S11": 546
+      }
+    },
+    {
+      "trip_id": "TR1_012",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 546,
+      "scheduled_stop_times": {
+        "S02": 548,
+        "S03": 551,
+        "S04": 554,
+        "S05": 557,
+        "S06": 560,
+        "S07": 562,
+        "S01": 565
+      }
+    },
+    {
+      "trip_id": "TR3_023",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 546,
+      "scheduled_stop_times": {
+        "S13": 546,
+        "S01": 550,
+        "S02": 552,
+        "S03": 554
+      }
+    },
+    {
+      "trip_id": "TR4_012",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 548,
+      "scheduled_stop_times": {
+        "S11": 548,
+        "S12": 550,
+        "S14": 552,
+        "S03": 554
+      }
+    },
+    {
+      "trip_id": "TR3_022",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 552,
+      "scheduled_stop_times": {
+        "S03": 552,
+        "S02": 554,
+        "S01": 556,
+        "S13": 560
+      }
+    },
+    {
+      "trip_id": "TR2_012",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 555,
+      "scheduled_stop_times": {
+        "S10": 557,
+        "S08": 559,
+        "S09": 561,
+        "S03": 564
+      }
+    },
+    {
+      "trip_id": "TR1_013",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 558,
+      "scheduled_stop_times": {
+        "S02": 560,
+        "S03": 563,
+        "S04": 566,
+        "S05": 569,
+        "S06": 572,
+        "S07": 574,
+        "S01": 577
+      }
+    },
+    {
+      "trip_id": "TR3_025",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 558,
+      "scheduled_stop_times": {
+        "S13": 558,
+        "S01": 562,
+        "S02": 564,
+        "S03": 566
+      }
+    },
+    {
+      "trip_id": "TR3_024",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 564,
+      "scheduled_stop_times": {
+        "S03": 564,
+        "S02": 566,
+        "S01": 568,
+        "S13": 572
+      }
+    },
+    {
+      "trip_id": "TR1_014",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 570,
+      "scheduled_stop_times": {
+        "S02": 572,
+        "S03": 575,
+        "S04": 578,
+        "S05": 581,
+        "S06": 584,
+        "S07": 586,
+        "S01": 589
+      }
+    },
+    {
+      "trip_id": "TR2_013",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 570,
+      "scheduled_stop_times": {
+        "S10": 572,
+        "S08": 574,
+        "S09": 576,
+        "S03": 579
+      }
+    },
+    {
+      "trip_id": "TR3_027",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 570,
+      "scheduled_stop_times": {
+        "S13": 570,
+        "S01": 574,
+        "S02": 576,
+        "S03": 578
+      }
+    },
+    {
+      "trip_id": "TR4_013",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 570,
+      "scheduled_stop_times": {
+        "S03": 570,
+        "S14": 572,
+        "S12": 574,
+        "S11": 576
+      }
+    },
+    {
+      "trip_id": "TR3_026",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 576,
+      "scheduled_stop_times": {
+        "S03": 576,
+        "S02": 578,
+        "S01": 580,
+        "S13": 584
+      }
+    },
+    {
+      "trip_id": "TR4_014",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 578,
+      "scheduled_stop_times": {
+        "S11": 578,
+        "S12": 580,
+        "S14": 582,
+        "S03": 584
+      }
+    },
+    {
+      "trip_id": "TR1_015",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 582,
+      "scheduled_stop_times": {
+        "S02": 584,
+        "S03": 587,
+        "S04": 590,
+        "S05": 593,
+        "S06": 596,
+        "S07": 598,
+        "S01": 601
+      }
+    },
+    {
+      "trip_id": "TR3_029",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 582,
+      "scheduled_stop_times": {
+        "S13": 582,
+        "S01": 586,
+        "S02": 588,
+        "S03": 590
+      }
+    },
+    {
+      "trip_id": "TR2_014",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 585,
+      "scheduled_stop_times": {
+        "S10": 587,
+        "S08": 589,
+        "S09": 591,
+        "S03": 594
+      }
+    },
+    {
+      "trip_id": "TR3_028",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 588,
+      "scheduled_stop_times": {
+        "S03": 588,
+        "S02": 590,
+        "S01": 592,
+        "S13": 596
+      }
+    },
+    {
+      "trip_id": "TR1_016",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 594,
+      "scheduled_stop_times": {
+        "S02": 596,
+        "S03": 599,
+        "S04": 602,
+        "S05": 605,
+        "S06": 608,
+        "S07": 610,
+        "S01": 613
+      }
+    },
+    {
+      "trip_id": "TR3_031",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 594,
+      "scheduled_stop_times": {
+        "S13": 594,
+        "S01": 598,
+        "S02": 600,
+        "S03": 602
+      }
+    },
+    {
+      "trip_id": "TR2_015",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 600,
+      "scheduled_stop_times": {
+        "S10": 602,
+        "S08": 604,
+        "S09": 606,
+        "S03": 609
+      }
+    },
+    {
+      "trip_id": "TR3_030",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 600,
+      "scheduled_stop_times": {
+        "S03": 600,
+        "S02": 602,
+        "S01": 604,
+        "S13": 608
+      }
+    },
+    {
+      "trip_id": "TR4_015",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 600,
+      "scheduled_stop_times": {
+        "S03": 600,
+        "S14": 602,
+        "S12": 604,
+        "S11": 606
+      }
+    },
+    {
+      "trip_id": "TR1_017",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 606,
+      "scheduled_stop_times": {
+        "S02": 608,
+        "S03": 611,
+        "S04": 614,
+        "S05": 617,
+        "S06": 620,
+        "S07": 622,
+        "S01": 625
+      }
+    },
+    {
+      "trip_id": "TR3_033",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 606,
+      "scheduled_stop_times": {
+        "S13": 606,
+        "S01": 610,
+        "S02": 612,
+        "S03": 614
+      }
+    },
+    {
+      "trip_id": "TR4_016",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 608,
+      "scheduled_stop_times": {
+        "S11": 608,
+        "S12": 610,
+        "S14": 612,
+        "S03": 614
+      }
+    },
+    {
+      "trip_id": "TR3_032",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 612,
+      "scheduled_stop_times": {
+        "S03": 612,
+        "S02": 614,
+        "S01": 616,
+        "S13": 620
+      }
+    },
+    {
+      "trip_id": "TR2_016",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 615,
+      "scheduled_stop_times": {
+        "S10": 617,
+        "S08": 619,
+        "S09": 621,
+        "S03": 624
+      }
+    },
+    {
+      "trip_id": "TR1_018",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 618,
+      "scheduled_stop_times": {
+        "S02": 620,
+        "S03": 623,
+        "S04": 626,
+        "S05": 629,
+        "S06": 632,
+        "S07": 634,
+        "S01": 637
+      }
+    },
+    {
+      "trip_id": "TR3_035",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 618,
+      "scheduled_stop_times": {
+        "S13": 618,
+        "S01": 622,
+        "S02": 624,
+        "S03": 626
+      }
+    },
+    {
+      "trip_id": "TR3_034",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 624,
+      "scheduled_stop_times": {
+        "S03": 624,
+        "S02": 626,
+        "S01": 628,
+        "S13": 632
+      }
+    },
+    {
+      "trip_id": "TR1_019",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 630,
+      "scheduled_stop_times": {
+        "S02": 632,
+        "S03": 635,
+        "S04": 638,
+        "S05": 641,
+        "S06": 644,
+        "S07": 646,
+        "S01": 649
+      }
+    },
+    {
+      "trip_id": "TR2_017",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 630,
+      "scheduled_stop_times": {
+        "S10": 632,
+        "S08": 634,
+        "S09": 636,
+        "S03": 639
+      }
+    },
+    {
+      "trip_id": "TR3_037",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 630,
+      "scheduled_stop_times": {
+        "S13": 630,
+        "S01": 634,
+        "S02": 636,
+        "S03": 638
+      }
+    },
+    {
+      "trip_id": "TR4_017",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 630,
+      "scheduled_stop_times": {
+        "S03": 630,
+        "S14": 632,
+        "S12": 634,
+        "S11": 636
+      }
+    },
+    {
+      "trip_id": "TR3_036",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 636,
+      "scheduled_stop_times": {
+        "S03": 636,
+        "S02": 638,
+        "S01": 640,
+        "S13": 644
+      }
+    },
+    {
+      "trip_id": "TR4_018",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 638,
+      "scheduled_stop_times": {
+        "S11": 638,
+        "S12": 640,
+        "S14": 642,
+        "S03": 644
+      }
+    },
+    {
+      "trip_id": "TR1_020",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 642,
+      "scheduled_stop_times": {
+        "S02": 644,
+        "S03": 647,
+        "S04": 650,
+        "S05": 653,
+        "S06": 656,
+        "S07": 658,
+        "S01": 661
+      }
+    },
+    {
+      "trip_id": "TR3_039",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 642,
+      "scheduled_stop_times": {
+        "S13": 642,
+        "S01": 646,
+        "S02": 648,
+        "S03": 650
+      }
+    },
+    {
+      "trip_id": "TR2_018",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 645,
+      "scheduled_stop_times": {
+        "S10": 647,
+        "S08": 649,
+        "S09": 651,
+        "S03": 654
+      }
+    },
+    {
+      "trip_id": "TR3_038",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 648,
+      "scheduled_stop_times": {
+        "S03": 648,
+        "S02": 650,
+        "S01": 652,
+        "S13": 656
+      }
+    },
+    {
+      "trip_id": "TR2_019",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 660,
+      "scheduled_stop_times": {
+        "S10": 662,
+        "S08": 664,
+        "S09": 666,
+        "S03": 669
+      }
+    },
+    {
+      "trip_id": "TR3_040",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 660,
+      "scheduled_stop_times": {
+        "S03": 660,
+        "S02": 662,
+        "S01": 664,
+        "S13": 668
+      }
+    },
+    {
+      "trip_id": "TR4_019",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 660,
+      "scheduled_stop_times": {
+        "S03": 660,
+        "S14": 662,
+        "S12": 664,
+        "S11": 666
+      }
+    },
+    {
+      "trip_id": "TR4_020",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 668,
+      "scheduled_stop_times": {
+        "S11": 668,
+        "S12": 670,
+        "S14": 672,
+        "S03": 674
+      }
+    },
+    {
+      "trip_id": "TR2_020",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 675,
+      "scheduled_stop_times": {
+        "S10": 677,
+        "S08": 679,
+        "S09": 681,
+        "S03": 684
+      }
+    },
+    {
+      "trip_id": "TR1_021",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 678,
+      "scheduled_stop_times": {
+        "S02": 680,
+        "S03": 683,
+        "S04": 686,
+        "S05": 689,
+        "S06": 692,
+        "S07": 694,
+        "S01": 697
+      }
+    },
+    {
+      "trip_id": "TR3_041",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 678,
+      "scheduled_stop_times": {
+        "S13": 678,
+        "S01": 682,
+        "S02": 684,
+        "S03": 686
+      }
+    },
+    {
+      "trip_id": "TR1_022",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 690,
+      "scheduled_stop_times": {
+        "S02": 692,
+        "S03": 695,
+        "S04": 698,
+        "S05": 701,
+        "S06": 704,
+        "S07": 706,
+        "S01": 709
+      }
+    },
+    {
+      "trip_id": "TR2_021",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 690,
+      "scheduled_stop_times": {
+        "S10": 692,
+        "S08": 694,
+        "S09": 696,
+        "S03": 699
+      }
+    },
+    {
+      "trip_id": "TR3_043",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 690,
+      "scheduled_stop_times": {
+        "S13": 690,
+        "S01": 694,
+        "S02": 696,
+        "S03": 698
+      }
+    },
+    {
+      "trip_id": "TR4_021",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 690,
+      "scheduled_stop_times": {
+        "S03": 690,
+        "S14": 692,
+        "S12": 694,
+        "S11": 696
+      }
+    },
+    {
+      "trip_id": "TR3_042",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 696,
+      "scheduled_stop_times": {
+        "S03": 696,
+        "S02": 698,
+        "S01": 700,
+        "S13": 704
+      }
+    },
+    {
+      "trip_id": "TR4_022",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 698,
+      "scheduled_stop_times": {
+        "S11": 698,
+        "S12": 700,
+        "S14": 702,
+        "S03": 704
+      }
+    },
+    {
+      "trip_id": "TR1_023",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 702,
+      "scheduled_stop_times": {
+        "S02": 704,
+        "S03": 707,
+        "S04": 710,
+        "S05": 713,
+        "S06": 716,
+        "S07": 718,
+        "S01": 721
+      }
+    },
+    {
+      "trip_id": "TR3_045",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 702,
+      "scheduled_stop_times": {
+        "S13": 702,
+        "S01": 706,
+        "S02": 708,
+        "S03": 710
+      }
+    },
+    {
+      "trip_id": "TR2_022",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 705,
+      "scheduled_stop_times": {
+        "S10": 707,
+        "S08": 709,
+        "S09": 711,
+        "S03": 714
+      }
+    },
+    {
+      "trip_id": "TR3_044",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 708,
+      "scheduled_stop_times": {
+        "S03": 708,
+        "S02": 710,
+        "S01": 712,
+        "S13": 716
+      }
+    },
+    {
+      "trip_id": "TR1_024",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 714,
+      "scheduled_stop_times": {
+        "S02": 716,
+        "S03": 719,
+        "S04": 722,
+        "S05": 725,
+        "S06": 728,
+        "S07": 730,
+        "S01": 733
+      }
+    },
+    {
+      "trip_id": "TR3_047",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 714,
+      "scheduled_stop_times": {
+        "S13": 714,
+        "S01": 718,
+        "S02": 720,
+        "S03": 722
+      }
+    },
+    {
+      "trip_id": "TR2_023",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 720,
+      "scheduled_stop_times": {
+        "S10": 722,
+        "S08": 724,
+        "S09": 726,
+        "S03": 729
+      }
+    },
+    {
+      "trip_id": "TR3_046",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 720,
+      "scheduled_stop_times": {
+        "S03": 720,
+        "S02": 722,
+        "S01": 724,
+        "S13": 728
+      }
+    },
+    {
+      "trip_id": "TR4_023",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 720,
+      "scheduled_stop_times": {
+        "S03": 720,
+        "S14": 722,
+        "S12": 724,
+        "S11": 726
+      }
+    },
+    {
+      "trip_id": "TR1_025",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 726,
+      "scheduled_stop_times": {
+        "S02": 728,
+        "S03": 731,
+        "S04": 734,
+        "S05": 737,
+        "S06": 740,
+        "S07": 742,
+        "S01": 745
+      }
+    },
+    {
+      "trip_id": "TR3_049",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 726,
+      "scheduled_stop_times": {
+        "S13": 726,
+        "S01": 730,
+        "S02": 732,
+        "S03": 734
+      }
+    },
+    {
+      "trip_id": "TR4_024",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 728,
+      "scheduled_stop_times": {
+        "S11": 728,
+        "S12": 730,
+        "S14": 732,
+        "S03": 734
+      }
+    },
+    {
+      "trip_id": "TR3_048",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 732,
+      "scheduled_stop_times": {
+        "S03": 732,
+        "S02": 734,
+        "S01": 736,
+        "S13": 740
+      }
+    },
+    {
+      "trip_id": "TR2_024",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 735,
+      "scheduled_stop_times": {
+        "S10": 737,
+        "S08": 739,
+        "S09": 741,
+        "S03": 744
+      }
+    },
+    {
+      "trip_id": "TR1_026",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 738,
+      "scheduled_stop_times": {
+        "S02": 740,
+        "S03": 743,
+        "S04": 746,
+        "S05": 749,
+        "S06": 752,
+        "S07": 754,
+        "S01": 757
+      }
+    },
+    {
+      "trip_id": "TR3_051",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 738,
+      "scheduled_stop_times": {
+        "S13": 738,
+        "S01": 742,
+        "S02": 744,
+        "S03": 746
+      }
+    },
+    {
+      "trip_id": "TR3_050",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 744,
+      "scheduled_stop_times": {
+        "S03": 744,
+        "S02": 746,
+        "S01": 748,
+        "S13": 752
+      }
+    },
+    {
+      "trip_id": "TR1_027",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 750,
+      "scheduled_stop_times": {
+        "S02": 752,
+        "S03": 755,
+        "S04": 758,
+        "S05": 761,
+        "S06": 764,
+        "S07": 766,
+        "S01": 769
+      }
+    },
+    {
+      "trip_id": "TR2_025",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 750,
+      "scheduled_stop_times": {
+        "S10": 752,
+        "S08": 754,
+        "S09": 756,
+        "S03": 759
+      }
+    },
+    {
+      "trip_id": "TR3_053",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 750,
+      "scheduled_stop_times": {
+        "S13": 750,
+        "S01": 754,
+        "S02": 756,
+        "S03": 758
+      }
+    },
+    {
+      "trip_id": "TR4_025",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 750,
+      "scheduled_stop_times": {
+        "S03": 750,
+        "S14": 752,
+        "S12": 754,
+        "S11": 756
+      }
+    },
+    {
+      "trip_id": "TR3_052",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 756,
+      "scheduled_stop_times": {
+        "S03": 756,
+        "S02": 758,
+        "S01": 760,
+        "S13": 764
+      }
+    },
+    {
+      "trip_id": "TR4_026",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 758,
+      "scheduled_stop_times": {
+        "S11": 758,
+        "S12": 760,
+        "S14": 762,
+        "S03": 764
+      }
+    },
+    {
+      "trip_id": "TR1_028",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 762,
+      "scheduled_stop_times": {
+        "S02": 764,
+        "S03": 767,
+        "S04": 770,
+        "S05": 773,
+        "S06": 776,
+        "S07": 778,
+        "S01": 781
+      }
+    },
+    {
+      "trip_id": "TR3_055",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 762,
+      "scheduled_stop_times": {
+        "S13": 762,
+        "S01": 766,
+        "S02": 768,
+        "S03": 770
+      }
+    },
+    {
+      "trip_id": "TR2_026",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 765,
+      "scheduled_stop_times": {
+        "S10": 767,
+        "S08": 769,
+        "S09": 771,
+        "S03": 774
+      }
+    },
+    {
+      "trip_id": "TR3_054",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 768,
+      "scheduled_stop_times": {
+        "S03": 768,
+        "S02": 770,
+        "S01": 772,
+        "S13": 776
+      }
+    },
+    {
+      "trip_id": "TR1_029",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 774,
+      "scheduled_stop_times": {
+        "S02": 776,
+        "S03": 779,
+        "S04": 782,
+        "S05": 785,
+        "S06": 788,
+        "S07": 790,
+        "S01": 793
+      }
+    },
+    {
+      "trip_id": "TR3_057",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 774,
+      "scheduled_stop_times": {
+        "S13": 774,
+        "S01": 778,
+        "S02": 780,
+        "S03": 782
+      }
+    },
+    {
+      "trip_id": "TR2_027",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 780,
+      "scheduled_stop_times": {
+        "S10": 782,
+        "S08": 784,
+        "S09": 786,
+        "S03": 789
+      }
+    },
+    {
+      "trip_id": "TR3_056",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 780,
+      "scheduled_stop_times": {
+        "S03": 780,
+        "S02": 782,
+        "S01": 784,
+        "S13": 788
+      }
+    },
+    {
+      "trip_id": "TR4_027",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 780,
+      "scheduled_stop_times": {
+        "S03": 780,
+        "S14": 782,
+        "S12": 784,
+        "S11": 786
+      }
+    },
+    {
+      "trip_id": "TR1_030",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 786,
+      "scheduled_stop_times": {
+        "S02": 788,
+        "S03": 791,
+        "S04": 794,
+        "S05": 797,
+        "S06": 800,
+        "S07": 802,
+        "S01": 805
+      }
+    },
+    {
+      "trip_id": "TR3_059",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 786,
+      "scheduled_stop_times": {
+        "S13": 786,
+        "S01": 790,
+        "S02": 792,
+        "S03": 794
+      }
+    },
+    {
+      "trip_id": "TR4_028",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 788,
+      "scheduled_stop_times": {
+        "S11": 788,
+        "S12": 790,
+        "S14": 792,
+        "S03": 794
+      }
+    },
+    {
+      "trip_id": "TR3_058",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 792,
+      "scheduled_stop_times": {
+        "S03": 792,
+        "S02": 794,
+        "S01": 796,
+        "S13": 800
+      }
+    },
+    {
+      "trip_id": "TR2_028",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 795,
+      "scheduled_stop_times": {
+        "S10": 797,
+        "S08": 799,
+        "S09": 801,
+        "S03": 804
+      }
+    },
+    {
+      "trip_id": "TR1_031",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 798,
+      "scheduled_stop_times": {
+        "S02": 800,
+        "S03": 803,
+        "S04": 806,
+        "S05": 809,
+        "S06": 812,
+        "S07": 814,
+        "S01": 817
+      }
+    },
+    {
+      "trip_id": "TR3_061",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 798,
+      "scheduled_stop_times": {
+        "S13": 798,
+        "S01": 802,
+        "S02": 804,
+        "S03": 806
+      }
+    },
+    {
+      "trip_id": "TR3_060",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 804,
+      "scheduled_stop_times": {
+        "S03": 804,
+        "S02": 806,
+        "S01": 808,
+        "S13": 812
+      }
+    },
+    {
+      "trip_id": "TR1_032",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 810,
+      "scheduled_stop_times": {
+        "S02": 812,
+        "S03": 815,
+        "S04": 818,
+        "S05": 821,
+        "S06": 824,
+        "S07": 826,
+        "S01": 829
+      }
+    },
+    {
+      "trip_id": "TR2_029",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 810,
+      "scheduled_stop_times": {
+        "S10": 812,
+        "S08": 814,
+        "S09": 816,
+        "S03": 819
+      }
+    },
+    {
+      "trip_id": "TR3_063",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 810,
+      "scheduled_stop_times": {
+        "S13": 810,
+        "S01": 814,
+        "S02": 816,
+        "S03": 818
+      }
+    },
+    {
+      "trip_id": "TR4_029",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 810,
+      "scheduled_stop_times": {
+        "S03": 810,
+        "S14": 812,
+        "S12": 814,
+        "S11": 816
+      }
+    },
+    {
+      "trip_id": "TR3_062",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 816,
+      "scheduled_stop_times": {
+        "S03": 816,
+        "S02": 818,
+        "S01": 820,
+        "S13": 824
+      }
+    },
+    {
+      "trip_id": "TR4_030",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 818,
+      "scheduled_stop_times": {
+        "S11": 818,
+        "S12": 820,
+        "S14": 822,
+        "S03": 824
+      }
+    },
+    {
+      "trip_id": "TR2_030",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 825,
+      "scheduled_stop_times": {
+        "S10": 827,
+        "S08": 829,
+        "S09": 831,
+        "S03": 834
+      }
+    },
+    {
+      "trip_id": "TR3_064",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 828,
+      "scheduled_stop_times": {
+        "S03": 828,
+        "S02": 830,
+        "S01": 832,
+        "S13": 836
+      }
+    },
+    {
+      "trip_id": "TR2_031",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 840,
+      "scheduled_stop_times": {
+        "S10": 842,
+        "S08": 844,
+        "S09": 846,
+        "S03": 849
+      }
+    },
+    {
+      "trip_id": "TR4_031",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 840,
+      "scheduled_stop_times": {
+        "S03": 840,
+        "S14": 842,
+        "S12": 844,
+        "S11": 846
+      }
+    },
+    {
+      "trip_id": "TR1_033",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 846,
+      "scheduled_stop_times": {
+        "S02": 848,
+        "S03": 851,
+        "S04": 854,
+        "S05": 857,
+        "S06": 860,
+        "S07": 862,
+        "S01": 865
+      }
+    },
+    {
+      "trip_id": "TR3_065",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 846,
+      "scheduled_stop_times": {
+        "S13": 846,
+        "S01": 850,
+        "S02": 852,
+        "S03": 854
+      }
+    },
+    {
+      "trip_id": "TR4_032",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 848,
+      "scheduled_stop_times": {
+        "S11": 848,
+        "S12": 850,
+        "S14": 852,
+        "S03": 854
+      }
+    },
+    {
+      "trip_id": "TR2_032",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 855,
+      "scheduled_stop_times": {
+        "S10": 857,
+        "S08": 859,
+        "S09": 861,
+        "S03": 864
+      }
+    },
+    {
+      "trip_id": "TR1_034",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 858,
+      "scheduled_stop_times": {
+        "S02": 860,
+        "S03": 863,
+        "S04": 866,
+        "S05": 869,
+        "S06": 872,
+        "S07": 874,
+        "S01": 877
+      }
+    },
+    {
+      "trip_id": "TR3_067",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 858,
+      "scheduled_stop_times": {
+        "S13": 858,
+        "S01": 862,
+        "S02": 864,
+        "S03": 866
+      }
+    },
+    {
+      "trip_id": "TR3_066",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 864,
+      "scheduled_stop_times": {
+        "S03": 864,
+        "S02": 866,
+        "S01": 868,
+        "S13": 872
+      }
+    },
+    {
+      "trip_id": "TR1_035",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 870,
+      "scheduled_stop_times": {
+        "S02": 872,
+        "S03": 875,
+        "S04": 878,
+        "S05": 881,
+        "S06": 884,
+        "S07": 886,
+        "S01": 889
+      }
+    },
+    {
+      "trip_id": "TR2_033",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 870,
+      "scheduled_stop_times": {
+        "S10": 872,
+        "S08": 874,
+        "S09": 876,
+        "S03": 879
+      }
+    },
+    {
+      "trip_id": "TR3_069",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 870,
+      "scheduled_stop_times": {
+        "S13": 870,
+        "S01": 874,
+        "S02": 876,
+        "S03": 878
+      }
+    },
+    {
+      "trip_id": "TR4_033",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 870,
+      "scheduled_stop_times": {
+        "S03": 870,
+        "S14": 872,
+        "S12": 874,
+        "S11": 876
+      }
+    },
+    {
+      "trip_id": "TR3_068",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 876,
+      "scheduled_stop_times": {
+        "S03": 876,
+        "S02": 878,
+        "S01": 880,
+        "S13": 884
+      }
+    },
+    {
+      "trip_id": "TR4_034",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 878,
+      "scheduled_stop_times": {
+        "S11": 878,
+        "S12": 880,
+        "S14": 882,
+        "S03": 884
+      }
+    },
+    {
+      "trip_id": "TR1_036",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 882,
+      "scheduled_stop_times": {
+        "S02": 884,
+        "S03": 887,
+        "S04": 890,
+        "S05": 893,
+        "S06": 896,
+        "S07": 898,
+        "S01": 901
+      }
+    },
+    {
+      "trip_id": "TR3_071",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 882,
+      "scheduled_stop_times": {
+        "S13": 882,
+        "S01": 886,
+        "S02": 888,
+        "S03": 890
+      }
+    },
+    {
+      "trip_id": "TR2_034",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 885,
+      "scheduled_stop_times": {
+        "S10": 887,
+        "S08": 889,
+        "S09": 891,
+        "S03": 894
+      }
+    },
+    {
+      "trip_id": "TR3_070",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 888,
+      "scheduled_stop_times": {
+        "S03": 888,
+        "S02": 890,
+        "S01": 892,
+        "S13": 896
+      }
+    },
+    {
+      "trip_id": "TR1_037",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 894,
+      "scheduled_stop_times": {
+        "S02": 896,
+        "S03": 899,
+        "S04": 902,
+        "S05": 905,
+        "S06": 908,
+        "S07": 910,
+        "S01": 913
+      }
+    },
+    {
+      "trip_id": "TR3_073",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 894,
+      "scheduled_stop_times": {
+        "S13": 894,
+        "S01": 898,
+        "S02": 900,
+        "S03": 902
+      }
+    },
+    {
+      "trip_id": "TR2_035",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 900,
+      "scheduled_stop_times": {
+        "S10": 902,
+        "S08": 904,
+        "S09": 906,
+        "S03": 909
+      }
+    },
+    {
+      "trip_id": "TR3_072",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 900,
+      "scheduled_stop_times": {
+        "S03": 900,
+        "S02": 902,
+        "S01": 904,
+        "S13": 908
+      }
+    },
+    {
+      "trip_id": "TR4_035",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 900,
+      "scheduled_stop_times": {
+        "S03": 900,
+        "S14": 902,
+        "S12": 904,
+        "S11": 906
+      }
+    },
+    {
+      "trip_id": "TR1_038",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 906,
+      "scheduled_stop_times": {
+        "S02": 908,
+        "S03": 911,
+        "S04": 914,
+        "S05": 917,
+        "S06": 920,
+        "S07": 922,
+        "S01": 925
+      }
+    },
+    {
+      "trip_id": "TR3_075",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 906,
+      "scheduled_stop_times": {
+        "S13": 906,
+        "S01": 910,
+        "S02": 912,
+        "S03": 914
+      }
+    },
+    {
+      "trip_id": "TR4_036",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 908,
+      "scheduled_stop_times": {
+        "S11": 908,
+        "S12": 910,
+        "S14": 912,
+        "S03": 914
+      }
+    },
+    {
+      "trip_id": "TR3_074",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 912,
+      "scheduled_stop_times": {
+        "S03": 912,
+        "S02": 914,
+        "S01": 916,
+        "S13": 920
+      }
+    },
+    {
+      "trip_id": "TR2_036",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 915,
+      "scheduled_stop_times": {
+        "S10": 917,
+        "S08": 919,
+        "S09": 921,
+        "S03": 924
+      }
+    },
+    {
+      "trip_id": "TR1_039",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 918,
+      "scheduled_stop_times": {
+        "S02": 920,
+        "S03": 923,
+        "S04": 926,
+        "S05": 929,
+        "S06": 932,
+        "S07": 934,
+        "S01": 937
+      }
+    },
+    {
+      "trip_id": "TR3_077",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 918,
+      "scheduled_stop_times": {
+        "S13": 918,
+        "S01": 922,
+        "S02": 924,
+        "S03": 926
+      }
+    },
+    {
+      "trip_id": "TR3_076",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 924,
+      "scheduled_stop_times": {
+        "S03": 924,
+        "S02": 926,
+        "S01": 928,
+        "S13": 932
+      }
+    },
+    {
+      "trip_id": "TR1_040",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 930,
+      "scheduled_stop_times": {
+        "S02": 932,
+        "S03": 935,
+        "S04": 938,
+        "S05": 941,
+        "S06": 944,
+        "S07": 946,
+        "S01": 949
+      }
+    },
+    {
+      "trip_id": "TR2_037",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 930,
+      "scheduled_stop_times": {
+        "S10": 932,
+        "S08": 934,
+        "S09": 936,
+        "S03": 939
+      }
+    },
+    {
+      "trip_id": "TR3_079",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 930,
+      "scheduled_stop_times": {
+        "S13": 930,
+        "S01": 934,
+        "S02": 936,
+        "S03": 938
+      }
+    },
+    {
+      "trip_id": "TR4_037",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 930,
+      "scheduled_stop_times": {
+        "S03": 930,
+        "S14": 932,
+        "S12": 934,
+        "S11": 936
+      }
+    },
+    {
+      "trip_id": "TR3_078",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 936,
+      "scheduled_stop_times": {
+        "S03": 936,
+        "S02": 938,
+        "S01": 940,
+        "S13": 944
+      }
+    },
+    {
+      "trip_id": "TR4_038",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 938,
+      "scheduled_stop_times": {
+        "S11": 938,
+        "S12": 940,
+        "S14": 942,
+        "S03": 944
+      }
+    },
+    {
+      "trip_id": "TR1_041",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 942,
+      "scheduled_stop_times": {
+        "S02": 944,
+        "S03": 947,
+        "S04": 950,
+        "S05": 953,
+        "S06": 956,
+        "S07": 958,
+        "S01": 961
+      }
+    },
+    {
+      "trip_id": "TR3_081",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 942,
+      "scheduled_stop_times": {
+        "S13": 942,
+        "S01": 946,
+        "S02": 948,
+        "S03": 950
+      }
+    },
+    {
+      "trip_id": "TR2_038",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 945,
+      "scheduled_stop_times": {
+        "S10": 947,
+        "S08": 949,
+        "S09": 951,
+        "S03": 954
+      }
+    },
+    {
+      "trip_id": "TR3_080",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 948,
+      "scheduled_stop_times": {
+        "S03": 948,
+        "S02": 950,
+        "S01": 952,
+        "S13": 956
+      }
+    },
+    {
+      "trip_id": "TR1_042",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 954,
+      "scheduled_stop_times": {
+        "S02": 956,
+        "S03": 959,
+        "S04": 962,
+        "S05": 965,
+        "S06": 968,
+        "S07": 970,
+        "S01": 973
+      }
+    },
+    {
+      "trip_id": "TR3_083",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 954,
+      "scheduled_stop_times": {
+        "S13": 954,
+        "S01": 958,
+        "S02": 960,
+        "S03": 962
+      }
+    },
+    {
+      "trip_id": "TR2_039",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 960,
+      "scheduled_stop_times": {
+        "S10": 962,
+        "S08": 964,
+        "S09": 966,
+        "S03": 969
+      }
+    },
+    {
+      "trip_id": "TR3_082",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 960,
+      "scheduled_stop_times": {
+        "S03": 960,
+        "S02": 962,
+        "S01": 964,
+        "S13": 968
+      }
+    },
+    {
+      "trip_id": "TR4_039",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 960,
+      "scheduled_stop_times": {
+        "S03": 960,
+        "S14": 962,
+        "S12": 964,
+        "S11": 966
+      }
+    },
+    {
+      "trip_id": "TR4_040",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 968,
+      "scheduled_stop_times": {
+        "S11": 968,
+        "S12": 970,
+        "S14": 972,
+        "S03": 974
+      }
+    },
+    {
+      "trip_id": "TR3_084",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 972,
+      "scheduled_stop_times": {
+        "S03": 972,
+        "S02": 974,
+        "S01": 976,
+        "S13": 980
+      }
+    },
+    {
+      "trip_id": "TR2_040",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 975,
+      "scheduled_stop_times": {
+        "S10": 977,
+        "S08": 979,
+        "S09": 981,
+        "S03": 984
+      }
+    },
+    {
+      "trip_id": "TR1_043",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 990,
+      "scheduled_stop_times": {
+        "S02": 992,
+        "S03": 995,
+        "S04": 998,
+        "S05": 1001,
+        "S06": 1004,
+        "S07": 1006,
+        "S01": 1009
+      }
+    },
+    {
+      "trip_id": "TR2_041",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 990,
+      "scheduled_stop_times": {
+        "S10": 992,
+        "S08": 994,
+        "S09": 996,
+        "S03": 999
+      }
+    },
+    {
+      "trip_id": "TR3_085",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 990,
+      "scheduled_stop_times": {
+        "S13": 990,
+        "S01": 994,
+        "S02": 996,
+        "S03": 998
+      }
+    },
+    {
+      "trip_id": "TR4_041",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 990,
+      "scheduled_stop_times": {
+        "S03": 990,
+        "S14": 992,
+        "S12": 994,
+        "S11": 996
+      }
+    },
+    {
+      "trip_id": "TR4_042",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 998,
+      "scheduled_stop_times": {
+        "S11": 998,
+        "S12": 1000,
+        "S14": 1002,
+        "S03": 1004
+      }
+    },
+    {
+      "trip_id": "TR1_044",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1002,
+      "scheduled_stop_times": {
+        "S02": 1004,
+        "S03": 1007,
+        "S04": 1010,
+        "S05": 1013,
+        "S06": 1016,
+        "S07": 1018,
+        "S01": 1021
+      }
+    },
+    {
+      "trip_id": "TR3_087",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 1002,
+      "scheduled_stop_times": {
+        "S13": 1002,
+        "S01": 1006,
+        "S02": 1008,
+        "S03": 1010
+      }
+    },
+    {
+      "trip_id": "TR2_042",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1005,
+      "scheduled_stop_times": {
+        "S10": 1007,
+        "S08": 1009,
+        "S09": 1011,
+        "S03": 1014
+      }
+    },
+    {
+      "trip_id": "TR3_086",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 1008,
+      "scheduled_stop_times": {
+        "S03": 1008,
+        "S02": 1010,
+        "S01": 1012,
+        "S13": 1016
+      }
+    },
+    {
+      "trip_id": "TR1_045",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 1014,
+      "scheduled_stop_times": {
+        "S02": 1016,
+        "S03": 1019,
+        "S04": 1022,
+        "S05": 1025,
+        "S06": 1028,
+        "S07": 1030,
+        "S01": 1033
+      }
+    },
+    {
+      "trip_id": "TR3_089",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 1014,
+      "scheduled_stop_times": {
+        "S13": 1014,
+        "S01": 1018,
+        "S02": 1020,
+        "S03": 1022
+      }
+    },
+    {
+      "trip_id": "TR2_043",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1020,
+      "scheduled_stop_times": {
+        "S10": 1022,
+        "S08": 1024,
+        "S09": 1026,
+        "S03": 1029
+      }
+    },
+    {
+      "trip_id": "TR3_088",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 1020,
+      "scheduled_stop_times": {
+        "S03": 1020,
+        "S02": 1022,
+        "S01": 1024,
+        "S13": 1028
+      }
+    },
+    {
+      "trip_id": "TR4_043",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 1020,
+      "scheduled_stop_times": {
+        "S03": 1020,
+        "S14": 1022,
+        "S12": 1024,
+        "S11": 1026
+      }
+    },
+    {
+      "trip_id": "TR1_046",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1026,
+      "scheduled_stop_times": {
+        "S02": 1028,
+        "S03": 1031,
+        "S04": 1034,
+        "S05": 1037,
+        "S06": 1040,
+        "S07": 1042,
+        "S01": 1045
+      }
+    },
+    {
+      "trip_id": "TR3_091",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 1026,
+      "scheduled_stop_times": {
+        "S13": 1026,
+        "S01": 1030,
+        "S02": 1032,
+        "S03": 1034
+      }
+    },
+    {
+      "trip_id": "TR4_044",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 1028,
+      "scheduled_stop_times": {
+        "S11": 1028,
+        "S12": 1030,
+        "S14": 1032,
+        "S03": 1034
+      }
+    },
+    {
+      "trip_id": "TR3_090",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 1032,
+      "scheduled_stop_times": {
+        "S03": 1032,
+        "S02": 1034,
+        "S01": 1036,
+        "S13": 1040
+      }
+    },
+    {
+      "trip_id": "TR2_044",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1035,
+      "scheduled_stop_times": {
+        "S10": 1037,
+        "S08": 1039,
+        "S09": 1041,
+        "S03": 1044
+      }
+    },
+    {
+      "trip_id": "TR1_047",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 1038,
+      "scheduled_stop_times": {
+        "S02": 1040,
+        "S03": 1043,
+        "S04": 1046,
+        "S05": 1049,
+        "S06": 1052,
+        "S07": 1054,
+        "S01": 1057
+      }
+    },
+    {
+      "trip_id": "TR3_093",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 1038,
+      "scheduled_stop_times": {
+        "S13": 1038,
+        "S01": 1042,
+        "S02": 1044,
+        "S03": 1046
+      }
+    },
+    {
+      "trip_id": "TR3_092",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 1044,
+      "scheduled_stop_times": {
+        "S03": 1044,
+        "S02": 1046,
+        "S01": 1048,
+        "S13": 1052
+      }
+    },
+    {
+      "trip_id": "TR1_048",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1050,
+      "scheduled_stop_times": {
+        "S02": 1052,
+        "S03": 1055,
+        "S04": 1058,
+        "S05": 1061,
+        "S06": 1064,
+        "S07": 1066,
+        "S01": 1069
+      }
+    },
+    {
+      "trip_id": "TR2_045",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 1050,
+      "scheduled_stop_times": {
+        "S10": 1052,
+        "S08": 1054,
+        "S09": 1056,
+        "S03": 1059
+      }
+    },
+    {
+      "trip_id": "TR3_095",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 1050,
+      "scheduled_stop_times": {
+        "S13": 1050,
+        "S01": 1054,
+        "S02": 1056,
+        "S03": 1058
+      }
+    },
+    {
+      "trip_id": "TR4_045",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 1050,
+      "scheduled_stop_times": {
+        "S03": 1050,
+        "S14": 1052,
+        "S12": 1054,
+        "S11": 1056
+      }
+    },
+    {
+      "trip_id": "TR3_094",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 1056,
+      "scheduled_stop_times": {
+        "S03": 1056,
+        "S02": 1058,
+        "S01": 1060,
+        "S13": 1064
+      }
+    },
+    {
+      "trip_id": "TR4_046",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 1058,
+      "scheduled_stop_times": {
+        "S11": 1058,
+        "S12": 1060,
+        "S14": 1062,
+        "S03": 1064
+      }
+    },
+    {
+      "trip_id": "TR1_049",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 1062,
+      "scheduled_stop_times": {
+        "S02": 1064,
+        "S03": 1067,
+        "S04": 1070,
+        "S05": 1073,
+        "S06": 1076,
+        "S07": 1078,
+        "S01": 1081
+      }
+    },
+    {
+      "trip_id": "TR3_097",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 1062,
+      "scheduled_stop_times": {
+        "S13": 1062,
+        "S01": 1066,
+        "S02": 1068,
+        "S03": 1070
+      }
+    },
+    {
+      "trip_id": "TR2_046",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1065,
+      "scheduled_stop_times": {
+        "S10": 1067,
+        "S08": 1069,
+        "S09": 1071,
+        "S03": 1074
+      }
+    },
+    {
+      "trip_id": "TR3_096",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 1068,
+      "scheduled_stop_times": {
+        "S03": 1068,
+        "S02": 1070,
+        "S01": 1072,
+        "S13": 1076
+      }
+    },
+    {
+      "trip_id": "TR1_050",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1074,
+      "scheduled_stop_times": {
+        "S02": 1076,
+        "S03": 1079,
+        "S04": 1082,
+        "S05": 1085,
+        "S06": 1088,
+        "S07": 1090,
+        "S01": 1093
+      }
+    },
+    {
+      "trip_id": "TR3_099",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 1074,
+      "scheduled_stop_times": {
+        "S13": 1074,
+        "S01": 1078,
+        "S02": 1080,
+        "S03": 1082
+      }
+    },
+    {
+      "trip_id": "TR2_047",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1080,
+      "scheduled_stop_times": {
+        "S10": 1082,
+        "S08": 1084,
+        "S09": 1086,
+        "S03": 1089
+      }
+    },
+    {
+      "trip_id": "TR3_098",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 1080,
+      "scheduled_stop_times": {
+        "S03": 1080,
+        "S02": 1082,
+        "S01": 1084,
+        "S13": 1088
+      }
+    },
+    {
+      "trip_id": "TR4_047",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 1080,
+      "scheduled_stop_times": {
+        "S03": 1080,
+        "S14": 1082,
+        "S12": 1084,
+        "S11": 1086
+      }
+    },
+    {
+      "trip_id": "TR1_051",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 1086,
+      "scheduled_stop_times": {
+        "S02": 1088,
+        "S03": 1091,
+        "S04": 1094,
+        "S05": 1097,
+        "S06": 1100,
+        "S07": 1102,
+        "S01": 1105
+      }
+    },
+    {
+      "trip_id": "TR3_101",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 1086,
+      "scheduled_stop_times": {
+        "S13": 1086,
+        "S01": 1090,
+        "S02": 1092,
+        "S03": 1094
+      }
+    },
+    {
+      "trip_id": "TR4_048",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 1088,
+      "scheduled_stop_times": {
+        "S11": 1088,
+        "S12": 1090,
+        "S14": 1092,
+        "S03": 1094
+      }
+    },
+    {
+      "trip_id": "TR3_100",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 1092,
+      "scheduled_stop_times": {
+        "S03": 1092,
+        "S02": 1094,
+        "S01": 1096,
+        "S13": 1100
+      }
+    },
+    {
+      "trip_id": "TR2_048",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1095,
+      "scheduled_stop_times": {
+        "S10": 1097,
+        "S08": 1099,
+        "S09": 1101,
+        "S03": 1104
+      }
+    },
+    {
+      "trip_id": "TR1_052",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1098,
+      "scheduled_stop_times": {
+        "S02": 1100,
+        "S03": 1103,
+        "S04": 1106,
+        "S05": 1109,
+        "S06": 1112,
+        "S07": 1114,
+        "S01": 1117
+      }
+    },
+    {
+      "trip_id": "TR3_103",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 1098,
+      "scheduled_stop_times": {
+        "S13": 1098,
+        "S01": 1102,
+        "S02": 1104,
+        "S03": 1106
+      }
+    },
+    {
+      "trip_id": "TR3_102",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 1104,
+      "scheduled_stop_times": {
+        "S03": 1104,
+        "S02": 1106,
+        "S01": 1108,
+        "S13": 1112
+      }
+    },
+    {
+      "trip_id": "TR1_053",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 1110,
+      "scheduled_stop_times": {
+        "S02": 1112,
+        "S03": 1115,
+        "S04": 1118,
+        "S05": 1121,
+        "S06": 1124,
+        "S07": 1126,
+        "S01": 1129
+      }
+    },
+    {
+      "trip_id": "TR2_049",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 1110,
+      "scheduled_stop_times": {
+        "S10": 1112,
+        "S08": 1114,
+        "S09": 1116,
+        "S03": 1119
+      }
+    },
+    {
+      "trip_id": "TR3_105",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 1110,
+      "scheduled_stop_times": {
+        "S13": 1110,
+        "S01": 1114,
+        "S02": 1116,
+        "S03": 1118
+      }
+    },
+    {
+      "trip_id": "TR4_049",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 1110,
+      "scheduled_stop_times": {
+        "S03": 1110,
+        "S14": 1112,
+        "S12": 1114,
+        "S11": 1116
+      }
+    },
+    {
+      "trip_id": "TR3_104",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 1116,
+      "scheduled_stop_times": {
+        "S03": 1116,
+        "S02": 1118,
+        "S01": 1120,
+        "S13": 1124
+      }
+    },
+    {
+      "trip_id": "TR4_050",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 1118,
+      "scheduled_stop_times": {
+        "S11": 1118,
+        "S12": 1120,
+        "S14": 1122,
+        "S03": 1124
+      }
+    },
+    {
+      "trip_id": "TR1_054",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1122,
+      "scheduled_stop_times": {
+        "S02": 1124,
+        "S03": 1127,
+        "S04": 1130,
+        "S05": 1133,
+        "S06": 1136,
+        "S07": 1138,
+        "S01": 1141
+      }
+    },
+    {
+      "trip_id": "TR3_107",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 1122,
+      "scheduled_stop_times": {
+        "S13": 1122,
+        "S01": 1126,
+        "S02": 1128,
+        "S03": 1130
+      }
+    },
+    {
+      "trip_id": "TR2_050",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1125,
+      "scheduled_stop_times": {
+        "S10": 1127,
+        "S08": 1129,
+        "S09": 1131,
+        "S03": 1134
+      }
+    },
+    {
+      "trip_id": "TR3_106",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 1128,
+      "scheduled_stop_times": {
+        "S03": 1128,
+        "S02": 1130,
+        "S01": 1132,
+        "S13": 1136
+      }
+    },
+    {
+      "trip_id": "TR1_055",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 1134,
+      "scheduled_stop_times": {
+        "S02": 1136,
+        "S03": 1139,
+        "S04": 1142,
+        "S05": 1145,
+        "S06": 1148,
+        "S07": 1150,
+        "S01": 1153
+      }
+    },
+    {
+      "trip_id": "TR3_109",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 1134,
+      "scheduled_stop_times": {
+        "S13": 1134,
+        "S01": 1138,
+        "S02": 1140,
+        "S03": 1142
+      }
+    },
+    {
+      "trip_id": "TR2_051",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1140,
+      "scheduled_stop_times": {
+        "S10": 1142,
+        "S08": 1144,
+        "S09": 1146,
+        "S03": 1149
+      }
+    },
+    {
+      "trip_id": "TR3_108",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 1140,
+      "scheduled_stop_times": {
+        "S03": 1140,
+        "S02": 1142,
+        "S01": 1144,
+        "S13": 1148
+      }
+    },
+    {
+      "trip_id": "TR4_051",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 1140,
+      "scheduled_stop_times": {
+        "S03": 1140,
+        "S14": 1142,
+        "S12": 1144,
+        "S11": 1146
+      }
+    },
+    {
+      "trip_id": "TR1_056",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1146,
+      "scheduled_stop_times": {
+        "S02": 1148,
+        "S03": 1151,
+        "S04": 1154,
+        "S05": 1157,
+        "S06": 1160,
+        "S07": 1162,
+        "S01": 1165
+      }
+    },
+    {
+      "trip_id": "TR3_111",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 1146,
+      "scheduled_stop_times": {
+        "S13": 1146,
+        "S01": 1150,
+        "S02": 1152,
+        "S03": 1154
+      }
+    },
+    {
+      "trip_id": "TR4_052",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 1148,
+      "scheduled_stop_times": {
+        "S11": 1148,
+        "S12": 1150,
+        "S14": 1152,
+        "S03": 1154
+      }
+    },
+    {
+      "trip_id": "TR3_110",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 1152,
+      "scheduled_stop_times": {
+        "S03": 1152,
+        "S02": 1154,
+        "S01": 1156,
+        "S13": 1160
+      }
+    },
+    {
+      "trip_id": "TR2_052",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1155,
+      "scheduled_stop_times": {
+        "S10": 1157,
+        "S08": 1159,
+        "S09": 1161,
+        "S03": 1164
+      }
+    },
+    {
+      "trip_id": "TR1_057",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 1158,
+      "scheduled_stop_times": {
+        "S02": 1160,
+        "S03": 1163,
+        "S04": 1166,
+        "S05": 1169,
+        "S06": 1172,
+        "S07": 1174,
+        "S01": 1177
+      }
+    },
+    {
+      "trip_id": "TR3_113",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 1158,
+      "scheduled_stop_times": {
+        "S13": 1158,
+        "S01": 1162,
+        "S02": 1164,
+        "S03": 1166
+      }
+    },
+    {
+      "trip_id": "TR3_112",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 1164,
+      "scheduled_stop_times": {
+        "S03": 1164,
+        "S02": 1166,
+        "S01": 1168,
+        "S13": 1172
+      }
+    },
+    {
+      "trip_id": "TR1_058",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1170,
+      "scheduled_stop_times": {
+        "S02": 1172,
+        "S03": 1175,
+        "S04": 1178,
+        "S05": 1181,
+        "S06": 1184,
+        "S07": 1186,
+        "S01": 1189
+      }
+    },
+    {
+      "trip_id": "TR2_053",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 1170,
+      "scheduled_stop_times": {
+        "S10": 1172,
+        "S08": 1174,
+        "S09": 1176,
+        "S03": 1179
+      }
+    },
+    {
+      "trip_id": "TR3_115",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 1170,
+      "scheduled_stop_times": {
+        "S13": 1170,
+        "S01": 1174,
+        "S02": 1176,
+        "S03": 1178
+      }
+    },
+    {
+      "trip_id": "TR4_053",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 1170,
+      "scheduled_stop_times": {
+        "S03": 1170,
+        "S14": 1172,
+        "S12": 1174,
+        "S11": 1176
+      }
+    },
+    {
+      "trip_id": "TR3_114",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 1176,
+      "scheduled_stop_times": {
+        "S03": 1176,
+        "S02": 1178,
+        "S01": 1180,
+        "S13": 1184
+      }
+    },
+    {
+      "trip_id": "TR4_054",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 1178,
+      "scheduled_stop_times": {
+        "S11": 1178,
+        "S12": 1180,
+        "S14": 1182,
+        "S03": 1184
+      }
+    },
+    {
+      "trip_id": "TR2_054",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1185,
+      "scheduled_stop_times": {
+        "S10": 1187,
+        "S08": 1189,
+        "S09": 1191,
+        "S03": 1194
+      }
+    },
+    {
+      "trip_id": "TR3_116",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 1188,
+      "scheduled_stop_times": {
+        "S03": 1188,
+        "S02": 1190,
+        "S01": 1192,
+        "S13": 1196
+      }
+    },
+    {
+      "trip_id": "TR2_055",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1200,
+      "scheduled_stop_times": {
+        "S10": 1202,
+        "S08": 1204,
+        "S09": 1206,
+        "S03": 1209
+      }
+    },
+    {
+      "trip_id": "TR4_055",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 1200,
+      "scheduled_stop_times": {
+        "S03": 1200,
+        "S14": 1202,
+        "S12": 1204,
+        "S11": 1206
+      }
+    },
+    {
+      "trip_id": "TR1_059",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 1206,
+      "scheduled_stop_times": {
+        "S02": 1208,
+        "S03": 1211,
+        "S04": 1214,
+        "S05": 1217,
+        "S06": 1220,
+        "S07": 1222,
+        "S01": 1225
+      }
+    },
+    {
+      "trip_id": "TR3_117",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 1206,
+      "scheduled_stop_times": {
+        "S13": 1206,
+        "S01": 1210,
+        "S02": 1212,
+        "S03": 1214
+      }
+    },
+    {
+      "trip_id": "TR4_056",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 1208,
+      "scheduled_stop_times": {
+        "S11": 1208,
+        "S12": 1210,
+        "S14": 1212,
+        "S03": 1214
+      }
+    },
+    {
+      "trip_id": "TR2_056",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1215,
+      "scheduled_stop_times": {
+        "S10": 1217,
+        "S08": 1219,
+        "S09": 1221,
+        "S03": 1224
+      }
+    },
+    {
+      "trip_id": "TR1_060",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1218,
+      "scheduled_stop_times": {
+        "S02": 1220,
+        "S03": 1223,
+        "S04": 1226,
+        "S05": 1229,
+        "S06": 1232,
+        "S07": 1234,
+        "S01": 1237
+      }
+    },
+    {
+      "trip_id": "TR3_119",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 1218,
+      "scheduled_stop_times": {
+        "S13": 1218,
+        "S01": 1222,
+        "S02": 1224,
+        "S03": 1226
+      }
+    },
+    {
+      "trip_id": "TR3_118",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 1224,
+      "scheduled_stop_times": {
+        "S03": 1224,
+        "S02": 1226,
+        "S01": 1228,
+        "S13": 1232
+      }
+    },
+    {
+      "trip_id": "TR1_061",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 1230,
+      "scheduled_stop_times": {
+        "S02": 1232,
+        "S03": 1235,
+        "S04": 1238,
+        "S05": 1241,
+        "S06": 1244,
+        "S07": 1246,
+        "S01": 1249
+      }
+    },
+    {
+      "trip_id": "TR2_057",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 1230,
+      "scheduled_stop_times": {
+        "S10": 1232,
+        "S08": 1234,
+        "S09": 1236,
+        "S03": 1239
+      }
+    },
+    {
+      "trip_id": "TR3_121",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 1230,
+      "scheduled_stop_times": {
+        "S13": 1230,
+        "S01": 1234,
+        "S02": 1236,
+        "S03": 1238
+      }
+    },
+    {
+      "trip_id": "TR4_057",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 1230,
+      "scheduled_stop_times": {
+        "S03": 1230,
+        "S14": 1232,
+        "S12": 1234,
+        "S11": 1236
+      }
+    },
+    {
+      "trip_id": "TR3_120",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 1236,
+      "scheduled_stop_times": {
+        "S03": 1236,
+        "S02": 1238,
+        "S01": 1240,
+        "S13": 1244
+      }
+    },
+    {
+      "trip_id": "TR4_058",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 1238,
+      "scheduled_stop_times": {
+        "S11": 1238,
+        "S12": 1240,
+        "S14": 1242,
+        "S03": 1244
+      }
+    },
+    {
+      "trip_id": "TR1_062",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1242,
+      "scheduled_stop_times": {
+        "S02": 1244,
+        "S03": 1247,
+        "S04": 1250,
+        "S05": 1253,
+        "S06": 1256,
+        "S07": 1258,
+        "S01": 1261
+      }
+    },
+    {
+      "trip_id": "TR3_123",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 1242,
+      "scheduled_stop_times": {
+        "S13": 1242,
+        "S01": 1246,
+        "S02": 1248,
+        "S03": 1250
+      }
+    },
+    {
+      "trip_id": "TR2_058",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1245,
+      "scheduled_stop_times": {
+        "S10": 1247,
+        "S08": 1249,
+        "S09": 1251,
+        "S03": 1254
+      }
+    },
+    {
+      "trip_id": "TR3_122",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 1248,
+      "scheduled_stop_times": {
+        "S03": 1248,
+        "S02": 1250,
+        "S01": 1252,
+        "S13": 1256
+      }
+    },
+    {
+      "trip_id": "TR1_063",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 1254,
+      "scheduled_stop_times": {
+        "S02": 1256,
+        "S03": 1259,
+        "S04": 1262,
+        "S05": 1265,
+        "S06": 1268,
+        "S07": 1270,
+        "S01": 1273
+      }
+    },
+    {
+      "trip_id": "TR3_125",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 1254,
+      "scheduled_stop_times": {
+        "S13": 1254,
+        "S01": 1258,
+        "S02": 1260,
+        "S03": 1262
+      }
+    },
+    {
+      "trip_id": "TR2_059",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1260,
+      "scheduled_stop_times": {
+        "S10": 1262,
+        "S08": 1264,
+        "S09": 1266,
+        "S03": 1269
+      }
+    },
+    {
+      "trip_id": "TR3_124",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 1260,
+      "scheduled_stop_times": {
+        "S03": 1260,
+        "S02": 1262,
+        "S01": 1264,
+        "S13": 1268
+      }
+    },
+    {
+      "trip_id": "TR4_059",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 1260,
+      "scheduled_stop_times": {
+        "S03": 1260,
+        "S14": 1262,
+        "S12": 1264,
+        "S11": 1266
+      }
+    },
+    {
+      "trip_id": "TR1_064",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1266,
+      "scheduled_stop_times": {
+        "S02": 1268,
+        "S03": 1271,
+        "S04": 1274,
+        "S05": 1277,
+        "S06": 1280,
+        "S07": 1282,
+        "S01": 1285
+      }
+    },
+    {
+      "trip_id": "TR3_127",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B4",
+      "departure_min": 1266,
+      "scheduled_stop_times": {
+        "S13": 1266,
+        "S01": 1270,
+        "S02": 1272,
+        "S03": 1274
+      }
+    },
+    {
+      "trip_id": "TR4_060",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M1",
+      "departure_min": 1268,
+      "scheduled_stop_times": {
+        "S11": 1268,
+        "S12": 1270,
+        "S14": 1272,
+        "S03": 1274
+      }
+    },
+    {
+      "trip_id": "TR3_126",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 1272,
+      "scheduled_stop_times": {
+        "S03": 1272,
+        "S02": 1274,
+        "S01": 1276,
+        "S13": 1280
+      }
+    },
+    {
+      "trip_id": "TR2_060",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1275,
+      "scheduled_stop_times": {
+        "S10": 1277,
+        "S08": 1279,
+        "S09": 1281,
+        "S03": 1284
+      }
+    },
+    {
+      "trip_id": "TR1_065",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 1278,
+      "scheduled_stop_times": {
+        "S02": 1280,
+        "S03": 1283,
+        "S04": 1286,
+        "S05": 1289,
+        "S06": 1292,
+        "S07": 1294,
+        "S01": 1297
+      }
+    },
+    {
+      "trip_id": "TR3_129",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B5",
+      "departure_min": 1278,
+      "scheduled_stop_times": {
+        "S13": 1278,
+        "S01": 1282,
+        "S02": 1284,
+        "S03": 1286
+      }
+    },
+    {
+      "trip_id": "TR3_128",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B4",
+      "departure_min": 1284,
+      "scheduled_stop_times": {
+        "S03": 1284,
+        "S02": 1286,
+        "S01": 1288,
+        "S13": 1292
+      }
+    },
+    {
+      "trip_id": "TR1_066",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 1290,
+      "scheduled_stop_times": {
+        "S02": 1292,
+        "S03": 1295,
+        "S04": 1298,
+        "S05": 1301,
+        "S06": 1304,
+        "S07": 1306,
+        "S01": 1309
+      }
+    },
+    {
+      "trip_id": "TR2_061",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 1290,
+      "scheduled_stop_times": {
+        "S10": 1292,
+        "S08": 1294,
+        "S09": 1296,
+        "S03": 1299
+      }
+    },
+    {
+      "trip_id": "TR3_131",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B2",
+      "departure_min": 1290,
+      "scheduled_stop_times": {
+        "S13": 1290,
+        "S01": 1294,
+        "S02": 1296,
+        "S03": 1298
+      }
+    },
+    {
+      "trip_id": "TR4_061",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M3",
+      "departure_min": 1290,
+      "scheduled_stop_times": {
+        "S03": 1290,
+        "S14": 1292,
+        "S12": 1294,
+        "S11": 1296
+      }
+    },
+    {
+      "trip_id": "TR3_130",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B5",
+      "departure_min": 1296,
+      "scheduled_stop_times": {
+        "S03": 1296,
+        "S02": 1298,
+        "S01": 1300,
+        "S13": 1304
+      }
+    },
+    {
+      "trip_id": "TR4_062",
+      "route_id": "R4",
+      "direction": 1,
+      "vehicle_id": "M3",
+      "departure_min": 1298,
+      "scheduled_stop_times": {
+        "S11": 1298,
+        "S12": 1300,
+        "S14": 1302,
+        "S03": 1304
+      }
+    },
+    {
+      "trip_id": "TR2_062",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 1305,
+      "scheduled_stop_times": {
+        "S10": 1307,
+        "S08": 1309,
+        "S09": 1311,
+        "S03": 1314
+      }
+    },
+    {
+      "trip_id": "TR3_132",
+      "route_id": "R3",
+      "direction": 1,
+      "vehicle_id": "B2",
+      "departure_min": 1308,
+      "scheduled_stop_times": {
+        "S03": 1308,
+        "S02": 1310,
+        "S01": 1312,
+        "S13": 1316
+      }
+    }
+  ],
+  "vehicle_blocks": {
+    "B1": [
+      "TR1_001",
+      "TR1_003",
+      "TR1_005",
+      "TR1_007",
+      "TR1_009",
+      "TR1_011",
+      "TR1_013",
+      "TR1_015",
+      "TR1_017",
+      "TR1_019",
+      "TR1_021",
+      "TR1_023",
+      "TR1_025",
+      "TR1_027",
+      "TR1_029",
+      "TR1_031",
+      "TR1_033",
+      "TR1_035",
+      "TR1_037",
+      "TR1_039",
+      "TR1_041",
+      "TR1_043",
+      "TR1_045",
+      "TR1_047",
+      "TR1_049",
+      "TR1_051",
+      "TR1_053",
+      "TR1_055",
+      "TR1_057",
+      "TR1_059",
+      "TR1_061",
+      "TR1_063",
+      "TR1_065"
+    ],
+    "B2": [
+      "TR3_001",
+      "TR3_002",
+      "TR3_009",
+      "TR3_010",
+      "TR3_015",
+      "TR3_016",
+      "TR3_021",
+      "TR3_022",
+      "TR3_027",
+      "TR3_028",
+      "TR3_033",
+      "TR3_034",
+      "TR3_039",
+      "TR3_040",
+      "TR3_041",
+      "TR3_042",
+      "TR3_047",
+      "TR3_048",
+      "TR3_053",
+      "TR3_054",
+      "TR3_059",
+      "TR3_060",
+      "TR3_067",
+      "TR3_068",
+      "TR3_073",
+      "TR3_074",
+      "TR3_079",
+      "TR3_080",
+      "TR3_087",
+      "TR3_088",
+      "TR3_093",
+      "TR3_094",
+      "TR3_099",
+      "TR3_100",
+      "TR3_105",
+      "TR3_106",
+      "TR3_111",
+      "TR3_112",
+      "TR3_119",
+      "TR3_120",
+      "TR3_125",
+      "TR3_126",
+      "TR3_131",
+      "TR3_132"
+    ],
+    "B3": [
+      "TR1_002",
+      "TR1_004",
+      "TR1_006",
+      "TR1_008",
+      "TR1_010",
+      "TR1_012",
+      "TR1_014",
+      "TR1_016",
+      "TR1_018",
+      "TR1_020",
+      "TR1_022",
+      "TR1_024",
+      "TR1_026",
+      "TR1_028",
+      "TR1_030",
+      "TR1_032",
+      "TR1_034",
+      "TR1_036",
+      "TR1_038",
+      "TR1_040",
+      "TR1_042",
+      "TR1_044",
+      "TR1_046",
+      "TR1_048",
+      "TR1_050",
+      "TR1_052",
+      "TR1_054",
+      "TR1_056",
+      "TR1_058",
+      "TR1_060",
+      "TR1_062",
+      "TR1_064",
+      "TR1_066"
+    ],
+    "B4": [
+      "TR3_003",
+      "TR3_004",
+      "TR3_011",
+      "TR3_012",
+      "TR3_017",
+      "TR3_018",
+      "TR3_023",
+      "TR3_024",
+      "TR3_029",
+      "TR3_030",
+      "TR3_035",
+      "TR3_036",
+      "TR3_043",
+      "TR3_044",
+      "TR3_049",
+      "TR3_050",
+      "TR3_055",
+      "TR3_056",
+      "TR3_061",
+      "TR3_062",
+      "TR3_069",
+      "TR3_070",
+      "TR3_075",
+      "TR3_076",
+      "TR3_081",
+      "TR3_082",
+      "TR3_089",
+      "TR3_090",
+      "TR3_095",
+      "TR3_096",
+      "TR3_101",
+      "TR3_102",
+      "TR3_107",
+      "TR3_108",
+      "TR3_113",
+      "TR3_114",
+      "TR3_121",
+      "TR3_122",
+      "TR3_127",
+      "TR3_128"
+    ],
+    "B5": [
+      "TR3_005",
+      "TR3_006",
+      "TR3_007",
+      "TR3_008",
+      "TR3_013",
+      "TR3_014",
+      "TR3_019",
+      "TR3_020",
+      "TR3_025",
+      "TR3_026",
+      "TR3_031",
+      "TR3_032",
+      "TR3_037",
+      "TR3_038",
+      "TR3_045",
+      "TR3_046",
+      "TR3_051",
+      "TR3_052",
+      "TR3_057",
+      "TR3_058",
+      "TR3_063",
+      "TR3_064",
+      "TR3_065",
+      "TR3_066",
+      "TR3_071",
+      "TR3_072",
+      "TR3_077",
+      "TR3_078",
+      "TR3_083",
+      "TR3_084",
+      "TR3_085",
+      "TR3_086",
+      "TR3_091",
+      "TR3_092",
+      "TR3_097",
+      "TR3_098",
+      "TR3_103",
+      "TR3_104",
+      "TR3_109",
+      "TR3_110",
+      "TR3_115",
+      "TR3_116",
+      "TR3_117",
+      "TR3_118",
+      "TR3_123",
+      "TR3_124",
+      "TR3_129",
+      "TR3_130"
+    ],
+    "M1": [
+      "TR2_001",
+      "TR4_003",
+      "TR4_004",
+      "TR2_005",
+      "TR4_007",
+      "TR4_008",
+      "TR2_009",
+      "TR4_011",
+      "TR4_012",
+      "TR2_013",
+      "TR4_015",
+      "TR4_016",
+      "TR2_017",
+      "TR4_019",
+      "TR4_020",
+      "TR2_021",
+      "TR4_023",
+      "TR4_024",
+      "TR2_025",
+      "TR4_027",
+      "TR4_028",
+      "TR2_029",
+      "TR4_031",
+      "TR4_032",
+      "TR2_033",
+      "TR4_035",
+      "TR4_036",
+      "TR2_037",
+      "TR4_039",
+      "TR4_040",
+      "TR2_041",
+      "TR4_043",
+      "TR4_044",
+      "TR2_045",
+      "TR4_047",
+      "TR4_048",
+      "TR2_049",
+      "TR4_051",
+      "TR4_052",
+      "TR2_053",
+      "TR4_055",
+      "TR4_056",
+      "TR2_057",
+      "TR4_059",
+      "TR4_060",
+      "TR2_061"
+    ],
+    "M2": [
+      "TR2_002",
+      "TR2_003",
+      "TR2_004",
+      "TR2_006",
+      "TR2_007",
+      "TR2_008",
+      "TR2_010",
+      "TR2_011",
+      "TR2_012",
+      "TR2_014",
+      "TR2_015",
+      "TR2_016",
+      "TR2_018",
+      "TR2_019",
+      "TR2_020",
+      "TR2_022",
+      "TR2_023",
+      "TR2_024",
+      "TR2_026",
+      "TR2_027",
+      "TR2_028",
+      "TR2_030",
+      "TR2_031",
+      "TR2_032",
+      "TR2_034",
+      "TR2_035",
+      "TR2_036",
+      "TR2_038",
+      "TR2_039",
+      "TR2_040",
+      "TR2_042",
+      "TR2_043",
+      "TR2_044",
+      "TR2_046",
+      "TR2_047",
+      "TR2_048",
+      "TR2_050",
+      "TR2_051",
+      "TR2_052",
+      "TR2_054",
+      "TR2_055",
+      "TR2_056",
+      "TR2_058",
+      "TR2_059",
+      "TR2_060",
+      "TR2_062"
+    ],
+    "M3": [
+      "TR4_001",
+      "TR4_002",
+      "TR4_005",
+      "TR4_006",
+      "TR4_009",
+      "TR4_010",
+      "TR4_013",
+      "TR4_014",
+      "TR4_017",
+      "TR4_018",
+      "TR4_021",
+      "TR4_022",
+      "TR4_025",
+      "TR4_026",
+      "TR4_029",
+      "TR4_030",
+      "TR4_033",
+      "TR4_034",
+      "TR4_037",
+      "TR4_038",
+      "TR4_041",
+      "TR4_042",
+      "TR4_045",
+      "TR4_046",
+      "TR4_049",
+      "TR4_050",
+      "TR4_053",
+      "TR4_054",
+      "TR4_057",
+      "TR4_058",
+      "TR4_061",
+      "TR4_062"
+    ]
+  },
+  "metadata": {
+    "description": "Baseline fixed-headway plan (R1:12m, R2:15m, R3:12m, R4:30m)",
+    "active_vehicles": [
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5",
+      "M1",
+      "M2",
+      "M3"
+    ],
+    "reserve_vehicles": [
+      "B6",
+      "M4"
+    ],
+    "status": "frozen"
+  }
+}

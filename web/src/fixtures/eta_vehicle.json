@@ -1,0 +1,38 @@
+{
+  "vehicle_id": "B1",
+  "trip_id": "T_R1_01",
+  "current_progress_m": 950.0,
+  "speed_mps": 7.8,
+  "downstream_stops": [
+    {
+      "stop_id": "S03",
+      "route_id": "R1",
+      "vehicle_id": "B1",
+      "trip_id": "T_R1_01",
+      "scheduled_time_min": 456,
+      "eta_p10_min": 455.5,
+      "eta_p50_min": 457.0,
+      "eta_p90_min": 459.2,
+      "confidence": "high",
+      "reasons": [
+        "On-time"
+      ],
+      "stale_gps": false
+    },
+    {
+      "stop_id": "S04",
+      "route_id": "R1",
+      "vehicle_id": "B1",
+      "trip_id": "T_R1_01",
+      "scheduled_time_min": 460,
+      "eta_p10_min": 459.5,
+      "eta_p50_min": 461.2,
+      "eta_p90_min": 463.8,
+      "confidence": "high",
+      "reasons": [
+        "Smooth corridor"
+      ],
+      "stale_gps": false
+    }
+  ]
+}
