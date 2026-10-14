@@ -1,0 +1,16 @@
+{
+  "validated": true,
+  "violations": [],
+  "simulated_kpis": {
+    "avg_wait_min": 5.4,
+    "left_behind_pax": 12.0,
+    "missed_connections": 3.0,
+    "vehicle_km": 112.4
+  },
+  "delta_vs_base": {
+    "avg_wait_min": -1.5,
+    "left_behind_pax": -35.0,
+    "missed_connections": -12.0,
+    "vehicle_km": 12.0
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "plan_id": "baseline_w1",
+  "name": "Baseline Morning Peak Plan",
+  "window": [
+    "07:30",
+    "10:30"
+  ],
+  "trips": [
+    {
+      "trip_id": "T_R1_01",
+      "route_id": "R1",
+      "direction": 0,
+      "vehicle_id": "B1",
+      "departure_min": 450,
+      "scheduled_stop_times": {
+        "S01": 473,
+        "S02": 453,
+        "S03": 456,
+        "S04": 460,
+        "S05": 464,
+        "S06": 467,
+        "S07": 470
+      }
+    },
+    {
+      "trip_id": "T_R3_01",
+      "route_id": "R3",
+      "direction": 0,
+      "vehicle_id": "B3",
+      "departure_min": 450,
+      "scheduled_stop_times": {
+        "S13": 450,
+        "S01": 455,
+        "S02": 458,
+        "S03": 462
+      }
+    },
+    {
+      "trip_id": "T_R2_01",
+      "route_id": "R2",
+      "direction": 0,
+      "vehicle_id": "M1",
+      "departure_min": 465,
+      "scheduled_stop_times": {
+        "S03": 479,
+        "S10": 468,
+        "S08": 472,
+        "S09": 475
+      }
+    },
+    {
+      "trip_id": "T_R4_01",
+      "route_id": "R4",
+      "direction": 0,
+      "vehicle_id": "M2",
+      "departure_min": 460,
+      "scheduled_stop_times": {
+        "S03": 460,
+        "S14": 464,
+        "S12": 468,
+        "S11": 473
+      }
+    }
+  ],
+  "vehicle_blocks": {
+    "B1": [
+      "T_R1_01"
+    ],
+    "B3": [
+      "T_R3_01"
+    ],
+    "M1": [
+      "T_R2_01"
+    ],
+    "M2": [
+      "T_R4_01"
+    ]
+  },
+  "metadata": {
+    "status": "frozen",
+    "hash": "baseline-v0"
+  }
+}

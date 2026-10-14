@@ -1,0 +1,22 @@
+{
+  "stop_id": "S13",
+  "date": "2026-10-14",
+  "slots": [
+    {
+      "slot_start_min": 450,
+      "slot_end_min": 465,
+      "p50_arrivals": 52.0,
+      "p80_arrivals": 68.0,
+      "p90_arrivals": 75.0,
+      "actual_arrivals": 64.0
+    },
+    {
+      "slot_start_min": 465,
+      "slot_end_min": 480,
+      "p50_arrivals": 58.0,
+      "p80_arrivals": 74.0,
+      "p90_arrivals": 82.0,
+      "actual_arrivals": 71.0
+    }
+  ]
+}

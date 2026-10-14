@@ -1,0 +1,37 @@
+{
+  "stop_id": "S03",
+  "query_time_min": 455,
+  "arrivals": [
+    {
+      "stop_id": "S03",
+      "route_id": "R1",
+      "vehicle_id": "B1",
+      "trip_id": "T_R1_01",
+      "scheduled_time_min": 456,
+      "eta_p10_min": 455.5,
+      "eta_p50_min": 457.0,
+      "eta_p90_min": 459.2,
+      "confidence": "high",
+      "reasons": [
+        "Normal traffic",
+        "Low boarding dwell observed"
+      ],
+      "stale_gps": false
+    },
+    {
+      "stop_id": "S03",
+      "route_id": "R3",
+      "vehicle_id": "B3",
+      "trip_id": "T_R3_01",
+      "scheduled_time_min": 462,
+      "eta_p10_min": 462.5,
+      "eta_p50_min": 464.5,
+      "eta_p90_min": 468.0,
+      "confidence": "medium",
+      "reasons": [
+        "Congestion multiplier 1.35x near Main Gate"
+      ],
+      "stale_gps": false
+    }
+  ]
+}

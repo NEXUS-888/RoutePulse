@@ -1,0 +1,36 @@
+[
+  {
+    "id": "rec-0007",
+    "type": "ADD_TRIP",
+    "summary": "Add an R3 departure at 08:21 from S13 using bus B5 (idle reserve)",
+    "reason_codes": [
+      "A2_CAPACITY_RISK",
+      "A4_MISSED_CONNECTION"
+    ],
+    "evidence": {
+      "p80_load_before": 1.34,
+      "p80_load_after": 0.91,
+      "pax_affected": 62
+    },
+    "impact": {
+      "avg_wait_min": -1.8,
+      "left_behind": -41,
+      "missed_connections": -17,
+      "vehicle_km": 14.2
+    },
+    "tradeoff": "Uses a reserve bus for 52 min (+14.2 vehicle-km). Reduces R3 left-behind passengers by 41. R1 headway unchanged.",
+    "binding_constraints": [
+      "H6 fleet size at 08:30",
+      "H3 layover for B5"
+    ],
+    "alternatives_rejected": [
+      {
+        "option": "retime 08:24 trip earlier",
+        "why": "violates H8 and still leaves load at 1.12"
+      }
+    ],
+    "validated": true,
+    "violations": [],
+    "confidence": "high"
+  }
+]

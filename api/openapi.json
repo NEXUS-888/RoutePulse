@@ -1,0 +1,2263 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "RoutePulse API",
+    "description": "Campus Transport Optimization API \u2014 Sense, Estimate, Detect, Decide, Verify, Explain.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/health": {
+      "get": {
+        "tags": [
+          "System"
+        ],
+        "summary": "Get Health",
+        "operationId": "get_health_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/network": {
+      "get": {
+        "tags": [
+          "Network"
+        ],
+        "summary": "Get Network",
+        "operationId": "get_network_api_network_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NetworkResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/plans/{plan_id}": {
+      "get": {
+        "tags": [
+          "Plans"
+        ],
+        "summary": "Get Plan",
+        "operationId": "get_plan_api_plans__plan_id__get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Plan ID to retrieve",
+              "title": "Plan Id"
+            },
+            "description": "Plan ID to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Plan"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/plans/validate": {
+      "post": {
+        "tags": [
+          "Plans"
+        ],
+        "summary": "Validate Plan",
+        "operationId": "validate_plan_api_plans_validate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Plan"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlanValidationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/live/stream": {
+      "get": {
+        "tags": [
+          "Live"
+        ],
+        "summary": "Live Stream",
+        "description": "SSE endpoint streaming live vehicle pings, ETAs, and alerts.",
+        "operationId": "live_stream_api_live_stream_get",
+        "parameters": [
+          {
+            "name": "speed",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "Replay speed multiplier",
+              "default": 30,
+              "title": "Speed"
+            },
+            "description": "Replay speed multiplier"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/eta": {
+      "get": {
+        "tags": [
+          "ETA"
+        ],
+        "summary": "Get Stop Eta",
+        "operationId": "get_stop_eta_api_eta_get",
+        "parameters": [
+          {
+            "name": "stop_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Stop identifier, e.g. S03",
+              "title": "Stop Id"
+            },
+            "description": "Stop identifier, e.g. S03"
+          },
+          {
+            "name": "t",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Query time in minutes from midnight",
+              "default": 455,
+              "title": "T"
+            },
+            "description": "Query time in minutes from midnight"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EtaResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/eta/vehicle/{vehicle_id}": {
+      "get": {
+        "tags": [
+          "ETA"
+        ],
+        "summary": "Get Vehicle Eta",
+        "operationId": "get_vehicle_eta_api_eta_vehicle__vehicle_id__get",
+        "parameters": [
+          {
+            "name": "vehicle_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Vehicle identifier, e.g. B1",
+              "title": "Vehicle Id"
+            },
+            "description": "Vehicle identifier, e.g. B1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleEtaResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/demand": {
+      "get": {
+        "tags": [
+          "Demand"
+        ],
+        "summary": "Get Demand",
+        "operationId": "get_demand_api_demand_get",
+        "parameters": [
+          {
+            "name": "stop_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Stop identifier, e.g. S13",
+              "title": "Stop Id"
+            },
+            "description": "Stop identifier, e.g. S13"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Date string YYYY-MM-DD",
+              "default": "2026-10-14",
+              "title": "Date"
+            },
+            "description": "Date string YYYY-MM-DD"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DemandResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/alerts": {
+      "get": {
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "Get Alerts",
+        "operationId": "get_alerts_api_alerts_get",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Plan Id"
+            }
+          },
+          {
+            "name": "scenario_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Scenario Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Alert"
+                  },
+                  "title": "Response Get Alerts Api Alerts Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recommendations": {
+      "post": {
+        "tags": [
+          "Optimization"
+        ],
+        "summary": "Get Recommendations",
+        "operationId": "get_recommendations_api_recommendations_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecommendationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecommendationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/recommendations/{id}/apply": {
+      "post": {
+        "tags": [
+          "Optimization"
+        ],
+        "summary": "Apply Recommendation",
+        "operationId": "apply_recommendation_api_recommendations__id__apply_post",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Recommendation ID to apply",
+              "title": "Id"
+            },
+            "description": "Recommendation ID to apply"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ApplyRecommendationRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Req"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApplyRecommendationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/whatif": {
+      "post": {
+        "tags": [
+          "Optimization"
+        ],
+        "summary": "Evaluate Whatif",
+        "operationId": "evaluate_whatif_api_whatif_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WhatIfRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WhatIfResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/scenarios/{id}/run": {
+      "post": {
+        "tags": [
+          "Simulation"
+        ],
+        "summary": "Run Scenario",
+        "operationId": "run_scenario_api_scenarios__id__run_post",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Scenario ID, e.g. S0, S1, S2, S3",
+              "title": "Id"
+            },
+            "description": "Scenario ID, e.g. S0, S1, S2, S3"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/ScenarioRunRequest"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Req"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScenarioRunResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/eval/results": {
+      "get": {
+        "tags": [
+          "Evaluation"
+        ],
+        "summary": "Get Eval Results",
+        "operationId": "get_eval_results_api_eval_results_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvalResultsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ingest/gps": {
+      "post": {
+        "tags": [
+          "Ingest"
+        ],
+        "summary": "Ingest Gps",
+        "operationId": "ingest_gps_api_ingest_gps_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngestGpsRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngestResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ingest/apc": {
+      "post": {
+        "tags": [
+          "Ingest"
+        ],
+        "summary": "Ingest Apc",
+        "operationId": "ingest_apc_api_ingest_apc_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IngestApcRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IngestResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/student/route": {
+      "get": {
+        "tags": [
+          "Student"
+        ],
+        "summary": "Get Student Route",
+        "operationId": "get_student_route_api_student_route_get",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "From"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "To"
+            }
+          },
+          {
+            "name": "t",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": 460,
+              "title": "T"
+            }
+          },
+          {
+            "name": "accessible",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": true,
+              "title": "Accessible"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StudentRouteResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Alert": {
+        "properties": {
+          "alert_id": {
+            "type": "string",
+            "title": "Alert Id"
+          },
+          "code": {
+            "type": "string",
+            "enum": [
+              "A1",
+              "A2",
+              "A3",
+              "A4",
+              "A5",
+              "A6",
+              "A7",
+              "A8"
+            ],
+            "title": "Code"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "hard-risk",
+              "soft"
+            ],
+            "title": "Severity"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "entity_type": {
+            "type": "string",
+            "enum": [
+              "route",
+              "vehicle",
+              "trip",
+              "stop"
+            ],
+            "title": "Entity Type"
+          },
+          "entity_id": {
+            "type": "string",
+            "title": "Entity Id"
+          },
+          "time_min": {
+            "type": "integer",
+            "title": "Time Min"
+          },
+          "pax_affected": {
+            "type": "integer",
+            "title": "Pax Affected"
+          }
+        },
+        "type": "object",
+        "required": [
+          "alert_id",
+          "code",
+          "severity",
+          "title",
+          "detail",
+          "entity_type",
+          "entity_id",
+          "time_min",
+          "pax_affected"
+        ],
+        "title": "Alert"
+      },
+      "ApcRecord": {
+        "properties": {
+          "trip_id": {
+            "type": "string",
+            "title": "Trip Id"
+          },
+          "stop_id": {
+            "type": "string",
+            "title": "Stop Id"
+          },
+          "boardings": {
+            "type": "integer",
+            "title": "Boardings"
+          },
+          "alightings": {
+            "type": "integer",
+            "title": "Alightings"
+          },
+          "load_after": {
+            "type": "integer",
+            "title": "Load After"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "trip_id",
+          "stop_id",
+          "boardings",
+          "alightings",
+          "load_after"
+        ],
+        "title": "ApcRecord"
+      },
+      "ApplyRecommendationRequest": {
+        "properties": {
+          "working_plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Working Plan Id"
+          }
+        },
+        "type": "object",
+        "title": "ApplyRecommendationRequest"
+      },
+      "ApplyRecommendationResponse": {
+        "properties": {
+          "applied_recommendation_id": {
+            "type": "string",
+            "title": "Applied Recommendation Id"
+          },
+          "new_plan_id": {
+            "type": "string",
+            "title": "New Plan Id"
+          },
+          "new_plan": {
+            "$ref": "#/components/schemas/Plan"
+          },
+          "kpi_deltas": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Kpi Deltas"
+          },
+          "validated": {
+            "type": "boolean",
+            "title": "Validated"
+          },
+          "violations": {
+            "items": {
+              "$ref": "#/components/schemas/Violation"
+            },
+            "type": "array",
+            "title": "Violations"
+          }
+        },
+        "type": "object",
+        "required": [
+          "applied_recommendation_id",
+          "new_plan_id",
+          "new_plan",
+          "kpi_deltas",
+          "validated",
+          "violations"
+        ],
+        "title": "ApplyRecommendationResponse"
+      },
+      "DemandResponse": {
+        "properties": {
+          "stop_id": {
+            "type": "string",
+            "title": "Stop Id"
+          },
+          "date": {
+            "type": "string",
+            "title": "Date"
+          },
+          "slots": {
+            "items": {
+              "$ref": "#/components/schemas/DemandSlot"
+            },
+            "type": "array",
+            "title": "Slots"
+          }
+        },
+        "type": "object",
+        "required": [
+          "stop_id",
+          "date",
+          "slots"
+        ],
+        "title": "DemandResponse"
+      },
+      "DemandSlot": {
+        "properties": {
+          "slot_start_min": {
+            "type": "integer",
+            "title": "Slot Start Min"
+          },
+          "slot_end_min": {
+            "type": "integer",
+            "title": "Slot End Min"
+          },
+          "p50_arrivals": {
+            "type": "number",
+            "title": "P50 Arrivals"
+          },
+          "p80_arrivals": {
+            "type": "number",
+            "title": "P80 Arrivals"
+          },
+          "p90_arrivals": {
+            "type": "number",
+            "title": "P90 Arrivals"
+          },
+          "actual_arrivals": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Arrivals"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slot_start_min",
+          "slot_end_min",
+          "p50_arrivals",
+          "p80_arrivals",
+          "p90_arrivals"
+        ],
+        "title": "DemandSlot"
+      },
+      "EtaPrediction": {
+        "properties": {
+          "stop_id": {
+            "type": "string",
+            "title": "Stop Id"
+          },
+          "route_id": {
+            "type": "string",
+            "title": "Route Id"
+          },
+          "vehicle_id": {
+            "type": "string",
+            "title": "Vehicle Id"
+          },
+          "trip_id": {
+            "type": "string",
+            "title": "Trip Id"
+          },
+          "scheduled_time_min": {
+            "type": "integer",
+            "title": "Scheduled Time Min"
+          },
+          "eta_p10_min": {
+            "type": "number",
+            "title": "Eta P10 Min"
+          },
+          "eta_p50_min": {
+            "type": "number",
+            "title": "Eta P50 Min"
+          },
+          "eta_p90_min": {
+            "type": "number",
+            "title": "Eta P90 Min"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ],
+            "title": "Confidence"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          },
+          "stale_gps": {
+            "type": "boolean",
+            "title": "Stale Gps",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "stop_id",
+          "route_id",
+          "vehicle_id",
+          "trip_id",
+          "scheduled_time_min",
+          "eta_p10_min",
+          "eta_p50_min",
+          "eta_p90_min",
+          "confidence"
+        ],
+        "title": "EtaPrediction"
+      },
+      "EtaResponse": {
+        "properties": {
+          "stop_id": {
+            "type": "string",
+            "title": "Stop Id"
+          },
+          "query_time_min": {
+            "type": "integer",
+            "title": "Query Time Min"
+          },
+          "arrivals": {
+            "items": {
+              "$ref": "#/components/schemas/EtaPrediction"
+            },
+            "type": "array",
+            "title": "Arrivals"
+          }
+        },
+        "type": "object",
+        "required": [
+          "stop_id",
+          "query_time_min",
+          "arrivals"
+        ],
+        "title": "EtaResponse"
+      },
+      "EvalResultsResponse": {
+        "properties": {
+          "summary_table": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Summary Table"
+          },
+          "scenarios": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Scenarios"
+          },
+          "chart_paths": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Chart Paths"
+          },
+          "timestamp": {
+            "type": "string",
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "summary_table",
+          "scenarios",
+          "chart_paths",
+          "timestamp"
+        ],
+        "title": "EvalResultsResponse"
+      },
+      "GpsPing": {
+        "properties": {
+          "vehicle_id": {
+            "type": "string",
+            "title": "Vehicle Id"
+          },
+          "t_sec": {
+            "type": "integer",
+            "title": "T Sec",
+            "description": "Timestamp in seconds from midnight"
+          },
+          "lat": {
+            "type": "number",
+            "title": "Lat"
+          },
+          "lon": {
+            "type": "number",
+            "title": "Lon"
+          },
+          "speed_mps": {
+            "type": "number",
+            "title": "Speed Mps"
+          },
+          "heading": {
+            "type": "number",
+            "title": "Heading"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "vehicle_id",
+          "t_sec",
+          "lat",
+          "lon",
+          "speed_mps",
+          "heading"
+        ],
+        "title": "GpsPing"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "ok"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version",
+            "default": "0.1.0"
+          },
+          "data_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Data Hash"
+          },
+          "model_hash": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Model Hash"
+          },
+          "master_seed": {
+            "type": "integer",
+            "title": "Master Seed",
+            "default": 20261014
+          },
+          "uptime_s": {
+            "type": "number",
+            "title": "Uptime S",
+            "default": 0.0
+          }
+        },
+        "type": "object",
+        "title": "HealthResponse"
+      },
+      "IngestApcRequest": {
+        "properties": {
+          "records": {
+            "items": {
+              "$ref": "#/components/schemas/ApcRecord"
+            },
+            "type": "array",
+            "title": "Records"
+          }
+        },
+        "type": "object",
+        "required": [
+          "records"
+        ],
+        "title": "IngestApcRequest"
+      },
+      "IngestGpsRequest": {
+        "properties": {
+          "pings": {
+            "items": {
+              "$ref": "#/components/schemas/GpsPing"
+            },
+            "type": "array",
+            "title": "Pings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pings"
+        ],
+        "title": "IngestGpsRequest"
+      },
+      "IngestResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "count"
+        ],
+        "title": "IngestResponse"
+      },
+      "NetworkResponse": {
+        "properties": {
+          "stops": {
+            "items": {
+              "$ref": "#/components/schemas/Stop"
+            },
+            "type": "array",
+            "title": "Stops"
+          },
+          "routes": {
+            "items": {
+              "$ref": "#/components/schemas/Route"
+            },
+            "type": "array",
+            "title": "Routes"
+          },
+          "vehicles": {
+            "items": {
+              "$ref": "#/components/schemas/Vehicle"
+            },
+            "type": "array",
+            "title": "Vehicles"
+          },
+          "transfers": {
+            "items": {
+              "$ref": "#/components/schemas/Transfer"
+            },
+            "type": "array",
+            "title": "Transfers"
+          }
+        },
+        "type": "object",
+        "required": [
+          "stops",
+          "routes",
+          "vehicles",
+          "transfers"
+        ],
+        "title": "NetworkResponse"
+      },
+      "Plan": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id",
+            "description": "Unique plan ID, e.g. baseline or opt-s0"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Descriptive name"
+          },
+          "window": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Window",
+            "description": "Operating window, e.g. ['07:30', '10:30']"
+          },
+          "trips": {
+            "items": {
+              "$ref": "#/components/schemas/Trip"
+            },
+            "type": "array",
+            "title": "Trips",
+            "description": "All scheduled trips"
+          },
+          "vehicle_blocks": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "object",
+            "title": "Vehicle Blocks",
+            "description": "Mapping of vehicle_id -> list of trip_ids in chronological order"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata",
+            "description": "Additional properties, solver runtime, seed, etc."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "plan_id",
+          "name",
+          "window"
+        ],
+        "title": "Plan"
+      },
+      "PlanValidationResponse": {
+        "properties": {
+          "is_valid": {
+            "type": "boolean",
+            "title": "Is Valid"
+          },
+          "hard_violations_count": {
+            "type": "integer",
+            "title": "Hard Violations Count"
+          },
+          "soft_violations_count": {
+            "type": "integer",
+            "title": "Soft Violations Count"
+          },
+          "violations": {
+            "items": {
+              "$ref": "#/components/schemas/Violation"
+            },
+            "type": "array",
+            "title": "Violations"
+          }
+        },
+        "type": "object",
+        "required": [
+          "is_valid",
+          "hard_violations_count",
+          "soft_violations_count",
+          "violations"
+        ],
+        "title": "PlanValidationResponse"
+      },
+      "Recommendation": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "description": "Unique recommendation identifier, e.g. rec-0001"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "ADD_TRIP",
+              "RETIME_TRIP",
+              "SWAP_VEHICLE",
+              "REALLOCATE_VEHICLE",
+              "SHORT_TURN",
+              "HOLD_FOR_CONNECTION"
+            ],
+            "title": "Type"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "reason_codes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reason Codes"
+          },
+          "evidence": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Evidence"
+          },
+          "impact": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Impact"
+          },
+          "tradeoff": {
+            "type": "string",
+            "title": "Tradeoff"
+          },
+          "binding_constraints": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Binding Constraints"
+          },
+          "alternatives_rejected": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Alternatives Rejected"
+          },
+          "validated": {
+            "type": "boolean",
+            "title": "Validated",
+            "default": true
+          },
+          "violations": {
+            "items": {
+              "$ref": "#/components/schemas/Violation"
+            },
+            "type": "array",
+            "title": "Violations"
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "title": "Confidence",
+            "default": "high"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "summary",
+          "tradeoff"
+        ],
+        "title": "Recommendation"
+      },
+      "RecommendationRequest": {
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "current_time_min": {
+            "type": "integer",
+            "title": "Current Time Min"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "plan_id",
+          "current_time_min"
+        ],
+        "title": "RecommendationRequest"
+      },
+      "RecommendationResponse": {
+        "properties": {
+          "recommendations": {
+            "items": {
+              "$ref": "#/components/schemas/Recommendation"
+            },
+            "type": "array",
+            "title": "Recommendations"
+          }
+        },
+        "type": "object",
+        "required": [
+          "recommendations"
+        ],
+        "title": "RecommendationResponse"
+      },
+      "Route": {
+        "properties": {
+          "route_id": {
+            "type": "string",
+            "title": "Route Id",
+            "description": "Unique route identifier, e.g. R1"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Route name, e.g. Main Loop"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "loop",
+              "linear"
+            ],
+            "title": "Type",
+            "description": "Route topology"
+          },
+          "stop_sequence": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Stop Sequence",
+            "description": "Ordered list of stop IDs"
+          },
+          "polyline": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Polyline",
+            "description": "Piecewise coordinates [[x,y], ...]"
+          },
+          "segment_lengths_m": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Segment Lengths M",
+            "description": "Length of each segment between consecutive stops"
+          },
+          "free_flow_speed_mps": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Free Flow Speed Mps",
+            "description": "Base free-flow vehicle speed in m/s"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "route_id",
+          "name",
+          "type",
+          "stop_sequence",
+          "polyline",
+          "segment_lengths_m",
+          "free_flow_speed_mps"
+        ],
+        "title": "Route"
+      },
+      "ScenarioRunRequest": {
+        "properties": {
+          "plan_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Id"
+          },
+          "seed": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Seed"
+          }
+        },
+        "type": "object",
+        "title": "ScenarioRunRequest"
+      },
+      "ScenarioRunResponse": {
+        "properties": {
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "seed": {
+            "type": "integer",
+            "title": "Seed"
+          },
+          "kpis": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Kpis"
+          }
+        },
+        "type": "object",
+        "required": [
+          "scenario_id",
+          "plan_id",
+          "seed",
+          "kpis"
+        ],
+        "title": "ScenarioRunResponse"
+      },
+      "Stop": {
+        "properties": {
+          "stop_id": {
+            "type": "string",
+            "title": "Stop Id",
+            "description": "Unique stop identifier, e.g. S01"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Human-readable stop name"
+          },
+          "x": {
+            "type": "number",
+            "title": "X",
+            "description": "Local metric X coordinate in meters"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y",
+            "description": "Local metric Y coordinate in meters"
+          },
+          "lat": {
+            "type": "number",
+            "title": "Lat",
+            "description": "WGS84 latitude"
+          },
+          "lon": {
+            "type": "number",
+            "title": "Lon",
+            "description": "WGS84 longitude"
+          },
+          "is_hub": {
+            "type": "boolean",
+            "title": "Is Hub",
+            "description": "Whether this stop is a central transfer hub",
+            "default": false
+          },
+          "accessible": {
+            "type": "boolean",
+            "title": "Accessible",
+            "description": "Wheelchair accessibility of the stop",
+            "default": true
+          },
+          "capacity_waiting": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Capacity Waiting",
+            "description": "Waiting area capacity"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "stop_id",
+          "name",
+          "x",
+          "y",
+          "lat",
+          "lon"
+        ],
+        "title": "Stop"
+      },
+      "StudentRouteOption": {
+        "properties": {
+          "itinerary_id": {
+            "type": "string",
+            "title": "Itinerary Id"
+          },
+          "route_id": {
+            "type": "string",
+            "title": "Route Id"
+          },
+          "from_stop": {
+            "type": "string",
+            "title": "From Stop"
+          },
+          "to_stop": {
+            "type": "string",
+            "title": "To Stop"
+          },
+          "departure_min": {
+            "type": "integer",
+            "title": "Departure Min"
+          },
+          "eta_p10_min": {
+            "type": "number",
+            "title": "Eta P10 Min"
+          },
+          "eta_p50_min": {
+            "type": "number",
+            "title": "Eta P50 Min"
+          },
+          "eta_p90_min": {
+            "type": "number",
+            "title": "Eta P90 Min"
+          },
+          "is_transfer": {
+            "type": "boolean",
+            "title": "Is Transfer"
+          },
+          "transfer_stop": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Transfer Stop"
+          },
+          "transfer_safe_prob": {
+            "type": "number",
+            "title": "Transfer Safe Prob",
+            "default": 1.0
+          },
+          "accessible": {
+            "type": "boolean",
+            "title": "Accessible",
+            "default": true
+          },
+          "crowding_level": {
+            "type": "string",
+            "enum": [
+              "low",
+              "moderate",
+              "crowded"
+            ],
+            "title": "Crowding Level",
+            "default": "low"
+          },
+          "recommendation_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recommendation Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "itinerary_id",
+          "route_id",
+          "from_stop",
+          "to_stop",
+          "departure_min",
+          "eta_p10_min",
+          "eta_p50_min",
+          "eta_p90_min",
+          "is_transfer"
+        ],
+        "title": "StudentRouteOption"
+      },
+      "StudentRouteResponse": {
+        "properties": {
+          "from_stop": {
+            "type": "string",
+            "title": "From Stop"
+          },
+          "to_stop": {
+            "type": "string",
+            "title": "To Stop"
+          },
+          "query_time_min": {
+            "type": "integer",
+            "title": "Query Time Min"
+          },
+          "options": {
+            "items": {
+              "$ref": "#/components/schemas/StudentRouteOption"
+            },
+            "type": "array",
+            "title": "Options"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from_stop",
+          "to_stop",
+          "query_time_min",
+          "options"
+        ],
+        "title": "StudentRouteResponse"
+      },
+      "Transfer": {
+        "properties": {
+          "from_route": {
+            "type": "string",
+            "title": "From Route"
+          },
+          "to_route": {
+            "type": "string",
+            "title": "To Route"
+          },
+          "hub_stop_id": {
+            "type": "string",
+            "title": "Hub Stop Id",
+            "default": "S03"
+          },
+          "min_transfer_min": {
+            "type": "integer",
+            "title": "Min Transfer Min",
+            "default": 4
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "from_route",
+          "to_route"
+        ],
+        "title": "Transfer"
+      },
+      "Trip": {
+        "properties": {
+          "trip_id": {
+            "type": "string",
+            "title": "Trip Id",
+            "description": "Unique trip ID"
+          },
+          "route_id": {
+            "type": "string",
+            "title": "Route Id",
+            "description": "Route ID served by trip"
+          },
+          "direction": {
+            "type": "integer",
+            "title": "Direction",
+            "description": "Direction (0=forward/loop, 1=return)",
+            "default": 0
+          },
+          "vehicle_id": {
+            "type": "string",
+            "title": "Vehicle Id",
+            "description": "Assigned vehicle ID"
+          },
+          "departure_min": {
+            "type": "integer",
+            "title": "Departure Min",
+            "description": "Trip departure time in minutes from midnight"
+          },
+          "scheduled_stop_times": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Scheduled Stop Times",
+            "description": "Mapping of stop_id -> scheduled arrival minute"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "trip_id",
+          "route_id",
+          "vehicle_id",
+          "departure_min",
+          "scheduled_stop_times"
+        ],
+        "title": "Trip"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "Vehicle": {
+        "properties": {
+          "vehicle_id": {
+            "type": "string",
+            "title": "Vehicle Id",
+            "description": "Unique vehicle ID, e.g. B1, M1"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "bus",
+              "minibus"
+            ],
+            "title": "Type",
+            "description": "Vehicle class"
+          },
+          "capacity": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Capacity",
+            "description": "Rated total capacity (seated + standing)"
+          },
+          "seated": {
+            "type": "integer",
+            "exclusiveMinimum": 0.0,
+            "title": "Seated",
+            "description": "Number of seated places"
+          },
+          "accessible": {
+            "type": "boolean",
+            "title": "Accessible",
+            "description": "Equipped with wheelchair ramp / accessible",
+            "default": false
+          },
+          "depot_stop": {
+            "type": "string",
+            "title": "Depot Stop",
+            "description": "Depot stop ID",
+            "default": "S01"
+          },
+          "available_from": {
+            "type": "integer",
+            "title": "Available From",
+            "description": "Minutes from midnight available (06:30 = 390)",
+            "default": 390
+          },
+          "available_to": {
+            "type": "integer",
+            "title": "Available To",
+            "description": "Minutes from midnight available (22:00 = 1320)",
+            "default": 1320
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "vehicle_id",
+          "type",
+          "capacity",
+          "seated"
+        ],
+        "title": "Vehicle"
+      },
+      "VehicleEtaResponse": {
+        "properties": {
+          "vehicle_id": {
+            "type": "string",
+            "title": "Vehicle Id"
+          },
+          "trip_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Trip Id"
+          },
+          "current_progress_m": {
+            "type": "number",
+            "title": "Current Progress M"
+          },
+          "speed_mps": {
+            "type": "number",
+            "title": "Speed Mps"
+          },
+          "downstream_stops": {
+            "items": {
+              "$ref": "#/components/schemas/EtaPrediction"
+            },
+            "type": "array",
+            "title": "Downstream Stops"
+          }
+        },
+        "type": "object",
+        "required": [
+          "vehicle_id",
+          "current_progress_m",
+          "speed_mps",
+          "downstream_stops"
+        ],
+        "title": "VehicleEtaResponse"
+      },
+      "Violation": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code",
+            "description": "Constraint code, e.g. H1..H12 or A1..A8"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "hard",
+              "soft"
+            ],
+            "title": "Severity"
+          },
+          "entity": {
+            "type": "string",
+            "title": "Entity",
+            "description": "Identifier of offending trip/vehicle/stop"
+          },
+          "time": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Time",
+            "description": "Time in minutes from midnight"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail",
+            "description": "Detailed explanation of the violation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "severity",
+          "entity",
+          "detail"
+        ],
+        "title": "Violation"
+      },
+      "WhatIfRequest": {
+        "properties": {
+          "base_plan_id": {
+            "type": "string",
+            "title": "Base Plan Id"
+          },
+          "scenario_id": {
+            "type": "string",
+            "title": "Scenario Id"
+          },
+          "added_trips": {
+            "items": {
+              "$ref": "#/components/schemas/Trip"
+            },
+            "type": "array",
+            "title": "Added Trips"
+          },
+          "retimed_trips": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Retimed Trips",
+            "description": "trip_id -> departure_shift_min"
+          },
+          "vehicle_swaps": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Vehicle Swaps",
+            "description": "trip_id -> new_vehicle_id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "base_plan_id",
+          "scenario_id"
+        ],
+        "title": "WhatIfRequest"
+      },
+      "WhatIfResponse": {
+        "properties": {
+          "validated": {
+            "type": "boolean",
+            "title": "Validated"
+          },
+          "violations": {
+            "items": {
+              "$ref": "#/components/schemas/Violation"
+            },
+            "type": "array",
+            "title": "Violations"
+          },
+          "simulated_kpis": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Simulated Kpis"
+          },
+          "delta_vs_base": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Delta Vs Base"
+          }
+        },
+        "type": "object",
+        "required": [
+          "validated",
+          "violations",
+          "simulated_kpis",
+          "delta_vs_base"
+        ],
+        "title": "WhatIfResponse"
+      }
+    }
+  }
+}

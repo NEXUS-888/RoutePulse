@@ -1,0 +1,79 @@
+master_seed: 20261014
+service_hours:
+  start: "06:30"
+  end: "22:00"
+days:
+  total: 30
+  train: [1, 20]
+  validation: [21, 25]
+  test: [26, 30]
+windows:
+  W1: ["07:30", "10:30"]
+  W2: ["16:30", "19:30"]
+replications: 20
+gps:
+  ping_s: 10
+  noise_m: 8.0
+  outlier_rate: 0.02
+  dropout_rate: 0.03
+  outage_bursts_per_vehicle_day: 2
+traffic:
+  lognormal_sigma: 0.12
+  morning_mult: [1.25, 1.40]
+  evening_mult: [1.20, 1.35]
+dwell:
+  base_s: 5
+  min_s: 6
+  per_board_s: 1.4
+  per_alight_s: 0.8
+demand:
+  boardings_per_day: 6000
+  patience_min: 20
+  transfer_share: 0.25
+vehicles:
+  buses: 6
+  bus_capacity: 45
+  minibuses: 4
+  minibuses_capacity: 22
+  accessible: ["B1", "B2", "M1"]
+rules:
+  min_headway: 3
+  max_headway_peak: 12
+  max_headway_offpeak: 20
+  min_layover: 4
+  max_departure_shift: 5
+  max_continuous_drive_min: 210
+  min_break_min: 20
+  min_transfer_min: 4
+  accessible_min_per_route_hour: 1
+alerts:
+  soft_load: 0.85
+  hard_load: 1.00
+  bunching_low: 0.4
+  gap_high: 1.6
+eta:
+  geofence_m: 25
+  decay_gamma: 0.85
+  lookback_segments: 3
+  target_coverage: 0.80
+  stale_gps_s: 120
+demand_model:
+  slot_min: 15
+  nowcast_clip: [0.7, 1.8]
+  quantiles: [0.5, 0.8, 0.9]
+optimizer:
+  time_limit_s: 10
+  workers: 8
+  weights:
+    unmet: 10
+    connection: 6
+    wait: 1
+    vehicle_km: 0.3
+    deviation: 0.5
+    change: 1.5
+  candidate_shift_range: [-5, 5]
+  candidate_extra_trip_step_min: 2
+  rolling:
+    replan_every_min: 5
+    horizon_min: 60
+    freeze_min: 10

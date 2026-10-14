@@ -1,0 +1,470 @@
+{
+  "stops": [
+    {
+      "stop_id": "S01",
+      "name": "Main Gate",
+      "x": 0.0,
+      "y": 0.0,
+      "lat": 12.9716,
+      "lon": 77.5946,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S02",
+      "name": "Admin Block",
+      "x": 350.0,
+      "y": 150.0,
+      "lat": 12.972947,
+      "lon": 77.597826,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S03",
+      "name": "Central Hub",
+      "x": 600.0,
+      "y": 400.0,
+      "lat": 12.975193,
+      "lon": 77.600131,
+      "is_hub": true,
+      "accessible": true,
+      "capacity_waiting": 100
+    },
+    {
+      "stop_id": "S04",
+      "name": "Library",
+      "x": 850.0,
+      "y": 450.0,
+      "lat": 12.975642,
+      "lon": 77.602436,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S05",
+      "name": "Engineering",
+      "x": 1100.0,
+      "y": 600.0,
+      "lat": 12.97699,
+      "lon": 77.60474,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S06",
+      "name": "Science",
+      "x": 1000.0,
+      "y": 900.0,
+      "lat": 12.979685,
+      "lon": 77.603818,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S07",
+      "name": "Auditorium",
+      "x": 550.0,
+      "y": 850.0,
+      "lat": 12.979236,
+      "lon": 77.59967,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S08",
+      "name": "Hostel A",
+      "x": 400.0,
+      "y": 1200.0,
+      "lat": 12.98238,
+      "lon": 77.598287,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S09",
+      "name": "Hostel B",
+      "x": 650.0,
+      "y": 1300.0,
+      "lat": 12.983278,
+      "lon": 77.600592,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S10",
+      "name": "Food Court",
+      "x": 500.0,
+      "y": 700.0,
+      "lat": 12.977888,
+      "lon": 77.599209,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S11",
+      "name": "Sports Complex",
+      "x": 1400.0,
+      "y": 300.0,
+      "lat": 12.974295,
+      "lon": 77.607506,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S12",
+      "name": "Research Park",
+      "x": 1200.0,
+      "y": 200.0,
+      "lat": 12.973397,
+      "lon": 77.605662,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S13",
+      "name": "Metro Station",
+      "x": -1500.0,
+      "y": -600.0,
+      "lat": 12.96621,
+      "lon": 77.580772,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    },
+    {
+      "stop_id": "S14",
+      "name": "Medical Centre",
+      "x": 800.0,
+      "y": 250.0,
+      "lat": 12.973846,
+      "lon": 77.601975,
+      "is_hub": false,
+      "accessible": true,
+      "capacity_waiting": 40
+    }
+  ],
+  "routes": [
+    {
+      "route_id": "R1",
+      "name": "Main Loop",
+      "type": "loop",
+      "stop_sequence": [
+        "S01",
+        "S02",
+        "S03",
+        "S04",
+        "S05",
+        "S06",
+        "S07",
+        "S01"
+      ],
+      "polyline": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          350.0,
+          150.0
+        ],
+        [
+          600.0,
+          400.0
+        ],
+        [
+          850.0,
+          450.0
+        ],
+        [
+          1100.0,
+          600.0
+        ],
+        [
+          1000.0,
+          900.0
+        ],
+        [
+          550.0,
+          850.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "segment_lengths_m": [
+        380.8,
+        353.6,
+        255.0,
+        291.5,
+        316.2,
+        452.8,
+        1012.4
+      ],
+      "free_flow_speed_mps": 8.0
+    },
+    {
+      "route_id": "R2",
+      "name": "Hostel Express",
+      "type": "loop",
+      "stop_sequence": [
+        "S03",
+        "S10",
+        "S08",
+        "S09",
+        "S03"
+      ],
+      "polyline": [
+        [
+          600.0,
+          400.0
+        ],
+        [
+          500.0,
+          700.0
+        ],
+        [
+          400.0,
+          1200.0
+        ],
+        [
+          650.0,
+          1300.0
+        ],
+        [
+          600.0,
+          400.0
+        ]
+      ],
+      "segment_lengths_m": [
+        316.2,
+        509.9,
+        269.3,
+        901.4
+      ],
+      "free_flow_speed_mps": 8.0
+    },
+    {
+      "route_id": "R3",
+      "name": "Metro Connector",
+      "type": "linear",
+      "stop_sequence": [
+        "S13",
+        "S01",
+        "S02",
+        "S03"
+      ],
+      "polyline": [
+        [
+          -1500.0,
+          -600.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          350.0,
+          150.0
+        ],
+        [
+          600.0,
+          400.0
+        ]
+      ],
+      "segment_lengths_m": [
+        1615.5,
+        380.8,
+        353.6
+      ],
+      "free_flow_speed_mps": 8.0
+    },
+    {
+      "route_id": "R4",
+      "name": "Research/Sports Shuttle",
+      "type": "linear",
+      "stop_sequence": [
+        "S03",
+        "S14",
+        "S12",
+        "S11"
+      ],
+      "polyline": [
+        [
+          600.0,
+          400.0
+        ],
+        [
+          800.0,
+          250.0
+        ],
+        [
+          1200.0,
+          200.0
+        ],
+        [
+          1400.0,
+          300.0
+        ]
+      ],
+      "segment_lengths_m": [
+        250.0,
+        403.1,
+        223.6
+      ],
+      "free_flow_speed_mps": 8.0
+    }
+  ],
+  "vehicles": [
+    {
+      "vehicle_id": "B1",
+      "type": "bus",
+      "capacity": 45,
+      "seated": 30,
+      "accessible": true,
+      "depot_stop": "S01",
+      "available_from": 390,
+      "available_to": 1320
+    },
+    {
+      "vehicle_id": "B2",
+      "type": "bus",
+      "capacity": 45,
+      "seated": 30,
+      "accessible": true,
+      "depot_stop": "S01",
+      "available_from": 390,
+      "available_to": 1320
+    },
+    {
+      "vehicle_id": "B3",
+      "type": "bus",
+      "capacity": 45,
+      "seated": 30,
+      "accessible": false,
+      "depot_stop": "S01",
+      "available_from": 390,
+      "available_to": 1320
+    },
+    {
+      "vehicle_id": "B4",
+      "type": "bus",
+      "capacity": 45,
+      "seated": 30,
+      "accessible": false,
+      "depot_stop": "S01",
+      "available_from": 390,
+      "available_to": 1320
+    },
+    {
+      "vehicle_id": "B5",
+      "type": "bus",
+      "capacity": 45,
+      "seated": 30,
+      "accessible": false,
+      "depot_stop": "S01",
+      "available_from": 390,
+      "available_to": 1320
+    },
+    {
+      "vehicle_id": "B6",
+      "type": "bus",
+      "capacity": 45,
+      "seated": 30,
+      "accessible": false,
+      "depot_stop": "S01",
+      "available_from": 390,
+      "available_to": 1320
+    },
+    {
+      "vehicle_id": "M1",
+      "type": "minibus",
+      "capacity": 22,
+      "seated": 16,
+      "accessible": true,
+      "depot_stop": "S01",
+      "available_from": 390,
+      "available_to": 1320
+    },
+    {
+      "vehicle_id": "M2",
+      "type": "minibus",
+      "capacity": 22,
+      "seated": 16,
+      "accessible": false,
+      "depot_stop": "S01",
+      "available_from": 390,
+      "available_to": 1320
+    },
+    {
+      "vehicle_id": "M3",
+      "type": "minibus",
+      "capacity": 22,
+      "seated": 16,
+      "accessible": false,
+      "depot_stop": "S01",
+      "available_from": 390,
+      "available_to": 1320
+    },
+    {
+      "vehicle_id": "M4",
+      "type": "minibus",
+      "capacity": 22,
+      "seated": 16,
+      "accessible": false,
+      "depot_stop": "S01",
+      "available_from": 390,
+      "available_to": 1320
+    }
+  ],
+  "transfers": [
+    {
+      "from_route": "R1",
+      "to_route": "R2",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    },
+    {
+      "from_route": "R2",
+      "to_route": "R1",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    },
+    {
+      "from_route": "R3",
+      "to_route": "R1",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    },
+    {
+      "from_route": "R1",
+      "to_route": "R3",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    },
+    {
+      "from_route": "R3",
+      "to_route": "R2",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    },
+    {
+      "from_route": "R4",
+      "to_route": "R1",
+      "hub_stop_id": "S03",
+      "min_transfer_min": 4
+    }
+  ]
+}

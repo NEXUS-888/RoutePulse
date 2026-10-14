@@ -1,0 +1,82 @@
+version: "1.0.0"
+master_seed: 20261014
+splits:
+  train: [1, 20]
+  validation: [21, 25]
+  test: [26, 30]
+windows:
+  W1: ["07:30", "10:30"]
+  W2: ["16:30", "19:30"]
+replications: 20
+scenarios:
+  - id: S0
+    name: "Normal operation"
+    days: [26, 27, 28, 29, 30]
+    description: "Standard daily passenger and traffic flow without external shocks."
+  - id: S1
+    name: "Traffic delay"
+    days: [27]
+    window: "W1"
+    time_range: ["08:00", "09:30"]
+    description: "1.35x travel time multiplier along Metro connector and Main Gate corridors."
+    multiplier: 1.35
+  - id: S2
+    name: "Vehicle breakdown"
+    days: [28]
+    window: "W1"
+    start_min: 495
+    vehicle_id: "B2"
+    description: "Bus B2 experiences mechanical failure from 08:15 until end of morning peak."
+  - id: S3
+    name: "Demand surge"
+    days: [29]
+    window: "W2"
+    time_range: ["17:30", "17:55"]
+    stop_id: "S07"
+    surge_pax: 1000
+    description: "Major auditorium event concludes at 17:30, causing 1,000 passenger surge at S07."
+systems:
+  - id: "baseline-0"
+    name: "Baseline-0 (Static Timetable)"
+    eta_method: "timetable"
+  - id: "baseline-1"
+    name: "Baseline-1 (Reactive Reserve Dispatch)"
+    eta_method: "last_delay_carry_forward"
+  - id: "routepulse"
+    name: "RoutePulse (Optimized + Conformal ETA)"
+    eta_method: "routepulse_conformal"
+kpis:
+  primary:
+    - code: P1
+      name: "mean_passenger_wait_min"
+      unit: "min"
+    - code: P2
+      name: "left_behind_unmet_demand_pax"
+      unit: "pax"
+    - code: P3
+      name: "missed_connections_count"
+      unit: "count"
+  secondary:
+    - code: P4
+      name: "overcrowded_trips_count"
+      unit: "count"
+    - code: P5
+      name: "p95_wait_min"
+      unit: "min"
+    - code: P6
+      name: "fleet_utilization_ratio"
+      unit: "ratio"
+    - code: P7
+      name: "eta_mae_min"
+      unit: "min"
+    - code: P8
+      name: "hard_constraint_violations"
+      unit: "count"
+      gate: 0
+objective_weights:
+  unmet: 10.0
+  connection: 6.0
+  wait: 1.0
+  vehicle_km: 0.3
+  deviation: 0.5
+  change: 1.5
