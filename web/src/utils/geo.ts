@@ -1,13 +1,14 @@
 // Coordinate projection & path interpolation for RoutePulse Campus SVG Map
+// Strictly aligned with docs/ROUTEPULSE_UI_UX_SPEC.md
 
 const MAP_BOUNDS = {
   minX: -1650,
   maxX: 1550,
   minY: -750,
   maxY: 1450,
-  viewWidth: 960,
-  viewHeight: 600,
-  padding: 40
+  viewWidth: 1000,
+  viewHeight: 640,
+  padding: 44
 };
 
 export function projectToSvg(x: number, y: number): { x: number; y: number } {
@@ -34,46 +35,63 @@ export function formatMinutesDelta(delta: number): string {
   return `${delta.toFixed(1)}m`;
 }
 
-export function getLoadColor(loadPct: number): { ring: string; bg: string; text: string; badge: string } {
-  if (loadPct < 70) {
+// Strict Load Semantics from UI/UX Spec:
+// Teal = comfortable (< 85%)
+// Amber = 85% load or more (85% to 100%)
+// Coral = over 100% / passengers left behind (> 100%)
+export function getLoadColor(loadPct: number): {
+  ring: string;
+  bg: string;
+  border: string;
+  text: string;
+  badge: string;
+  status: 'comfortable' | 'crowded' | 'overcrowded';
+} {
+  if (loadPct < 85) {
     return {
-      ring: '#10B981', // green
-      bg: 'rgba(16, 185, 129, 0.15)',
-      text: '#10B981',
-      badge: 'Normal (<70%)'
+      ring: 'var(--load-teal, #10B981)',
+      bg: 'var(--load-teal-bg, rgba(16, 185, 129, 0.16))',
+      border: 'var(--load-teal-border, rgba(16, 185, 129, 0.35))',
+      text: 'var(--load-teal, #10B981)',
+      badge: 'Seats Available (<85%)',
+      status: 'comfortable'
     };
   }
-  if (loadPct <= 85) {
+  if (loadPct <= 100) {
     return {
-      ring: '#F59E0B', // amber
-      bg: 'rgba(245, 158, 11, 0.15)',
-      text: '#F59E0B',
-      badge: 'Moderate (70-85%)'
+      ring: 'var(--load-amber, #F59E0B)',
+      bg: 'var(--load-amber-bg, rgba(245, 158, 11, 0.16))',
+      border: 'var(--load-amber-border, rgba(245, 158, 11, 0.35))',
+      text: 'var(--load-amber, #F59E0B)',
+      badge: 'High Load (85–100%)',
+      status: 'crowded'
     };
   }
   return {
-    ring: '#EF4444', // red
-    bg: 'rgba(239, 68, 68, 0.2)',
-    text: '#EF4444',
-    badge: 'Critical (>85%)'
+    ring: 'var(--load-coral, #EF4444)',
+    bg: 'var(--load-coral-bg, rgba(239, 68, 68, 0.2))',
+    border: 'var(--load-coral-border, rgba(239, 68, 68, 0.45))',
+    text: 'var(--load-coral, #EF4444)',
+    badge: 'OVERLOADED (>100% / Left Behind)',
+    status: 'overcrowded'
   };
 }
 
+// Colour-Blind-Safe Route Palette
 export const ROUTE_COLORS: Record<string, { stroke: string; lightBg: string; name: string }> = {
-  R1: { stroke: '#3B82F6', lightBg: 'rgba(59, 130, 246, 0.12)', name: 'Main Loop' },
-  R2: { stroke: '#8B5CF6', lightBg: 'rgba(139, 92, 246, 0.12)', name: 'Hostel Express' },
-  R3: { stroke: '#10B981', lightBg: 'rgba(16, 185, 129, 0.12)', name: 'Metro Connector' },
-  R4: { stroke: '#F59E0B', lightBg: 'rgba(245, 158, 11, 0.12)', name: 'Sports Shuttle' }
+  R1: { stroke: 'var(--route-r1, #3B82F6)', lightBg: 'var(--route-r1-bg, rgba(59, 130, 246, 0.15))', name: 'Main Loop' },
+  R2: { stroke: 'var(--route-r2, #10B981)', lightBg: 'var(--route-r2-bg, rgba(16, 185, 129, 0.15))', name: 'Hostel Express' },
+  R3: { stroke: 'var(--route-r3, #8B5CF6)', lightBg: 'var(--route-r3-bg, rgba(139, 92, 246, 0.15))', name: 'Metro Connector' },
+  R4: { stroke: 'var(--route-r4, #F59E0B)', lightBg: 'var(--route-r4-bg, rgba(245, 158, 11, 0.15))', name: 'Research & Sports' }
 };
 
-// Interpolate vehicle position along a polyline given a progress fraction [0, 1]
+// Interpolate vehicle position along a geographic polyline given a progress fraction [0, 1]
 export function interpolatePolyline(polyline: [number, number][], progress: number): { x: number; y: number; angle: number } {
   if (polyline.length === 0) return { x: 0, y: 0, angle: 0 };
   if (polyline.length === 1) return { x: polyline[0][0], y: polyline[0][1], angle: 0 };
 
   const clampedProgress = Math.max(0, Math.min(1, progress));
 
-  // Compute lengths between segments
   const segLengths: number[] = [];
   let totalLength = 0;
   for (let i = 0; i < polyline.length - 1; i++) {

@@ -7,10 +7,15 @@ import type {
   ScenarioId,
   Vehicle,
   Stop,
-  Route
+  Route,
+  NetworkHealthInfo,
+  SelectedEntity,
+  SelectedEntityType,
+  UserRole
 } from '../types';
 import { api } from '../api/client';
 import { interpolatePolyline, projectToSvg } from '../utils/geo';
+import { getSchematicPointAtProgress, SCHEMATIC_STOPS } from '../map/schematic';
 
 export interface ActiveVehicleState {
   vehicle_id: string;
@@ -25,10 +30,25 @@ export interface ActiveVehicleState {
   y: number;
   svgX: number;
   svgY: number;
+  schematicX: number;
+  schematicY: number;
   angle: number;
   status: 'running' | 'idle' | 'breakdown' | 'delayed';
   nextStop: string;
   tripId: string;
+}
+
+export interface MapLayersState {
+  routes: boolean;
+  stops: boolean;
+  vehicles: boolean;
+  loadRings: boolean;
+  demandGlow: boolean;
+  alerts: boolean;
+  transfers: boolean;
+  accessibility: boolean;
+  disruptions: boolean;
+  planComparison: boolean;
 }
 
 interface SimulationContextValue {
@@ -58,13 +78,48 @@ interface SimulationContextValue {
   activeDisruptionAlert: string | null;
   triggerScenario: (s: ScenarioId) => Promise<void>;
   resetToBaseline: () => void;
+
+  // New spec features
+  networkHealth: NetworkHealthInfo;
+  networkStress: number;
+  avgLoadPct: number;
+  mapViewMode: 'schematic' | 'geographic';
+  setMapViewMode: (mode: 'schematic' | 'geographic') => void;
+  toggleMapViewMode: () => void;
+  selectedEntity: SelectedEntity | null;
+  setSelectedEntity: (entity: SelectedEntity | null) => void;
+  closeInspectorDrawer: () => void;
+  mapLayers: MapLayersState;
+  toggleLayer: (layer: keyof MapLayersState) => void;
+
+  // Onboarding, Tour & Showcase
+  userRole: UserRole;
+  setUserRole: (role: UserRole) => void;
+  isWelcomeOpen: boolean;
+  setIsWelcomeOpen: (open: boolean) => void;
+  isTourActive: boolean;
+  tourStep: number;
+  startTour: () => void;
+  nextTourStep: () => void;
+  prevTourStep: () => void;
+  skipTour: () => void;
+  isAutoDemoActive: boolean;
+  autoDemoCaption: string;
+  startAutoDemo: () => void;
+  stopAutoDemo: () => void;
+  isHelpOpen: boolean;
+  setIsHelpOpen: (open: boolean) => void;
+  toggleHelp: () => void;
+  isCommandPaletteOpen: boolean;
+  setIsCommandPaletteOpen: (open: boolean) => void;
+  toggleCommandPalette: () => void;
 }
 
 const SimulationContext = createContext<SimulationContextValue | null>(null);
 
 export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Morning peak: 07:30 (450 min) to 10:30 (630 min)
-  const [simTimeMin, setSimTimeMin] = useState<number>(470); // Default around 07:50
+  const [simTimeMin, setSimTimeMin] = useState<number>(470); // Default 07:50
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const [speed, setSpeed] = useState<1 | 10 | 30>(10);
   const [scenario, setScenario] = useState<ScenarioId>('S0');
@@ -84,6 +139,34 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const [appliedRecIds, setAppliedRecIds] = useState<Set<string>>(new Set());
   const [isLiveApi, setIsLiveApi] = useState<boolean>(false);
   const [activeDisruptionAlert, setActiveDisruptionAlert] = useState<string | null>(null);
+
+  // Inspector & Map View States
+  const [mapViewMode, setMapViewMode] = useState<'schematic' | 'geographic'>('schematic');
+  const [selectedEntity, setSelectedEntity] = useState<SelectedEntity | null>(null);
+  const [mapLayers, setMapLayers] = useState<MapLayersState>({
+    routes: true,
+    stops: true,
+    vehicles: true,
+    loadRings: true,
+    demandGlow: true,
+    alerts: true,
+    transfers: true,
+    accessibility: false,
+    disruptions: true,
+    planComparison: false
+  });
+
+  // Onboarding & Help
+  const [userRole, setUserRole] = useState<UserRole>('operator');
+  const [isWelcomeOpen, setIsWelcomeOpen] = useState<boolean>(() => {
+    return !localStorage.getItem('rp_onboarded_v1');
+  });
+  const [isTourActive, setIsTourActive] = useState<boolean>(false);
+  const [tourStep, setTourStep] = useState<number>(0);
+  const [isAutoDemoActive, setIsAutoDemoActive] = useState<boolean>(false);
+  const [autoDemoCaption, setAutoDemoCaption] = useState<string>('');
+  const [isHelpOpen, setIsHelpOpen] = useState<boolean>(false);
+  const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState<boolean>(false);
 
   // Load initial dataset
   useEffect(() => {
@@ -118,13 +201,31 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     setIsPlaying(prev => !prev);
   }, []);
 
+  const toggleMapViewMode = useCallback(() => {
+    setMapViewMode(prev => (prev === 'schematic' ? 'geographic' : 'schematic'));
+  }, []);
+
+  const closeInspectorDrawer = useCallback(() => {
+    setSelectedEntity(null);
+  }, []);
+
+  const toggleLayer = useCallback((layer: keyof MapLayersState) => {
+    setMapLayers(prev => ({ ...prev, [layer]: !prev[layer] }));
+  }, []);
+
+  const toggleHelp = useCallback(() => {
+    setIsHelpOpen(prev => !prev);
+  }, []);
+
+  const toggleCommandPalette = useCallback(() => {
+    setIsCommandPaletteOpen(prev => !prev);
+  }, []);
+
   // Clock progression
   useEffect(() => {
     if (!isPlaying) return;
 
     const intervalMs = 100;
-    // Advance time: 1 min per 60000ms / speed. At 100ms tick:
-    // advance = (intervalMs / 1000) * (speed / 60)
     const stepMin = (0.1 * speed) / 6;
 
     const timer = setInterval(() => {
@@ -147,14 +248,6 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     const list: ActiveVehicleState[] = [];
 
-    // Base assignments
-    // B1 on R1 (cycle 14 min)
-    // B2 on R2 (cycle 10 min)
-    // B3 on R3 (cycle 12 min)
-    // B4 on R4 (cycle 8 min)
-    // M1 on R2 (cycle 10 min, offset 5 min)
-    // M2 on R1 (cycle 14 min, offset 7 min)
-
     interface VehConfig {
       id: string;
       routeId: string;
@@ -167,10 +260,10 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const configs: VehConfig[] = [
       { id: 'B1', routeId: 'R1', cycleMin: 14, offsetMin: 0, baseLoad: 32, surgeFactor: 0.8 },
       { id: 'B2', routeId: 'R2', cycleMin: 10, offsetMin: 2, baseLoad: 24, surgeFactor: 1.1 },
-      { id: 'B3', routeId: 'R3', cycleMin: 12, offsetMin: 1, baseLoad: 41, surgeFactor: 1.4 },
+      { id: 'B3', routeId: 'R3', cycleMin: 12, offsetMin: 1, baseLoad: 42, surgeFactor: 1.4 },
       { id: 'B4', routeId: 'R4', cycleMin: 8, offsetMin: 0, baseLoad: 16, surgeFactor: 0.6 },
       { id: 'M1', routeId: 'R2', cycleMin: 10, offsetMin: 7, baseLoad: 17, surgeFactor: 1.0 },
-      { id: 'M2', routeId: 'R1', cycleMin: 14, offsetMin: 7, baseLoad: 18, surgeFactor: 0.9 },
+      { id: 'M2', routeId: 'R1', cycleMin: 14, offsetMin: 7, baseLoad: 18, surgeFactor: 0.9 }
     ];
 
     // If rec-0007 (ADD_TRIP with B5) is accepted, add B5 on R3
@@ -206,7 +299,6 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       if (!route || !vehicle) return;
 
       let capacity = vehicle.capacity;
-      // If rec-0009 swapped B4 with M3
       if (appliedRecIds.has('rec-0009') && cfg.id === 'B4') {
         capacity = 22;
       }
@@ -215,21 +307,23 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       const isBreakdown = scenario === 'S2' && cfg.id === 'B3' && simTimeMin >= 485;
       const isTrafficDelayed = scenario === 'S1' && cfg.routeId === 'R3';
 
-      // Cycle calculation
       let cycle = cfg.cycleMin;
-      if (isTrafficDelayed) cycle += 4; // slower in traffic
+      if (isTrafficDelayed) cycle += 4;
 
       const progressRaw = ((simTimeMin - cfg.offsetMin) % cycle) / cycle;
       const progress = progressRaw < 0 ? progressRaw + 1 : progressRaw;
 
-      // Polyline interpolation
+      // Polyline interpolation (geographic)
       let coords = interpolatePolyline(route.polyline, progress);
+      // Schematic interpolation
+      let schematicPos = getSchematicPointAtProgress(cfg.routeId, progress);
+
       let status: 'running' | 'idle' | 'breakdown' | 'delayed' = 'running';
 
       if (isBreakdown) {
         status = 'breakdown';
-        // Freeze position around S02
         coords = { x: 350, y: 150, angle: 45 };
+        schematicPos = { x: 360, y: 390 }; // Frozen near Admin Block
       } else if (isTrafficDelayed) {
         status = 'delayed';
       }
@@ -238,12 +332,10 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       const peakWeight = Math.sin(((simTimeMin - 450) / 180) * Math.PI);
       let calculatedLoad = Math.round(cfg.baseLoad + peakWeight * 14 * cfg.surgeFactor);
 
-      // In S3 (auditorium surge), routes connecting to S07 get extra load
       if (scenario === 'S3' && (cfg.routeId === 'R1' || cfg.routeId === 'R2')) {
         calculatedLoad += 9;
       }
 
-      // If rec-0007 applied, B3 load is reduced due to B5 sharing load!
       if (appliedRecIds.has('rec-0007') && cfg.id === 'B3') {
         calculatedLoad = Math.round(calculatedLoad * 0.72);
       }
@@ -251,13 +343,11 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       calculatedLoad = Math.max(4, Math.min(Math.round(capacity * 1.3), calculatedLoad));
       const loadPct = Math.round((calculatedLoad / capacity) * 100);
 
-      // Determine approximate next stop
       const stopIndex = Math.min(
         route.stop_sequence.length - 1,
         Math.floor(progress * route.stop_sequence.length)
       );
       const nextStop = route.stop_sequence[stopIndex] || route.stop_sequence[0];
-
       const svgPos = projectToSvg(coords.x, coords.y);
 
       list.push({
@@ -268,11 +358,13 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         seated: vehicle.seated,
         load: calculatedLoad,
         loadPct,
-        speed_mps: isBreakdown ? 0 : (isTrafficDelayed ? 4.2 : route.free_flow_speed_mps),
+        speed_mps: isBreakdown ? 0 : isTrafficDelayed ? 4.2 : route.free_flow_speed_mps,
         x: coords.x,
         y: coords.y,
         svgX: svgPos.x,
         svgY: svgPos.y,
+        schematicX: schematicPos.x,
+        schematicY: schematicPos.y,
         angle: coords.angle,
         status,
         nextStop,
@@ -282,6 +374,72 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
     return list;
   }, [network, simTimeMin, scenario, appliedRecIds]);
+
+  // Network Health Score (Exact UI Spec Section 1.7 Formula)
+  const networkHealth = useMemo<NetworkHealthInfo>(() => {
+    if (activeVehicles.length === 0) {
+      return {
+        score: 100,
+        band: 'teal',
+        overCapacityShare: 0,
+        leftBehindShare: 0,
+        missedConnectionShare: 0,
+        delayedTripsShare: 0
+      };
+    }
+
+    // 1. Share of trips over capacity (>100%)
+    const overCapacityCount = activeVehicles.filter(v => v.loadPct > 100).length;
+    const overCapacityShare = overCapacityCount / activeVehicles.length;
+
+    // 2. Share of passengers left behind
+    const hasCapacityAlert = alerts.some(a => a.code === 'A2');
+    let leftBehindShare = 0;
+    if (hasCapacityAlert) {
+      leftBehindShare = appliedRecIds.has('rec-0007') ? 0.04 : 0.42;
+    }
+
+    // 3. Share of transferring passengers who missed their connection
+    const hasMissedConnAlert = alerts.some(a => a.code === 'A4');
+    let missedConnectionShare = 0;
+    if (hasMissedConnAlert) {
+      missedConnectionShare = appliedRecIds.has('rec-0007') ? 0.02 : 0.32;
+    }
+
+    // 4. Share of trips delayed by more than 3 minutes
+    const delayedCount = activeVehicles.filter(v => v.status === 'delayed' || v.status === 'breakdown').length;
+    const delayedTripsShare = delayedCount / activeVehicles.length;
+
+    const penalty =
+      40 * overCapacityShare +
+      30 * leftBehindShare +
+      20 * missedConnectionShare +
+      10 * delayedTripsShare;
+
+    const score = Math.max(0, Math.min(100, Math.round(100 - penalty)));
+
+    let band: 'teal' | 'amber' | 'coral' = 'teal';
+    if (score < 60) band = 'coral';
+    else if (score < 80) band = 'amber';
+
+    return {
+      score,
+      band,
+      overCapacityShare: Math.round(overCapacityShare * 100) / 100,
+      leftBehindShare: Math.round(leftBehindShare * 100) / 100,
+      missedConnectionShare: Math.round(missedConnectionShare * 100) / 100,
+      delayedTripsShare: Math.round(delayedTripsShare * 100) / 100
+    };
+  }, [activeVehicles, alerts, appliedRecIds]);
+
+  // Average load & network stress for the Pulse Line
+  const { avgLoadPct, networkStress } = useMemo(() => {
+    if (activeVehicles.length === 0) return { avgLoadPct: 50, networkStress: 0.2 };
+    const totalLoad = activeVehicles.reduce((acc, v) => acc + v.loadPct, 0);
+    const avg = Math.round(totalLoad / activeVehicles.length);
+    const stress = Math.min(1.0, Math.max(0.1, (100 - networkHealth.score) / 100 + avg / 200));
+    return { avgLoadPct: avg, networkStress: stress };
+  }, [activeVehicles, networkHealth]);
 
   const acceptRecommendation = useCallback(async (id: string) => {
     const res = await api.applyRecommendation(id);
@@ -317,6 +475,69 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     setSimTimeMin(470);
   }, []);
 
+  // Tour Controls
+  const startTour = useCallback(() => {
+    setIsWelcomeOpen(false);
+    setIsTourActive(true);
+    setTourStep(0);
+    setActiveScreen('map');
+  }, []);
+
+  const nextTourStep = useCallback(() => {
+    setTourStep(prev => {
+      const next = prev + 1;
+      if (next > 10) {
+        setIsTourActive(false);
+        localStorage.setItem('rp_onboarded_v1', 'true');
+        return 0;
+      }
+      return next;
+    });
+  }, []);
+
+  const prevTourStep = useCallback(() => {
+    setTourStep(prev => Math.max(0, prev - 1));
+  }, []);
+
+  const skipTour = useCallback(() => {
+    setIsTourActive(false);
+    localStorage.setItem('rp_onboarded_v1', 'true');
+  }, []);
+
+  // Showcase Auto-Demo Controls
+  const startAutoDemo = useCallback(() => {
+    setIsWelcomeOpen(false);
+    setIsTourActive(false);
+    setIsAutoDemoActive(true);
+    setActiveScreen('map');
+    setScenario('S0');
+    setSimTimeMin(470);
+    setSpeed(10);
+  }, []);
+
+  const stopAutoDemo = useCallback(() => {
+    setIsAutoDemoActive(false);
+    setAutoDemoCaption('');
+  }, []);
+
+  // Keyboard Navigation: Esc closes modals & drawers, ? opens Help
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (selectedEntity) setSelectedEntity(null);
+        if (isHelpOpen) setIsHelpOpen(false);
+        if (isTourActive) skipTour();
+        if (isWelcomeOpen) setIsWelcomeOpen(false);
+        if (isAutoDemoActive) stopAutoDemo();
+      } else if (e.key === '?' && !e.ctrlKey && !e.metaKey && document.activeElement?.tagName !== 'INPUT') {
+        setIsHelpOpen(prev => !prev);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedEntity, isHelpOpen, isTourActive, isWelcomeOpen, isAutoDemoActive, skipTour, stopAutoDemo]);
+
   const value = useMemo(
     () => ({
       simTimeMin,
@@ -344,7 +565,42 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       isLiveApi,
       activeDisruptionAlert,
       triggerScenario,
-      resetToBaseline
+      resetToBaseline,
+
+      // New features
+      networkHealth,
+      networkStress,
+      avgLoadPct,
+      mapViewMode,
+      setMapViewMode,
+      toggleMapViewMode,
+      selectedEntity,
+      setSelectedEntity,
+      closeInspectorDrawer,
+      mapLayers,
+      toggleLayer,
+
+      // Onboarding & Help
+      userRole,
+      setUserRole,
+      isWelcomeOpen,
+      setIsWelcomeOpen,
+      isTourActive,
+      tourStep,
+      startTour,
+      nextTourStep,
+      prevTourStep,
+      skipTour,
+      isAutoDemoActive,
+      autoDemoCaption,
+      startAutoDemo,
+      stopAutoDemo,
+      isHelpOpen,
+      setIsHelpOpen,
+      toggleHelp,
+      isCommandPaletteOpen,
+      setIsCommandPaletteOpen,
+      toggleCommandPalette
     }),
     [
       simTimeMin,
@@ -367,7 +623,31 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       isLiveApi,
       activeDisruptionAlert,
       triggerScenario,
-      resetToBaseline
+      resetToBaseline,
+      networkHealth,
+      networkStress,
+      avgLoadPct,
+      mapViewMode,
+      selectedEntity,
+      closeInspectorDrawer,
+      mapLayers,
+      toggleLayer,
+      userRole,
+      isWelcomeOpen,
+      isTourActive,
+      tourStep,
+      startTour,
+      nextTourStep,
+      prevTourStep,
+      skipTour,
+      isAutoDemoActive,
+      autoDemoCaption,
+      startAutoDemo,
+      stopAutoDemo,
+      isHelpOpen,
+      toggleHelp,
+      isCommandPaletteOpen,
+      toggleCommandPalette
     ]
   );
 

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSimulation } from '../../context/SimulationContext';
 import { api } from '../../api/client';
 import type { EvalResultsResponse, ScenarioId } from '../../types';
+import { BeforeAfterSlider } from '../common/BeforeAfterSlider';
+import { GlossaryPopover } from '../common/GlossaryPopover';
 import {
   Layers,
   PlayCircle,
@@ -12,7 +14,8 @@ import {
   Clock,
   Users,
   GitBranch,
-  BarChart3
+  BarChart3,
+  Sliders
 } from 'lucide-react';
 
 export const Screen5Disruptions: React.FC = () => {
@@ -39,27 +42,27 @@ export const Screen5Disruptions: React.FC = () => {
   const scenarioMeta: Record<ScenarioId, { title: string; desc: string; icon: string; severity: string }> = {
     S0: {
       title: 'S0 Normal Peak',
-      desc: 'Standard morning peak passenger demand (07:30–10:30) with regular traffic.',
+      desc: 'Standard morning peak passenger demand (07:30–10:30) with commuter waves at Metro S13.',
       icon: '✓',
       severity: 'Normal Operations'
     },
     S1: {
       title: 'S1 Traffic Delay',
-      desc: 'Corridor congestion along Outer Ring & Metro connector road; R3 trips delayed +8 min.',
+      desc: 'Corridor slowdown along Metro connector road; R3 trips delayed by +8 min.',
       icon: '⏱',
-      severity: 'Corridor Slowdown'
+      severity: 'Corridor Delay'
     },
     S2: {
       title: 'S2 Vehicle Breakdown',
       desc: 'Mechanical failure of bus B3 at 08:05 midway through service near Admin Block.',
       icon: '⚠',
-      severity: 'Vehicle Out of Service'
+      severity: 'Bus Out of Service'
     },
     S3: {
       title: 'S3 Demand Surge',
-      desc: 'Major university symposium at S07 Auditorium with +120 arriving visitors at 08:15.',
+      desc: 'Major campus symposium at S07 Auditorium with +120 arriving attendees at 08:15.',
       icon: '⚡',
-      severity: 'Demand Surge Spike'
+      severity: 'Auditorium Surge'
     }
   };
 
@@ -72,25 +75,40 @@ export const Screen5Disruptions: React.FC = () => {
   }) || [];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-      {/* Top Banner & Scenario Injector Buttons */}
-      <div className="card" style={{ padding: '16px 20px' }}>
+    <div className="screen-scroll-container">
+      {/* Top Banner & Scenario Injector */}
+      <div className="screen-card" style={{ padding: '16px 20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14, marginBottom: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ padding: 10, borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--accent-amber-light)', color: 'var(--accent-amber)' }}>
-              <Layers size={24} />
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 'var(--radius-sm)',
+                background: 'var(--bg-surface-elevated)',
+                border: '1px solid var(--border-color)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--route-r1)'
+              }}
+            >
+              <Layers size={22} />
             </div>
             <div>
-              <h2 style={{ fontSize: '1.15rem', fontWeight: 700 }}>Scenario Comparison & Disruption Simulator</h2>
+              <h1 style={{ fontSize: '1.2rem', fontWeight: 700 }}>
+                Scenario Lab & Plan Evaluation
+              </h1>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                Stress test RoutePulse vs Baseline-0 (Fixed Timetable) and Baseline-1 (Reactive Rule) under real-world disruptions
+                Stress testing <GlossaryPopover termId="routepulsePlan">RoutePulse</GlossaryPopover> vs{' '}
+                <GlossaryPopover termId="baselinePlan">Baseline-0 (Fixed Timetable)</GlossaryPopover> under disruptions
               </p>
             </div>
           </div>
 
-          <div className="badge badge-success" style={{ gap: 4, padding: '6px 12px' }}>
+          <div className="validation-seal" style={{ padding: '6px 12px' }}>
             <ShieldCheck size={16} />
-            <span>Violations = 0 Gate Check Passed Across All Scenarios</span>
+            <span>Violations = 0 Gate Check Passed Across All 20 Seeds</span>
           </div>
         </div>
 
@@ -105,8 +123,8 @@ export const Screen5Disruptions: React.FC = () => {
                 key={s}
                 onClick={() => handleTriggerScenario(s)}
                 style={{
-                  backgroundColor: isActive ? 'var(--accent-blue-light)' : 'var(--bg-surface-elevated)',
-                  border: `2px solid ${isActive ? 'var(--accent-blue)' : 'var(--border-color)'}`,
+                  backgroundColor: isActive ? 'var(--route-r1-bg)' : 'var(--bg-surface-elevated)',
+                  border: `2px solid ${isActive ? 'var(--route-r1)' : 'var(--border-color)'}`,
                   borderRadius: 'var(--radius-md)',
                   padding: 14,
                   cursor: 'pointer',
@@ -115,7 +133,7 @@ export const Screen5Disruptions: React.FC = () => {
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <span style={{ fontWeight: 800, fontSize: '1rem', color: isActive ? 'var(--accent-blue)' : 'var(--text-primary)' }}>
+                  <span style={{ fontWeight: 800, fontSize: '0.95rem', color: isActive ? 'var(--route-r1)' : 'var(--text-primary)' }}>
                     {info.title}
                   </span>
                   <span style={{ fontSize: '1.1rem' }}>{info.icon}</span>
@@ -127,18 +145,20 @@ export const Screen5Disruptions: React.FC = () => {
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <span
-                    className="badge"
                     style={{
                       fontSize: '0.68rem',
-                      backgroundColor: s === 'S0' ? 'var(--accent-green-light)' : 'var(--accent-red-light)',
-                      color: s === 'S0' ? 'var(--accent-green)' : 'var(--accent-red)'
+                      fontWeight: 600,
+                      padding: '2px 6px',
+                      borderRadius: 'var(--radius-xs)',
+                      backgroundColor: s === 'S0' ? 'var(--load-teal-bg)' : 'var(--load-coral-bg)',
+                      color: s === 'S0' ? 'var(--load-teal)' : 'var(--load-coral)'
                     }}
                   >
                     {info.severity}
                   </span>
 
                   {isActive ? (
-                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--accent-blue)' }}>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--route-r1)' }}>
                       ● ACTIVE
                     </span>
                   ) : (
@@ -153,22 +173,54 @@ export const Screen5Disruptions: React.FC = () => {
         </div>
       </div>
 
-      {/* Disruption Event Timeline: Detection -> Recommendation -> Effect */}
-      <div className="card">
-        <div className="card-header">
-          <div className="card-title" style={{ fontSize: '0.95rem' }}>
-            <GitBranch size={18} style={{ color: 'var(--accent-blue)' }} />
-            <span>Autonomous Closed-Loop Response Timeline ({scenarioMeta[scenario].title})</span>
+      {/* Hero Interaction: Before / After Reveal Slider */}
+      <div className="screen-card">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Sliders size={18} style={{ color: 'var(--route-r1)' }} />
+            <h2 style={{ fontSize: '1.05rem', fontWeight: 700 }}>
+              Before / After Reveal Slider (Baseline Plan vs RoutePulse)
+            </h2>
           </div>
-          <span className="badge badge-info">Sense → Estimate → Detect → Decide → Verify</span>
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>
+            Drag handle horizontally to compare network crowding & KPIs
+          </span>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+        <BeforeAfterSlider />
+      </div>
+
+      {/* Disruption Event Timeline: Detection -> Recommendation -> Effect */}
+      <div className="screen-card">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <GitBranch size={18} style={{ color: 'var(--route-r1)' }} />
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>
+              Autonomous Closed-Loop Response Timeline ({scenarioMeta[scenario].title})
+            </h3>
+          </div>
+          <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>
+            Sense → Estimate → Detect → Decide → Verify
+          </span>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 14 }}>
           {/* Step 1: Detect */}
-          <div style={{ backgroundColor: 'var(--bg-surface-elevated)', padding: 14, borderRadius: 'var(--radius-sm)', borderLeft: '3px solid var(--accent-red)' }}>
+          <div style={{ backgroundColor: 'var(--bg-surface-elevated)', padding: 14, borderRadius: 'var(--radius-sm)', borderLeft: '3px solid var(--load-coral)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
-              <span className="badge badge-danger">1. SENSE & DETECT</span>
-              <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>t + 0s</span>
+              <span
+                style={{
+                  fontSize: '0.66rem',
+                  fontWeight: 700,
+                  padding: '2px 6px',
+                  borderRadius: 'var(--radius-xs)',
+                  background: 'var(--load-coral-bg)',
+                  color: 'var(--load-coral)'
+                }}
+              >
+                1. SENSE & DETECT
+              </span>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>t + 0s</span>
             </div>
             <div style={{ fontWeight: 700, fontSize: '0.85rem', marginBottom: 4 }}>
               {scenario === 'S1' ? 'Corridor Delay Detected' : (scenario === 'S2' ? 'B3 Mechanical Fault Reported' : (scenario === 'S3' ? 'Auditorium Surge Outflow' : 'Normal Fleet Monitoring'))}
@@ -177,18 +229,29 @@ export const Screen5Disruptions: React.FC = () => {
               {scenario === 'S1'
                 ? 'Conformal ETA engine projects R3 delay of +8.5 min. Alert A2 & A4 triggered.'
                 : (scenario === 'S2'
-                  ? 'Engine telemetry triggers Alert A8 (Vehicle Unavailable). Block T_R3_02 affected.'
+                  ? 'Engine telemetry triggers Alert A8 (Vehicle Unavailable). Trip T_R3_02 compromised.'
                   : (scenario === 'S3'
-                    ? 'Event calendar nowcast anticipates +120 arrivals at S07. Alert A1 & A3 triggered.'
+                    ? 'Demand nowcast records +120 arrivals at S07. Alert A1 & A3 triggered.'
                     : 'All pings matched, headway variances within allowable H7 tolerance.'))}
             </p>
           </div>
 
           {/* Step 2: Decide & Verify */}
-          <div style={{ backgroundColor: 'var(--bg-surface-elevated)', padding: 14, borderRadius: 'var(--radius-sm)', borderLeft: '3px solid var(--accent-amber)' }}>
+          <div style={{ backgroundColor: 'var(--bg-surface-elevated)', padding: 14, borderRadius: 'var(--radius-sm)', borderLeft: '3px solid var(--load-amber)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
-              <span className="badge badge-warning">2. DECIDE & VERIFY</span>
-              <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>t + 2.1s</span>
+              <span
+                style={{
+                  fontSize: '0.66rem',
+                  fontWeight: 700,
+                  padding: '2px 6px',
+                  borderRadius: 'var(--radius-xs)',
+                  background: 'var(--load-amber-bg)',
+                  color: 'var(--load-amber)'
+                }}
+              >
+                2. DECIDE & VERIFY
+              </span>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>t + 2.1s</span>
             </div>
             <div style={{ fontWeight: 700, fontSize: '0.85rem', marginBottom: 4 }}>
               CP-SAT Rolling Optimization
@@ -205,10 +268,21 @@ export const Screen5Disruptions: React.FC = () => {
           </div>
 
           {/* Step 3: Effect */}
-          <div style={{ backgroundColor: 'var(--bg-surface-elevated)', padding: 14, borderRadius: 'var(--radius-sm)', borderLeft: '3px solid var(--accent-green)' }}>
+          <div style={{ backgroundColor: 'var(--bg-surface-elevated)', padding: 14, borderRadius: 'var(--radius-sm)', borderLeft: '3px solid var(--load-teal)' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
-              <span className="badge badge-success">3. EFFECT & STABILIZATION</span>
-              <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>t + 5m</span>
+              <span
+                style={{
+                  fontSize: '0.66rem',
+                  fontWeight: 700,
+                  padding: '2px 6px',
+                  borderRadius: 'var(--radius-xs)',
+                  background: 'var(--load-teal-bg)',
+                  color: 'var(--load-teal)'
+                }}
+              >
+                3. EFFECT & STABILIZE
+              </span>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>t + 5m</span>
             </div>
             <div style={{ fontWeight: 700, fontSize: '0.85rem', marginBottom: 4 }}>
               Passenger Service Restored
@@ -227,23 +301,25 @@ export const Screen5Disruptions: React.FC = () => {
       </div>
 
       {/* Side-by-Side KPI Comparison Table */}
-      <div className="card">
-        <div className="card-header">
-          <div className="card-title">
-            <BarChart3 size={20} style={{ color: 'var(--accent-blue)' }} />
-            <span>Predeclared Evaluation Results: {scenarioMeta[activeTabScenario].title}</span>
+      <div className="screen-card">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <BarChart3 size={20} style={{ color: 'var(--route-r1)' }} />
+            <h3 style={{ fontSize: '1rem', fontWeight: 700 }}>
+              Evaluation Benchmarking: {scenarioMeta[activeTabScenario].title}
+            </h3>
           </div>
 
           <div style={{ display: 'flex', gap: 6 }}>
             {(['S0', 'S1', 'S2', 'S3'] as ScenarioId[]).map(s => (
               <button
                 key={s}
-                className={`btn btn-outline ${activeTabScenario === s ? 'active' : ''}`}
+                className="btn"
                 style={{
                   padding: '4px 10px',
-                  fontSize: '0.78rem',
-                  backgroundColor: activeTabScenario === s ? 'var(--accent-blue)' : undefined,
-                  color: activeTabScenario === s ? 'white' : undefined
+                  fontSize: '0.75rem',
+                  backgroundColor: activeTabScenario === s ? 'var(--route-r1)' : 'var(--bg-surface-elevated)',
+                  color: activeTabScenario === s ? '#FFFFFF' : 'var(--text-secondary)'
                 }}
                 onClick={() => setActiveTabScenario(s)}
               >
@@ -254,7 +330,7 @@ export const Screen5Disruptions: React.FC = () => {
         </div>
 
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.85rem' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.84rem' }}>
             <thead>
               <tr style={{ borderBottom: '2px solid var(--border-color)', textAlign: 'left', color: 'var(--text-tertiary)' }}>
                 <th style={{ padding: '10px 14px' }}>System Architecture</th>
@@ -274,49 +350,53 @@ export const Screen5Disruptions: React.FC = () => {
                     key={idx}
                     style={{
                       borderBottom: '1px solid var(--border-color)',
-                      backgroundColor: isRoutePulse ? 'rgba(37, 99, 235, 0.07)' : 'transparent',
+                      backgroundColor: isRoutePulse ? 'var(--route-r1-bg)' : 'transparent',
                       fontWeight: isRoutePulse ? 700 : 500
                     }}
                   >
                     <td style={{ padding: '12px 14px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        {isRoutePulse && <CheckCircle2 size={16} style={{ color: 'var(--accent-blue)' }} />}
-                        <span style={{ color: isRoutePulse ? 'var(--accent-blue)' : 'var(--text-primary)' }}>
+                        {isRoutePulse && <CheckCircle2 size={16} style={{ color: 'var(--route-r1)' }} />}
+                        <span style={{ color: isRoutePulse ? 'var(--route-r1)' : 'var(--text-primary)' }}>
                           {item.system}
                         </span>
                       </div>
                     </td>
 
-                    <td style={{ padding: '12px 14px' }} className="tabular-nums">
+                    <td style={{ padding: '12px 14px' }} className="tabular-nums font-mono">
                       {item.wait_min}
                     </td>
 
-                    <td style={{ padding: '12px 14px' }} className="tabular-nums">
+                    <td style={{ padding: '12px 14px' }} className="tabular-nums font-mono">
                       {item.left_behind}
                     </td>
 
-                    <td style={{ padding: '12px 14px' }} className="tabular-nums">
+                    <td style={{ padding: '12px 14px' }} className="tabular-nums font-mono">
                       {item.missed_conn}
                     </td>
 
                     <td style={{ padding: '12px 14px', textAlign: 'center' }}>
-                      <span className="badge badge-success">0 Violations</span>
+                      <span className="validation-seal" style={{ padding: '2px 8px' }}>
+                        0 Violations
+                      </span>
                     </td>
 
                     <td style={{ padding: '12px 14px', textAlign: 'right' }}>
                       {isRoutePulse ? (
                         <span
-                          className="badge"
                           style={{
-                            backgroundColor: 'var(--accent-green-light)',
-                            color: 'var(--accent-green)',
-                            fontWeight: 700
+                            padding: '3px 8px',
+                            borderRadius: 'var(--radius-full)',
+                            backgroundColor: 'var(--load-teal-bg)',
+                            color: 'var(--load-teal)',
+                            fontWeight: 700,
+                            fontSize: '0.74rem'
                           }}
                         >
                           ★ 40–75% Reduction in Passenger Delay
                         </span>
                       ) : (
-                        <span style={{ color: 'var(--text-tertiary)', fontSize: '0.75rem' }}>Reference</span>
+                        <span style={{ color: 'var(--text-tertiary)', fontSize: '0.74rem' }}>Reference</span>
                       )}
                     </td>
                   </tr>

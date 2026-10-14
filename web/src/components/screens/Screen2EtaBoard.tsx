@@ -3,14 +3,20 @@ import { useSimulation } from '../../context/SimulationContext';
 import { api } from '../../api/client';
 import type { EtaPrediction, Stop } from '../../types';
 import { formatTimeMin, ROUTE_COLORS } from '../../utils/geo';
+import { EtaCapsule } from '../common/EtaCapsule';
+import { GlossaryPopover } from '../common/GlossaryPopover';
+import { SkeletonLoader, EmptyState, ErrorState } from '../common/StateViews';
 import {
-  Clock3,
+  Clock,
   MapPin,
   HelpCircle,
   TrendingUp,
   AlertCircle,
   ShieldCheck,
-  CheckCircle2
+  CheckCircle2,
+  Accessibility,
+  Users,
+  RefreshCw
 } from 'lucide-react';
 
 export const Screen2EtaBoard: React.FC = () => {
@@ -18,20 +24,28 @@ export const Screen2EtaBoard: React.FC = () => {
   const [selectedStopId, setSelectedStopId] = useState<string>('S03'); // Default Central Hub
   const [arrivals, setArrivals] = useState<EtaPrediction[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [hasError, setHasError] = useState<boolean>(false);
 
-  useEffect(() => {
-    async function fetchEta() {
+  const fetchEta = async () => {
+    try {
       setLoading(true);
+      setHasError(false);
       const res = await api.getStopEta(selectedStopId, Math.floor(simTimeMin));
-      setArrivals(res.data.arrivals);
+      setArrivals(res.data.arrivals || []);
+    } catch (err) {
+      setHasError(true);
+    } finally {
       setLoading(false);
     }
+  };
+
+  useEffect(() => {
     fetchEta();
-  }, [selectedStopId, Math.floor(simTimeMin / 2)]); // Update every 2 simulated minutes
+  }, [selectedStopId, Math.floor(simTimeMin / 2)]);
 
   const selectedStop = network?.stops.find(s => s.stop_id === selectedStopId);
 
-  // Generate arrival items for demo stops if fixture only has limited
+  // Fallback demo arrivals if API returns empty
   const displayedArrivals = arrivals.length > 0 ? arrivals : [
     {
       stop_id: selectedStopId,
@@ -43,7 +57,7 @@ export const Screen2EtaBoard: React.FC = () => {
       eta_p50_min: simTimeMin + 4.8,
       eta_p90_min: simTimeMin + 6.5,
       confidence: 'high' as const,
-      reasons: ['Normal corridor speed', 'Low boarding dwell observed'],
+      reasons: ['Normal corridor speed', 'Low dwell variability'],
       stale_gps: false
     },
     {
@@ -56,7 +70,7 @@ export const Screen2EtaBoard: React.FC = () => {
       eta_p50_min: simTimeMin + 12.0,
       eta_p90_min: simTimeMin + 15.2,
       confidence: 'medium' as const,
-      reasons: ['Outer Ring road slowdown', 'Moderate boardings at S01'],
+      reasons: ['Outer loop corridor slowdown', 'Heavy boardings at S13'],
       stale_gps: false
     },
     {
@@ -69,38 +83,56 @@ export const Screen2EtaBoard: React.FC = () => {
       eta_p50_min: simTimeMin + 14.5,
       eta_p90_min: simTimeMin + 16.0,
       confidence: 'high' as const,
-      reasons: ['On-time dispatch', 'Signal priority green'],
+      reasons: ['On-time dispatch', 'Clean transfer at S03'],
       stale_gps: false
     }
   ];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-      {/* Top Controls & Stop Selector */}
-      <div className="card" style={{ padding: '16px 20px' }}>
+    <div className="screen-scroll-container">
+      {/* Screen Header */}
+      <div className="screen-card" style={{ padding: '16px 20px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ padding: 10, borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--accent-blue-light)', color: 'var(--accent-blue)' }}>
-              <Clock3 size={24} />
+            <div
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 'var(--radius-sm)',
+                background: 'var(--bg-surface-elevated)',
+                border: '1px solid var(--border-color)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'var(--route-r1)'
+              }}
+            >
+              <Clock size={22} />
             </div>
             <div>
-              <h2 style={{ fontSize: '1.15rem', fontWeight: 700 }}>Conformal ETA Arrival Board</h2>
+              <h1 style={{ fontSize: '1.2rem', fontWeight: 700 }}>
+                Conformal ETA Arrival Board
+              </h1>
               <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                Calibrated 80% confidence arrival intervals (p10–p90) with baseline timetable divergence tracking
+                Calibrated{' '}
+                <GlossaryPopover termId="arrivalWindow">80% arrival windows (p10–p90)</GlossaryPopover>{' '}
+                tracked against the published{' '}
+                <GlossaryPopover termId="timetablePromise">timetable promise</GlossaryPopover>
               </p>
             </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
-              Select Stop:
+            <label style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
+              Select Station:
             </label>
             <select
               value={selectedStopId}
               onChange={e => setSelectedStopId(e.target.value)}
+              aria-label="Select Station for Arrival Board"
               style={{
-                padding: '8px 14px',
-                fontSize: '0.9rem',
+                padding: '6px 12px',
+                fontSize: '0.85rem',
                 borderRadius: 'var(--radius-sm)',
                 border: '1px solid var(--border-color)',
                 backgroundColor: 'var(--bg-surface-elevated)',
@@ -120,231 +152,193 @@ export const Screen2EtaBoard: React.FC = () => {
         </div>
       </div>
 
-      {/* Selected Stop Meta Header */}
+      {/* Error State with Recovery Action */}
+      {hasError && (
+        <ErrorState
+          title="Live ETA Feed Interrupted"
+          message="Unable to reach the live telemetry server. Switch to baseline timetable approximations to preserve passenger schedules."
+          recoveryActionText="Switch to Baseline Timetable"
+          onRecover={fetchEta}
+        />
+      )}
+
+      {/* Selected Stop Meta Ribbon */}
       {selectedStop && (
         <div
           style={{
             backgroundColor: 'var(--bg-surface)',
             border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-md)',
-            padding: '12px 20px',
+            borderRadius: 'var(--radius-sm)',
+            padding: '12px 18px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            fontSize: '0.85rem'
+            flexWrap: 'wrap',
+            gap: 12
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <MapPin size={18} style={{ color: selectedStop.is_hub ? 'var(--accent-purple)' : 'var(--accent-blue)' }} />
+            <MapPin size={18} style={{ color: selectedStop.is_hub ? 'var(--accent-hub)' : 'var(--route-r1)' }} />
             <span style={{ fontWeight: 700, fontSize: '1rem' }}>{selectedStop.name}</span>
-            <span style={{ color: 'var(--text-tertiary)' }}>• Stop ID: {selectedStop.stop_id}</span>
-            {selectedStop.is_hub && <span className="badge badge-info">Central Hub</span>}
-            {selectedStop.accessible && <span className="badge badge-success">Accessible</span>}
+            <span style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)', fontSize: '0.82rem' }}>
+              • {selectedStop.stop_id}
+            </span>
+            {selectedStop.is_hub && (
+              <span
+                style={{
+                  padding: '2px 8px',
+                  borderRadius: 'var(--radius-full)',
+                  background: 'rgba(168, 85, 247, 0.15)',
+                  color: 'var(--accent-hub)',
+                  fontWeight: 700,
+                  fontSize: '0.72rem',
+                  border: '1px solid rgba(168, 85, 247, 0.3)'
+                }}
+              >
+                ★ Central Transfer Hub
+              </span>
+            )}
+            {selectedStop.accessible && (
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  padding: '2px 8px',
+                  borderRadius: 'var(--radius-full)',
+                  background: 'var(--load-teal-bg)',
+                  color: 'var(--load-teal)',
+                  fontWeight: 600,
+                  fontSize: '0.72rem',
+                  border: '1px solid var(--load-teal-border)'
+                }}
+              >
+                <Accessibility size={12} />
+                <span>Ramp Accessible</span>
+              </span>
+            )}
           </div>
 
-          <div style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: 14 }}>
-            <span>Current Sim Clock: <strong>{formatTimeMin(simTimeMin)}</strong></span>
-            <span>Capacity Waiting: <strong>{selectedStop.capacity_waiting || 40} pax</strong></span>
+          <div style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: 16, fontSize: '0.8rem' }}>
+            <span>Current Sim Clock: <strong className="tabular-nums font-mono">{formatTimeMin(simTimeMin)}</strong></span>
+            <span>Platform Capacity: <strong className="tabular-nums font-mono">{selectedStop.capacity_waiting || 40} pax</strong></span>
           </div>
         </div>
       )}
 
+      {/* Loading Skeleton */}
+      {loading && <SkeletonLoader type="table" count={3} />}
+
       {/* Arrival Cards Table */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        {displayedArrivals.map((arrival, idx) => {
-          const routeColor = ROUTE_COLORS[arrival.route_id] || { stroke: '#2563EB', name: 'Campus Line' };
-          const minUntilArrival = Math.max(0, arrival.eta_p50_min - simTimeMin);
-          const timetableDiff = arrival.eta_p50_min - arrival.scheduled_time_min;
+      {!loading && displayedArrivals.length === 0 && (
+        <EmptyState
+          title="No Upcoming Arrivals"
+          description="There are currently no scheduled or active departures in the next 30-minute window for this station."
+          actionText="Refresh Board"
+          onAction={fetchEta}
+        />
+      )}
 
-          // Confidence color
-          const confidenceColor =
-            arrival.confidence === 'high' ? 'var(--accent-green)' : (arrival.confidence === 'medium' ? 'var(--accent-amber)' : 'var(--accent-red)');
+      {!loading && displayedArrivals.length > 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {displayedArrivals.map((arrival, idx) => {
+            const minUntilArrival = Math.max(0, arrival.eta_p50_min - simTimeMin);
+            const timetableDiff = arrival.eta_p50_min - arrival.scheduled_time_min;
 
-          return (
-            <div
-              key={`${arrival.trip_id}-${idx}`}
-              className="card"
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '130px 170px 1fr 220px',
-                gap: 20,
-                alignItems: 'center',
-                padding: '16px 20px'
-              }}
-            >
-              {/* Route & Vehicle */}
-              <div>
-                <div
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    padding: '4px 10px',
-                    borderRadius: 'var(--radius-sm)',
-                    backgroundColor: routeColor.stroke,
-                    color: 'white',
-                    fontWeight: 700,
-                    fontSize: '0.9rem'
-                  }}
-                >
-                  <span>{arrival.route_id}</span>
-                </div>
-                <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginTop: 4 }}>
-                  Vehicle: <strong>{arrival.vehicle_id}</strong>
-                </div>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>
-                  Trip: {arrival.trip_id}
-                </div>
-              </div>
-
-              {/* Countdown & Timetable Comparison */}
-              <div>
-                <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }} className="tabular-nums">
-                  {minUntilArrival <= 0.5 ? 'Due now' : `${Math.round(minUntilArrival)} min`}
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: 2 }}>
-                  Timetable: {formatTimeMin(arrival.scheduled_time_min)}
-                </div>
-                <div
-                  style={{
-                    fontSize: '0.72rem',
-                    fontWeight: 600,
-                    color: timetableDiff > 1.5 ? 'var(--accent-amber)' : (timetableDiff < -0.5 ? 'var(--accent-blue)' : 'var(--accent-green)')
-                  }}
-                >
-                  {timetableDiff > 0.5
-                    ? `Δ +${timetableDiff.toFixed(1)}m delay`
-                    : (timetableDiff < -0.5 ? `Δ ${timetableDiff.toFixed(1)}m early` : 'On timetable')}
-                </div>
-              </div>
-
-              {/* Conformal Arrival Window Visual Bar (p10 - p90) */}
-              <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', marginBottom: 6 }}>
-                  <span style={{ color: 'var(--text-tertiary)' }}>
-                    Earliest (p10): <strong>{formatTimeMin(arrival.eta_p10_min)}</strong>
-                  </span>
-                  <span style={{ color: 'var(--text-primary)', fontWeight: 700 }}>
-                    Expected (p50): {formatTimeMin(arrival.eta_p50_min)}
-                  </span>
-                  <span style={{ color: 'var(--text-tertiary)' }}>
-                    Latest (p90): <strong>{formatTimeMin(arrival.eta_p90_min)}</strong>
-                  </span>
-                </div>
-
-                {/* Progress Visual Bar Container */}
-                <div
-                  style={{
-                    position: 'relative',
-                    height: '24px',
-                    backgroundColor: 'var(--bg-surface-elevated)',
-                    borderRadius: 'var(--radius-sm)',
-                    overflow: 'hidden',
-                    border: '1px solid var(--border-color)',
-                    display: 'flex',
-                    alignItems: 'center'
-                  }}
-                >
-                  {/* Confidence Interval Span (p10 to p90 width) */}
+            return (
+              <div
+                key={`${arrival.trip_id}-${idx}`}
+                className="screen-card"
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '140px 180px 1fr 200px',
+                  gap: 20,
+                  alignItems: 'center',
+                  padding: '16px 20px'
+                }}
+              >
+                {/* Route Pill & Vehicle */}
+                <div>
                   <div
                     style={{
-                      position: 'absolute',
-                      left: '25%',
-                      width: '50%',
-                      height: '100%',
-                      backgroundColor: 'rgba(37, 99, 235, 0.18)',
-                      borderLeft: '2px solid var(--accent-blue)',
-                      borderRight: '2px solid var(--accent-blue)'
-                    }}
-                  />
-
-                  {/* Median Expected Marker (p50) */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      left: '50%',
-                      width: '4px',
-                      height: '100%',
-                      backgroundColor: 'var(--accent-blue)',
-                      borderRadius: 2,
-                      transform: 'translateX(-50%)'
-                    }}
-                  />
-
-                  {/* Center Label inside bar */}
-                  <div
-                    style={{
-                      position: 'relative',
-                      width: '100%',
-                      textAlign: 'center',
-                      fontSize: '0.72rem',
-                      fontWeight: 600,
-                      color: 'var(--text-secondary)',
-                      pointerEvents: 'none'
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      padding: '4px 10px',
+                      borderRadius: 'var(--radius-sm)',
+                      background: `var(--route-${arrival.route_id.toLowerCase()})`,
+                      color: '#FFFFFF',
+                      fontWeight: 700,
+                      fontSize: '0.88rem'
                     }}
                   >
-                    80% Window: {formatTimeMin(arrival.eta_p10_min)} – {formatTimeMin(arrival.eta_p90_min)}
+                    <span>{arrival.route_id}</span>
+                  </div>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginTop: 4 }}>
+                    Vehicle: <strong className="font-mono">{arrival.vehicle_id}</strong>
+                  </div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>
+                    Trip: {arrival.trip_id}
                   </div>
                 </div>
 
-                {/* Delay Reasons Tooltips / Badges */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 6, flexWrap: 'wrap' }}>
-                  {arrival.reasons.map((r, i) => (
-                    <span
-                      key={i}
-                      style={{
-                        fontSize: '0.7rem',
-                        padding: '1px 7px',
-                        borderRadius: 'var(--radius-full)',
-                        backgroundColor: 'var(--bg-surface-elevated)',
-                        color: 'var(--text-secondary)',
-                        border: '1px solid var(--border-color)'
-                      }}
-                    >
-                      {r}
+                {/* Big Readable Countdown & Timetable Delta */}
+                <div>
+                  <div
+                    className="tabular-nums font-display"
+                    style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1 }}
+                  >
+                    {minUntilArrival <= 0.5 ? 'Due now' : `${Math.round(minUntilArrival)} min`}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: 4 }}>
+                    Timetable: <span className="tabular-nums font-mono">{formatTimeMin(arrival.scheduled_time_min)}</span>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '0.72rem',
+                      fontWeight: 600,
+                      color:
+                        timetableDiff > 1.5
+                          ? 'var(--load-coral)'
+                          : timetableDiff > 0.5
+                          ? 'var(--load-amber)'
+                          : 'var(--load-teal)'
+                    }}
+                  >
+                    {timetableDiff > 0.5
+                      ? `Δ +${timetableDiff.toFixed(1)}m delay`
+                      : timetableDiff < -0.5
+                      ? `Δ ${timetableDiff.toFixed(1)}m early`
+                      : '✓ Exactly on timetable'}
+                  </div>
+                </div>
+
+                {/* Shaded p10–p90 Arrival Window Capsule */}
+                <div>
+                  <EtaCapsule prediction={arrival} simTimeMin={simTimeMin} />
+                </div>
+
+                {/* Diagnostic Reason Pills */}
+                <div style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
+                  <div style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: 2 }}>
+                    Observation:
+                  </div>
+                  {arrival.reasons && arrival.reasons.length > 0 ? (
+                    <div>{arrival.reasons[0]}</div>
+                  ) : (
+                    <div>Nominal traffic flow across segment.</div>
+                  )}
+                  {arrival.stale_gps && (
+                    <span style={{ color: 'var(--load-coral)', fontWeight: 600, fontSize: '0.68rem' }}>
+                      ⚠ Stale GPS feed (using dead reckoning)
                     </span>
-                  ))}
+                  )}
                 </div>
               </div>
-
-              {/* Confidence Badge & Comparison Box */}
-              <div style={{ textAlign: 'right' }}>
-                <span
-                  className="badge"
-                  style={{
-                    backgroundColor: `${confidenceColor}15`,
-                    color: confidenceColor,
-                    fontSize: '0.78rem',
-                    marginBottom: 6
-                  }}
-                >
-                  <ShieldCheck size={13} />
-                  <span>{arrival.confidence.toUpperCase()} CONFIDENCE</span>
-                </span>
-
-                <div
-                  style={{
-                    backgroundColor: 'var(--bg-surface-elevated)',
-                    padding: '8px 12px',
-                    borderRadius: 'var(--radius-sm)',
-                    fontSize: '0.75rem',
-                    textAlign: 'left',
-                    border: '1px solid var(--border-color)'
-                  }}
-                >
-                  <div style={{ color: 'var(--text-tertiary)', fontSize: '0.68rem' }}>GROUND TRUTH COMPARISON</div>
-                  <div style={{ fontWeight: 600 }}>
-                    Timetable: {formatTimeMin(arrival.scheduled_time_min)}
-                  </div>
-                  <div style={{ color: 'var(--accent-blue)' }}>
-                    Actual: {formatTimeMin(arrival.eta_p10_min)} – {formatTimeMin(arrival.eta_p90_min)}
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

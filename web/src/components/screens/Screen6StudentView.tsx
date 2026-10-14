@@ -3,6 +3,8 @@ import { useSimulation } from '../../context/SimulationContext';
 import { api } from '../../api/client';
 import type { StudentRouteResponse, StudentRouteOption } from '../../types';
 import { formatTimeMin, ROUTE_COLORS } from '../../utils/geo';
+import { GlossaryPopover } from '../common/GlossaryPopover';
+import { SkeletonLoader, EmptyState } from '../common/StateViews';
 import {
   GraduationCap,
   ArrowRight,
@@ -13,18 +15,21 @@ import {
   Sparkles,
   MapPin,
   CheckCircle2,
-  Navigation
+  Navigation,
+  Smartphone,
+  Maximize2
 } from 'lucide-react';
 
 export const Screen6StudentView: React.FC = () => {
   const { network, simTimeMin } = useSimulation();
 
-  const [fromStop, setFromStop] = useState<string>('S13'); // Metro Station
+  const [fromStop, setFromStop] = useState<string>('S13'); // Metro Gateway
   const [toStop, setToStop] = useState<string>('S04'); // Library
   const [accessibleOnly, setAccessibleOnly] = useState<boolean>(false);
   const [departureTime, setDepartureTime] = useState<number>(460); // 07:40
   const [routeResults, setRouteResults] = useState<StudentRouteResponse | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [isMobileFrame, setIsMobileFrame] = useState<boolean>(true);
 
   const searchRoutes = async () => {
     setLoading(true);
@@ -42,293 +47,340 @@ export const Screen6StudentView: React.FC = () => {
   };
 
   return (
-    <div style={{ maxWidth: '880px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 20 }}>
-      {/* Student App Card */}
-      <div className="card" style={{ padding: '24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ padding: 10, borderRadius: 'var(--radius-sm)', backgroundColor: 'var(--accent-blue-light)', color: 'var(--accent-blue)' }}>
-              <GraduationCap size={26} />
-            </div>
-            <div>
-              <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Campus Traveler & Student Transit Planner</h2>
-              <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                Live conformal ETA windows, crowding nowcasts, and guaranteed transfer-safety probabilities
-              </p>
-            </div>
-          </div>
-
-          <button
-            className="btn btn-outline"
-            style={{ fontSize: '0.8rem', gap: 6 }}
-            onClick={handleUseCurrentTime}
+    <div className="screen-scroll-container" style={{ alignItems: 'center' }}>
+      {/* Top Toggle: Mobile 390x844 Frame vs Expanded */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', maxWidth: '820px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 'var(--radius-sm)',
+              background: 'var(--bg-surface-elevated)',
+              border: '1px solid var(--border-color)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'var(--route-r1)'
+            }}
           >
-            <Clock size={15} />
-            <span>Use Live Clock ({formatTimeMin(simTimeMin)})</span>
-          </button>
-        </div>
-
-        {/* Input Controls Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <GraduationCap size={20} />
+          </div>
           <div>
-            <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>
-              FROM (DEPARTURE STOP)
-            </label>
-            <select
-              value={fromStop}
-              onChange={e => setFromStop(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '10px 12px',
-                borderRadius: 'var(--radius-sm)',
-                border: '1px solid var(--border-color)',
-                backgroundColor: 'var(--bg-surface-elevated)',
-                color: 'var(--text-primary)',
-                fontSize: '0.9rem',
-                fontWeight: 600
-              }}
-            >
-              {network?.stops.map(s => (
-                <option key={s.stop_id} value={s.stop_id}>
-                  {s.stop_id} — {s.name} {s.is_hub ? '(Central Hub ★)' : ''}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>
-              TO (DESTINATION STOP)
-            </label>
-            <select
-              value={toStop}
-              onChange={e => setToStop(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '10px 12px',
-                borderRadius: 'var(--radius-sm)',
-                border: '1px solid var(--border-color)',
-                backgroundColor: 'var(--bg-surface-elevated)',
-                color: 'var(--text-primary)',
-                fontSize: '0.9rem',
-                fontWeight: 600
-              }}
-            >
-              {network?.stops.map(s => (
-                <option key={s.stop_id} value={s.stop_id}>
-                  {s.stop_id} — {s.name} {s.is_hub ? '(Central Hub ★)' : ''}
-                </option>
-              ))}
-            </select>
+            <h1 style={{ fontSize: '1.15rem', fontWeight: 700 }}>Student & Traveler Route Planner</h1>
+            <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
+              Mobile-first passenger guidance with large arrival windows, transfer guarantees, and crowding alerts
+            </p>
           </div>
         </div>
 
-        {/* Filters and Time selection */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: '0.85rem', cursor: 'pointer', fontWeight: 600 }}>
-              <input
-                type="checkbox"
-                checked={accessibleOnly}
-                onChange={e => setAccessibleOnly(e.target.checked)}
-                style={{ width: 16, height: 16, accentColor: 'var(--accent-blue)' }}
-              />
-              <Accessibility size={16} style={{ color: 'var(--accent-blue)' }} />
-              <span>Accessible Only (Wheelchair Ramp Required)</span>
-            </label>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>Departing around:</span>
-            <input
-              type="range"
-              min={450}
-              max={600}
-              step={5}
-              value={departureTime}
-              onChange={e => setDepartureTime(parseInt(e.target.value))}
-              style={{ accentColor: 'var(--accent-blue)', width: 120 }}
-            />
-            <span style={{ fontWeight: 700, fontSize: '0.9rem' }} className="tabular-nums">
-              {formatTimeMin(departureTime)}
-            </span>
-          </div>
-        </div>
+        <button
+          className="btn"
+          onClick={() => setIsMobileFrame(prev => !prev)}
+          title="Toggle Mobile Simulator Frame (390×844)"
+          style={{ gap: 6, fontSize: '0.76rem' }}
+        >
+          {isMobileFrame ? <Maximize2 size={13} /> : <Smartphone size={13} />}
+          <span>{isMobileFrame ? 'Expand Full View' : 'Mobile Frame (390×844)'}</span>
+        </button>
       </div>
 
-      {/* Suggested Itineraries */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-            Available Itineraries ({routeResults?.options.length || 0} Options Found)
-          </h3>
-          <span style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)' }}>
-            Estimated with 80% conformal coverage
-          </span>
-        </div>
-
-        {loading ? (
-          <div className="card" style={{ padding: 40, textAlign: 'center', color: 'var(--text-secondary)' }}>
-            Finding best campus route and calculating transfer confidence...
+      {/* Main Container (Mobile 390x844 frame or Expanded) */}
+      <div
+        style={{
+          width: isMobileFrame ? '390px' : '100%',
+          maxWidth: isMobileFrame ? '390px' : '820px',
+          minHeight: isMobileFrame ? '760px' : 'auto',
+          background: 'var(--bg-surface)',
+          border: '1px solid var(--border-color)',
+          borderRadius: isMobileFrame ? '36px' : 'var(--radius-md)',
+          boxShadow: isMobileFrame ? '0 20px 40px rgba(0,0,0,0.45)' : 'var(--shadow-sm)',
+          display: 'flex',
+          flexDirection: 'column',
+          overflow: 'hidden',
+          position: 'relative'
+        }}
+      >
+        {/* Mobile Device Status Bar */}
+        {isMobileFrame && (
+          <div
+            style={{
+              padding: '12px 20px 6px 20px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              fontSize: '0.74rem',
+              fontWeight: 700,
+              fontFamily: 'var(--font-mono)',
+              color: 'var(--text-secondary)',
+              borderBottom: '1px solid var(--border-subtle)'
+            }}
+          >
+            <span>{formatTimeMin(simTimeMin)}</span>
+            <div style={{ width: 80, height: 16, borderRadius: 8, background: 'var(--bg-hover)' }} />
+            <span>5G 100%</span>
           </div>
-        ) : (
-          routeResults?.options.map((option, idx) => {
-            const isBestOption = idx === 1; // Option 2 has better crowding
-            const routeColor = ROUTE_COLORS[option.route_id] || { stroke: '#2563EB', name: 'Campus Shuttle' };
+        )}
 
-            return (
-              <div
-                key={option.itinerary_id}
-                className="card"
+        {/* Mobile Header: App Title & Origin / Destination Form */}
+        <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border-color)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+            <span className="font-display" style={{ fontWeight: 800, fontSize: '1rem', letterSpacing: '-0.02em' }}>
+              RoutePulse Go
+            </span>
+            <button
+              className="btn btn-outline"
+              onClick={handleUseCurrentTime}
+              style={{ padding: '2px 8px', fontSize: '0.72rem', gap: 4 }}
+            >
+              <Clock size={12} />
+              <span>Now ({formatTimeMin(simTimeMin)})</span>
+            </button>
+          </div>
+
+          {/* From / To Inputs */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div>
+              <label style={{ fontSize: '0.68rem', fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase', display: 'block', marginBottom: 4 }}>
+                Origin Station
+              </label>
+              <select
+                value={fromStop}
+                onChange={e => setFromStop(e.target.value)}
+                aria-label="Origin Station"
                 style={{
-                  border: isBestOption ? '2px solid var(--accent-green)' : '1px solid var(--border-color)',
-                  position: 'relative'
+                  width: '100%',
+                  padding: '7px 10px',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid var(--border-color)',
+                  backgroundColor: 'var(--bg-surface-elevated)',
+                  color: 'var(--text-primary)',
+                  fontSize: '0.84rem',
+                  fontWeight: 600
                 }}
               >
-                {isBestOption && (
-                  <div
-                    style={{
-                      position: 'absolute',
-                      top: -12,
-                      right: 18,
-                      backgroundColor: 'var(--accent-green)',
-                      color: 'white',
-                      fontSize: '0.72rem',
-                      fontWeight: 700,
-                      padding: '2px 10px',
-                      borderRadius: 'var(--radius-full)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 4
-                    }}
-                  >
-                    <Sparkles size={12} />
-                    <span>RECOMMENDED FOR COMFORT</span>
-                  </div>
-                )}
+                {network?.stops.map(s => (
+                  <option key={s.stop_id} value={s.stop_id}>
+                    {s.stop_id} — {s.name} {s.is_hub ? '★' : ''}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, marginBottom: 14 }}>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 6 }}>
+            <div>
+              <label style={{ fontSize: '0.68rem', fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase', display: 'block', marginBottom: 4 }}>
+                Destination Station
+              </label>
+              <select
+                value={toStop}
+                onChange={e => setToStop(e.target.value)}
+                aria-label="Destination Station"
+                style={{
+                  width: '100%',
+                  padding: '7px 10px',
+                  borderRadius: 'var(--radius-sm)',
+                  border: '1px solid var(--border-color)',
+                  backgroundColor: 'var(--bg-surface-elevated)',
+                  color: 'var(--text-primary)',
+                  fontSize: '0.84rem',
+                  fontWeight: 600
+                }}
+              >
+                {network?.stops.map(s => (
+                  <option key={s.stop_id} value={s.stop_id}>
+                    {s.stop_id} — {s.name} {s.is_hub ? '★' : ''}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Accessibility Toggle */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: '0.78rem', cursor: 'pointer', fontWeight: 600 }}>
+                <input
+                  type="checkbox"
+                  checked={accessibleOnly}
+                  onChange={e => setAccessibleOnly(e.target.checked)}
+                  style={{ accentColor: 'var(--load-teal)' }}
+                />
+                <Accessibility size={14} style={{ color: 'var(--load-teal)' }} />
+                <span>Ramp Shuttles Only</span>
+              </label>
+
+              <span className="font-mono tabular-nums" style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>
+                Dep: {formatTimeMin(departureTime)}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Itinerary Bottom-Sheet Feed */}
+        <div style={{ flex: 1, overflowY: 'auto', padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <span style={{ fontSize: '0.74rem', fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
+              Suggested Itineraries
+            </span>
+            <span style={{ fontSize: '0.68rem', color: 'var(--load-teal)', fontWeight: 600 }}>
+              80% Window Coverage
+            </span>
+          </div>
+
+          {loading ? (
+            <SkeletonLoader type="card" count={2} />
+          ) : !routeResults || routeResults.options.length === 0 ? (
+            <EmptyState
+              title="No Direct Route Found"
+              description="Try adjusting your departure station or uncheck ramp filter."
+            />
+          ) : (
+            routeResults.options.map((option, idx) => {
+              const isBestOption = idx === 1;
+              const isCrowded = option.crowding_level === 'crowded';
+              const durationMin = Math.round(option.eta_p50_min - option.departure_min);
+
+              return (
+                <div
+                  key={option.itinerary_id}
+                  style={{
+                    background: 'var(--bg-surface-elevated)',
+                    border: `1.5px solid ${isBestOption ? 'var(--load-teal)' : 'var(--border-color)'}`,
+                    borderRadius: 'var(--radius-sm)',
+                    padding: '14px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 10,
+                    position: 'relative'
+                  }}
+                >
+                  {isBestOption && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: -10,
+                        right: 14,
+                        background: 'var(--load-teal)',
+                        color: '#FFFFFF',
+                        fontSize: '0.66rem',
+                        fontWeight: 700,
+                        padding: '2px 8px',
+                        borderRadius: 'var(--radius-full)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 3
+                      }}
+                    >
+                      <Sparkles size={11} />
+                      <span>RECOMMENDED FOR SEATS</span>
+                    </div>
+                  )}
+
+                  {/* Route & Departure Header */}
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                       <span
                         style={{
-                          backgroundColor: routeColor.stroke,
-                          color: 'white',
-                          fontWeight: 800,
-                          padding: '3px 9px',
-                          borderRadius: 'var(--radius-sm)',
-                          fontSize: '0.85rem'
+                          padding: '2px 7px',
+                          borderRadius: 'var(--radius-xs)',
+                          background: `var(--route-${option.route_id.toLowerCase()})`,
+                          color: '#FFFFFF',
+                          fontWeight: 700,
+                          fontSize: '0.78rem'
                         }}
                       >
                         {option.route_id}
                       </span>
-                      <span style={{ fontWeight: 700, fontSize: '1rem' }}>
-                        Depart {formatTimeMin(option.departure_min)} from {network?.stops.find(s => s.stop_id === option.from_stop)?.name || option.from_stop}
+                      <span style={{ fontSize: '0.84rem', fontWeight: 700 }}>
+                        Depart {formatTimeMin(option.departure_min)}
                       </span>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                      <span>Arrival Window: <strong>{formatTimeMin(option.eta_p10_min)} – {formatTimeMin(option.eta_p90_min)}</strong></span>
-                      <span>• Expected Duration: ~{Math.round(option.eta_p50_min - option.departure_min)} min</span>
-                    </div>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>
+                      ~{durationMin} min trip
+                    </span>
                   </div>
 
-                  {/* Badges */}
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
-                    <div style={{ display: 'flex', gap: 6 }}>
-                      <span
-                        className="badge"
-                        style={{
-                          backgroundColor: option.crowding_level === 'crowded' ? 'var(--accent-red-light)' : 'var(--accent-green-light)',
-                          color: option.crowding_level === 'crowded' ? 'var(--accent-red)' : 'var(--accent-green)'
-                        }}
-                      >
-                        {option.crowding_level === 'crowded' ? '⚠ Crowded (88%)' : '✓ Comfortable (55%)'}
-                      </span>
-
-                      {option.accessible && (
-                        <span className="badge badge-info" title="Equipped with wheelchair ramp">
-                          <Accessibility size={12} />
-                          <span>Accessible</span>
-                        </span>
-                      )}
-                    </div>
-
-                    {option.is_transfer && (
-                      <span className="badge badge-success" style={{ gap: 4 }}>
-                        <ShieldCheck size={12} />
-                        <span>Transfer Safety: {Math.round(option.transfer_safe_prob * 100)}% Safe</span>
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Transfer Steps Graphic */}
-                {option.is_transfer && (
+                  {/* Large ETA Window (p50 Big, Window Smaller) */}
                   <div
                     style={{
-                      backgroundColor: 'var(--bg-surface-elevated)',
-                      padding: '12px 16px',
-                      borderRadius: 'var(--radius-sm)',
+                      background: 'var(--bg-surface)',
+                      borderRadius: 'var(--radius-xs)',
+                      padding: '10px 12px',
+                      border: '1px solid var(--border-subtle)',
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'space-between',
-                      fontSize: '0.82rem',
-                      marginBottom: 12
+                      justifyContent: 'space-between'
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <MapPin size={15} style={{ color: 'var(--accent-blue)' }} />
-                      <span>{option.from_stop}</span>
-                    </div>
-
-                    <div style={{ flex: 1, borderTop: '2px dashed var(--border-color)', margin: '0 12px', position: 'relative' }}>
-                      <span
-                        style={{
-                          position: 'absolute',
-                          top: -10,
-                          left: '50%',
-                          transform: 'translateX(-50%)',
-                          backgroundColor: 'var(--bg-surface)',
-                          padding: '0 8px',
-                          fontSize: '0.72rem',
-                          color: 'var(--accent-purple)',
-                          fontWeight: 700
-                        }}
-                      >
-                        Transfer Hub S03 (4 min buffer)
+                    <div>
+                      <span style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
+                        Expected Arrival (p50)
                       </span>
+                      <div className="font-display tabular-nums" style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1 }}>
+                        {formatTimeMin(option.eta_p50_min)}
+                      </div>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <MapPin size={15} style={{ color: 'var(--accent-green)' }} />
-                      <span>{option.to_stop} ({network?.stops.find(s => s.stop_id === option.to_stop)?.name || option.to_stop})</span>
+                    <div style={{ textAlign: 'right' }}>
+                      <span style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
+                        Arrival Window (80%)
+                      </span>
+                      <div className="font-mono tabular-nums" style={{ fontSize: '0.84rem', fontWeight: 700, color: 'var(--load-teal)' }}>
+                        {formatTimeMin(option.eta_p10_min)} – {formatTimeMin(option.eta_p90_min)}
+                      </div>
                     </div>
                   </div>
-                )}
 
-                {/* Proactive Recommendation Note */}
-                {option.recommendation_note && (
-                  <div
-                    style={{
-                      backgroundColor: isBestOption ? 'rgba(16, 185, 129, 0.08)' : 'rgba(245, 158, 11, 0.08)',
-                      borderLeft: `3px solid ${isBestOption ? 'var(--accent-green)' : 'var(--accent-amber)'}`,
-                      padding: '8px 12px',
-                      borderRadius: '0 var(--radius-sm) var(--radius-sm) 0',
-                      fontSize: '0.78rem',
-                      color: 'var(--text-secondary)'
-                    }}
-                  >
-                    <strong style={{ color: isBestOption ? 'var(--accent-green)' : 'var(--accent-amber)' }}>
-                      Passenger Advisory:
-                    </strong>{' '}
-                    {option.recommendation_note}
-                  </div>
-                )}
-              </div>
-            );
-          })
-        )}
+                  {/* Transfer-Safe Indicator */}
+                  {option.is_transfer && (
+                    <div
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        fontSize: '0.72rem',
+                        color: 'var(--text-secondary)',
+                        padding: '4px 8px',
+                        borderRadius: 'var(--radius-xs)',
+                        background: 'rgba(168, 85, 247, 0.1)'
+                      }}
+                    >
+                      <span>Hub S03 Transfer (4m buffer):</span>
+                      <strong style={{ color: 'var(--accent-hub)' }}>
+                        {Math.round(option.transfer_safe_prob * 100)}% Safe Connection
+                      </strong>
+                    </div>
+                  )}
+
+                  {/* Crowding Warning & Later Alternative */}
+                  {isCrowded ? (
+                    <div
+                      style={{
+                        padding: '8px 10px',
+                        borderRadius: 'var(--radius-xs)',
+                        background: 'var(--load-coral-bg)',
+                        border: '1px solid var(--load-coral-border)',
+                        fontSize: '0.74rem',
+                        lineHeight: 1.4
+                      }}
+                    >
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 5, color: 'var(--load-coral)', fontWeight: 700 }}>
+                        <AlertTriangle size={13} />
+                        <span>Next bus is crowded (92% load)</span>
+                      </div>
+                      <div style={{ color: 'var(--text-secondary)', marginTop: 2 }}>
+                        Alternative departure 8 min later is predicted <strong>58% full</strong>.
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ fontSize: '0.72rem', color: 'var(--load-teal)', fontWeight: 600 }}>
+                      ✓ Comfortable seating available (&lt;60% load)
+                    </div>
+                  )}
+                </div>
+              );
+            })
+          )}
+        </div>
       </div>
     </div>
   );

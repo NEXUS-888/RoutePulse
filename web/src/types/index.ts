@@ -294,3 +294,22 @@ export interface HealthResponse {
   uptime_s: number;
 }
 
+export interface NetworkHealthInfo {
+  score: number;
+  band: 'teal' | 'amber' | 'coral';
+  overCapacityShare: number;
+  leftBehindShare: number;
+  missedConnectionShare: number;
+  delayedTripsShare: number;
+}
+
+export type SelectedEntityType = 'stop' | 'vehicle' | 'alert' | 'recommendation';
+
+export interface SelectedEntity {
+  type: SelectedEntityType;
+  id: string;
+  data: any;
+}
+
+export type UserRole = 'operator' | 'student' | 'reviewer';
+
