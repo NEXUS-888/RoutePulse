@@ -121,7 +121,7 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   // Morning peak: 07:30 (450 min) to 10:30 (630 min)
   const [simTimeMin, setSimTimeMin] = useState<number>(470); // Default 07:50
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
-  const [speed, setSpeed] = useState<1 | 10 | 30>(10);
+  const [speed, setSpeed] = useState<1 | 10 | 30>(1);
   const [scenario, setScenario] = useState<ScenarioId>('S0');
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     return (localStorage.getItem('routepulse_theme') as 'dark' | 'light') || 'dark';

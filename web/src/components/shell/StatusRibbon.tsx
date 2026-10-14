@@ -12,7 +12,7 @@ import {
   Search
 } from 'lucide-react';
 import { useSimulation } from '../../context/SimulationContext';
-import { PulseLine } from './PulseLine';
+import { FleetCadenceRibbon } from './FleetCadenceRibbon';
 import { NetworkHealthScore } from './NetworkHealthScore';
 import { formatTimeMin } from '../../utils/geo';
 import type { ScenarioId } from '../../types';
@@ -143,8 +143,8 @@ export const StatusRibbon: React.FC = () => {
           </span>
         </div>
 
-        {/* Signature Pulse Line ECG */}
-        <PulseLine width={110} height={26} />
+        {/* Signature Fleet Cadence & Headway Telemetry */}
+        <FleetCadenceRibbon width={116} height={24} />
 
         {/* Live Network Health Score */}
         <NetworkHealthScore />

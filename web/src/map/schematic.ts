@@ -121,7 +121,7 @@ export const SCHEMATIC_STOPS: Record<string, SchematicStopLayout> = {
     name: 'Sports Complex',
     x: 900,
     y: 510,
-    labelPosition: 'right'
+    labelPosition: 'top'
   }
 };
 

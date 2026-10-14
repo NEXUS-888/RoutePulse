@@ -536,6 +536,39 @@ export const SchematicMap: React.FC = () => {
 
               const coords = getStopCoords(stop.stop_id);
               const isHovered = hoveredStopId === stop.stop_id;
+              const layout = SCHEMATIC_STOPS[stop.stop_id];
+
+              let labelX = 0;
+              let labelY = -12;
+              let anchor: 'start' | 'middle' | 'end' = 'middle';
+
+              if (mapViewMode === 'schematic' && layout) {
+                if (layout.labelPosition === 'left') {
+                  labelX = -12;
+                  labelY = 4;
+                  anchor = 'end';
+                } else if (layout.labelPosition === 'right') {
+                  labelX = 12;
+                  labelY = 4;
+                  anchor = 'start';
+                } else if (layout.labelPosition === 'bottom') {
+                  labelX = 0;
+                  labelY = 18;
+                  anchor = 'middle';
+                } else if (layout.labelPosition === 'bottom-left') {
+                  labelX = -10;
+                  labelY = 16;
+                  anchor = 'end';
+                } else if (layout.labelPosition === 'top-right') {
+                  labelX = 12;
+                  labelY = -10;
+                  anchor = 'start';
+                } else {
+                  labelX = 0;
+                  labelY = -12;
+                  anchor = 'middle';
+                }
+              }
 
               return (
                 <g
@@ -560,16 +593,19 @@ export const SchematicMap: React.FC = () => {
                     <circle r="12" fill="none" stroke="var(--load-teal)" strokeWidth="1.5" strokeDasharray="2 2" />
                   )}
 
-                  {/* Station Label */}
+                  {/* Station Label with Crisp Contrast Halo */}
                   <text
-                    x={0}
-                    y={-12}
-                    textAnchor="middle"
+                    x={labelX}
+                    y={labelY}
+                    textAnchor={anchor}
                     fill="var(--text-primary)"
+                    stroke={theme === 'dark' ? '#0B1020' : '#FFFFFF'}
+                    strokeWidth="3.5"
+                    strokeLinejoin="round"
+                    style={{ paintOrder: 'stroke fill' }}
                     fontSize="11"
-                    fontWeight="600"
+                    fontWeight="700"
                     fontFamily="var(--font-body)"
-                    style={{ textShadow: theme === 'dark' ? '0 1px 3px #000' : '0 1px 2px #fff' }}
                   >
                     {stop.name}
                   </text>
