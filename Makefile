@@ -1,6 +1,16 @@
 .PHONY: all data train eval demo test lint clean
 
-PYTHON ?= python
+# Default to conda environment python if on Windows, else standard python
+ifeq ($(OS),Windows_NT)
+  CONDA_PY := $(wildcard C:/Users/Lenovo/miniconda3/envs/tracknet/python.exe)
+  ifneq ($(CONDA_PY),)
+    PYTHON ?= $(CONDA_PY)
+  else
+    PYTHON ?= python
+  endif
+else
+  PYTHON ?= python
+endif
 
 all: data train eval test
 
