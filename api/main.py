@@ -57,6 +57,12 @@ app.include_router(scenarios.router, prefix="/api")
 app.include_router(eval_router.router, prefix="/api")
 app.include_router(ingest.router, prefix="/api")
 app.include_router(student.router, prefix="/api")
+
+@app.get("/healthz")
+@app.get("/health")
+def root_health():
+    return {"status": "ok", "service": "routepulse"}
+
 from fastapi.staticfiles import StaticFiles
 
 # Serve built frontend if available
