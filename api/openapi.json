@@ -999,6 +999,38 @@
           }
         }
       }
+    },
+    "/health": {
+      "get": {
+        "summary": "Root Health",
+        "operationId": "root_health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/healthz": {
+      "get": {
+        "summary": "Root Health",
+        "operationId": "root_health_healthz_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1385,19 +1417,31 @@
           },
           "lat": {
             "type": "number",
-            "title": "Lat"
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Lat",
+            "description": "WGS84 latitude"
           },
           "lon": {
             "type": "number",
-            "title": "Lon"
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Lon",
+            "description": "WGS84 longitude"
           },
           "speed_mps": {
             "type": "number",
-            "title": "Speed Mps"
+            "minimum": 0.0,
+            "title": "Speed Mps",
+            "description": "Speed in m/s"
           },
           "heading": {
             "type": "number",
-            "title": "Heading"
+            "maximum": 360.0,
+            "minimum": 0.0,
+            "title": "Heading",
+            "description": "Vehicle heading in degrees",
+            "default": 0.0
           }
         },
         "additionalProperties": false,
@@ -1407,8 +1451,7 @@
           "t_sec",
           "lat",
           "lon",
-          "speed_mps",
-          "heading"
+          "speed_mps"
         ],
         "title": "GpsPing"
       },
