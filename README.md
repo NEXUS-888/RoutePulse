@@ -268,12 +268,29 @@ RoutePulse is built **offline-first**: zero CDN dependencies, zero external host
 
 ## 6. Getting Started & Reproducibility Guide
 
+### Universal One-Click Launch (Windows Laptops)
+
+For judges, evaluators, and any Windows laptop, simply double-click:
+```cmd
+run.bat
+```
+*(or `run_demo.bat`)*
+
+**What `run.bat` does automatically:**
+1. **Detects Python:** Searches for local virtual environments, active conda environments, standard Anaconda/Miniconda paths, system Python, or `py -3`.
+2. **Auto-installs dependencies:** Verifies packages and installs from `requirements.txt` if any are missing.
+3. **Verifies dataset:** Checks for the 30-day synthetic campus dataset and auto-generates if not present.
+4. **Launches single-port server:** Serves the compiled React UI and FastAPI backend at `http://localhost:8000/`.
+5. **Opens browser:** Automatically pops open your default web browser to the dashboard.
+
+---
+
 ### Prerequisites
-- Python 3.11+
+- Python 3.10+
 - Node.js 18+ and npm (only needed if rebuilding the web app; prebuilt distribution included in `web/dist`)
 - Modern web browser (Chrome, Firefox, Safari, Edge)
 
-### Installation
+### Manual Installation
 
 Clone the repository and install Python dependencies:
 
