@@ -1,0 +1,2082 @@
+{
+  "summary_table": [
+    {
+      "system": "Baseline-0",
+      "scenario": "S0 (Normal)",
+      "wait_min": "7.3 \u00b1 0.3",
+      "left_behind": "47.0 \u00b1 2.7",
+      "missed_conn": "13.7 \u00b1 1.2",
+      "hard_violations": 0
+    },
+    {
+      "system": "Baseline-1",
+      "scenario": "S0 (Normal)",
+      "wait_min": "6.1 \u00b1 0.2",
+      "left_behind": "33.5 \u00b1 2.1",
+      "missed_conn": "11.9 \u00b1 1.2",
+      "hard_violations": 0
+    },
+    {
+      "system": "RoutePulse",
+      "scenario": "S0 (Normal)",
+      "wait_min": "5.2 \u00b1 0.1",
+      "left_behind": "13.4 \u00b1 0.7",
+      "missed_conn": "6.2 \u00b1 0.7",
+      "hard_violations": 0
+    },
+    {
+      "system": "Baseline-0",
+      "scenario": "S1 (Traffic)",
+      "wait_min": "9.3 \u00b1 0.4",
+      "left_behind": "89.2 \u00b1 4.5",
+      "missed_conn": "28.8 \u00b1 1.8",
+      "hard_violations": 0
+    },
+    {
+      "system": "Baseline-1",
+      "scenario": "S1 (Traffic)",
+      "wait_min": "8.2 \u00b1 0.4",
+      "left_behind": "59.7 \u00b1 4.1",
+      "missed_conn": "21.2 \u00b1 1.3",
+      "hard_violations": 0
+    },
+    {
+      "system": "RoutePulse",
+      "scenario": "S1 (Traffic)",
+      "wait_min": "6.8 \u00b1 0.2",
+      "left_behind": "28.9 \u00b1 2.6",
+      "missed_conn": "12.9 \u00b1 0.9",
+      "hard_violations": 0
+    },
+    {
+      "system": "Baseline-0",
+      "scenario": "S2 (Vehicle Out)",
+      "wait_min": "10.4 \u00b1 0.7",
+      "left_behind": "110.0 \u00b1 6.7",
+      "missed_conn": "36.3 \u00b1 2.2",
+      "hard_violations": 0
+    },
+    {
+      "system": "Baseline-1",
+      "scenario": "S2 (Vehicle Out)",
+      "wait_min": "8.7 \u00b1 0.7",
+      "left_behind": "66.6 \u00b1 5.9",
+      "missed_conn": "23.5 \u00b1 1.9",
+      "hard_violations": 0
+    },
+    {
+      "system": "RoutePulse",
+      "scenario": "S2 (Vehicle Out)",
+      "wait_min": "7.1 \u00b1 0.4",
+      "left_behind": "34.0 \u00b1 3.3",
+      "missed_conn": "14.5 \u00b1 0.9",
+      "hard_violations": 0
+    },
+    {
+      "system": "Baseline-0",
+      "scenario": "S3 (Demand Surge)",
+      "wait_min": "8.7 \u00b1 0.5",
+      "left_behind": "97.1 \u00b1 5.6",
+      "missed_conn": "23.8 \u00b1 1.5",
+      "hard_violations": 0
+    },
+    {
+      "system": "Baseline-1",
+      "scenario": "S3 (Demand Surge)",
+      "wait_min": "7.7 \u00b1 0.3",
+      "left_behind": "59.9 \u00b1 4.6",
+      "missed_conn": "17.8 \u00b1 1.1",
+      "hard_violations": 0
+    },
+    {
+      "system": "RoutePulse",
+      "scenario": "S3 (Demand Surge)",
+      "wait_min": "6.1 \u00b1 0.3",
+      "left_behind": "22.2 \u00b1 2.1",
+      "missed_conn": "9.9 \u00b1 0.7",
+      "hard_violations": 0
+    }
+  ],
+  "scenarios": {
+    "S0": "Normal",
+    "S1": "Traffic Delay",
+    "S2": "Vehicle Breakdown",
+    "S3": "Auditorium Demand Surge"
+  },
+  "chart_paths": [
+    "results/wait_by_scenario.png",
+    "results/load_profile_R3.png",
+    "results/eta_error_by_horizon.png",
+    "results/coverage.png"
+  ],
+  "timestamp": "2026-10-14T08:00:18.250502+00:00",
+  "detailed_kpis": {
+    "S0": {
+      "baseline-0": {
+        "p1_mean_wait_min": {
+          "mean": 7.333,
+          "std": 0.674,
+          "se": 0.151,
+          "half_width": 0.315,
+          "lower": 7.017,
+          "upper": 7.648,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 47.029,
+          "std": 5.832,
+          "se": 1.304,
+          "half_width": 2.73,
+          "lower": 44.299,
+          "upper": 49.759,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 51.732,
+          "std": 6.416,
+          "se": 1.435,
+          "half_width": 3.003,
+          "lower": 48.729,
+          "upper": 54.734,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 13.747,
+          "std": 2.668,
+          "se": 0.597,
+          "half_width": 1.249,
+          "lower": 12.499,
+          "upper": 14.996,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 8.209,
+          "std": 0.865,
+          "se": 0.193,
+          "half_width": 0.405,
+          "lower": 7.804,
+          "upper": 8.613,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 14.583,
+          "std": 0.639,
+          "se": 0.143,
+          "half_width": 0.299,
+          "lower": 14.284,
+          "upper": 14.882,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.786,
+          "std": 0.032,
+          "se": 0.007,
+          "half_width": 0.015,
+          "lower": 0.772,
+          "upper": 0.801,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 654.188,
+          "std": 70.408,
+          "se": 15.744,
+          "half_width": 32.952,
+          "lower": 621.236,
+          "upper": 687.139,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 0
+      },
+      "baseline-1": {
+        "p1_mean_wait_min": {
+          "mean": 6.135,
+          "std": 0.509,
+          "se": 0.114,
+          "half_width": 0.238,
+          "lower": 5.897,
+          "upper": 6.374,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 33.5,
+          "std": 4.437,
+          "se": 0.992,
+          "half_width": 2.077,
+          "lower": 31.423,
+          "upper": 35.577,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 36.85,
+          "std": 4.881,
+          "se": 1.091,
+          "half_width": 2.284,
+          "lower": 34.566,
+          "upper": 39.134,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 11.889,
+          "std": 2.564,
+          "se": 0.573,
+          "half_width": 1.2,
+          "lower": 10.689,
+          "upper": 13.089,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 4.828,
+          "std": 0.813,
+          "se": 0.182,
+          "half_width": 0.381,
+          "lower": 4.447,
+          "upper": 5.209,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 12.71,
+          "std": 0.917,
+          "se": 0.205,
+          "half_width": 0.429,
+          "lower": 12.281,
+          "upper": 13.14,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.799,
+          "std": 0.042,
+          "se": 0.009,
+          "half_width": 0.02,
+          "lower": 0.779,
+          "upper": 0.819,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 497.435,
+          "std": 50.724,
+          "se": 11.342,
+          "half_width": 23.74,
+          "lower": 473.695,
+          "upper": 521.174,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 2
+      },
+      "routepulse": {
+        "p1_mean_wait_min": {
+          "mean": 5.163,
+          "std": 0.247,
+          "se": 0.055,
+          "half_width": 0.116,
+          "lower": 5.047,
+          "upper": 5.279,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 13.419,
+          "std": 1.503,
+          "se": 0.336,
+          "half_width": 0.704,
+          "lower": 12.716,
+          "upper": 14.123,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 14.761,
+          "std": 1.654,
+          "se": 0.37,
+          "half_width": 0.774,
+          "lower": 13.988,
+          "upper": 15.535,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 6.165,
+          "std": 1.567,
+          "se": 0.35,
+          "half_width": 0.733,
+          "lower": 5.432,
+          "upper": 6.898,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 1.972,
+          "std": 0.463,
+          "se": 0.104,
+          "half_width": 0.217,
+          "lower": 1.755,
+          "upper": 2.189,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 10.352,
+          "std": 0.634,
+          "se": 0.142,
+          "half_width": 0.297,
+          "lower": 10.056,
+          "upper": 10.649,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.827,
+          "std": 0.036,
+          "se": 0.008,
+          "half_width": 0.017,
+          "lower": 0.81,
+          "upper": 0.843,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 250.141,
+          "std": 18.691,
+          "se": 4.179,
+          "half_width": 8.748,
+          "lower": 241.393,
+          "upper": 258.889,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 7
+      }
+    },
+    "S1": {
+      "baseline-0": {
+        "p1_mean_wait_min": {
+          "mean": 9.266,
+          "std": 0.875,
+          "se": 0.196,
+          "half_width": 0.41,
+          "lower": 8.857,
+          "upper": 9.676,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 89.222,
+          "std": 9.603,
+          "se": 2.147,
+          "half_width": 4.494,
+          "lower": 84.727,
+          "upper": 93.716,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 98.144,
+          "std": 10.563,
+          "se": 2.362,
+          "half_width": 4.944,
+          "lower": 93.2,
+          "upper": 103.087,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 28.841,
+          "std": 3.845,
+          "se": 0.86,
+          "half_width": 1.799,
+          "lower": 27.042,
+          "upper": 30.64,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 13.643,
+          "std": 1.294,
+          "se": 0.289,
+          "half_width": 0.606,
+          "lower": 13.037,
+          "upper": 14.248,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 18.49,
+          "std": 1.421,
+          "se": 0.318,
+          "half_width": 0.665,
+          "lower": 17.825,
+          "upper": 19.155,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.854,
+          "std": 0.033,
+          "se": 0.007,
+          "half_width": 0.016,
+          "lower": 0.838,
+          "upper": 0.87,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 1210.807,
+          "std": 114.866,
+          "se": 25.685,
+          "half_width": 53.759,
+          "lower": 1157.048,
+          "upper": 1264.565,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 0
+      },
+      "baseline-1": {
+        "p1_mean_wait_min": {
+          "mean": 8.169,
+          "std": 0.859,
+          "se": 0.192,
+          "half_width": 0.402,
+          "lower": 7.768,
+          "upper": 8.571,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 59.712,
+          "std": 8.709,
+          "se": 1.947,
+          "half_width": 4.076,
+          "lower": 55.637,
+          "upper": 63.788,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 65.684,
+          "std": 9.58,
+          "se": 2.142,
+          "half_width": 4.484,
+          "lower": 61.2,
+          "upper": 70.167,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 21.175,
+          "std": 2.831,
+          "se": 0.633,
+          "half_width": 1.325,
+          "lower": 19.85,
+          "upper": 22.5,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 9.345,
+          "std": 1.009,
+          "se": 0.226,
+          "half_width": 0.472,
+          "lower": 8.872,
+          "upper": 9.817,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 16.029,
+          "std": 1.125,
+          "se": 0.252,
+          "half_width": 0.527,
+          "lower": 15.503,
+          "upper": 16.556,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.879,
+          "std": 0.049,
+          "se": 0.011,
+          "half_width": 0.023,
+          "lower": 0.857,
+          "upper": 0.902,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 839.11,
+          "std": 95.996,
+          "se": 21.465,
+          "half_width": 44.927,
+          "lower": 794.183,
+          "upper": 884.037,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 0
+      },
+      "routepulse": {
+        "p1_mean_wait_min": {
+          "mean": 6.847,
+          "std": 0.532,
+          "se": 0.119,
+          "half_width": 0.249,
+          "lower": 6.598,
+          "upper": 7.096,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 28.863,
+          "std": 5.482,
+          "se": 1.226,
+          "half_width": 2.565,
+          "lower": 26.298,
+          "upper": 31.428,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 31.749,
+          "std": 6.03,
+          "se": 1.348,
+          "half_width": 2.822,
+          "lower": 28.927,
+          "upper": 34.571,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 12.923,
+          "std": 1.833,
+          "se": 0.41,
+          "half_width": 0.858,
+          "lower": 12.065,
+          "upper": 13.78,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 2.961,
+          "std": 0.624,
+          "se": 0.14,
+          "half_width": 0.292,
+          "lower": 2.669,
+          "upper": 3.254,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 13.066,
+          "std": 1.072,
+          "se": 0.24,
+          "half_width": 0.502,
+          "lower": 12.565,
+          "upper": 13.568,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.863,
+          "std": 0.042,
+          "se": 0.009,
+          "half_width": 0.02,
+          "lower": 0.843,
+          "upper": 0.882,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 453.342,
+          "std": 60.13,
+          "se": 13.446,
+          "half_width": 28.142,
+          "lower": 425.2,
+          "upper": 481.484,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 2
+      }
+    },
+    "S2": {
+      "baseline-0": {
+        "p1_mean_wait_min": {
+          "mean": 10.437,
+          "std": 1.486,
+          "se": 0.332,
+          "half_width": 0.696,
+          "lower": 9.741,
+          "upper": 11.133,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 110.001,
+          "std": 14.421,
+          "se": 3.225,
+          "half_width": 6.749,
+          "lower": 103.251,
+          "upper": 116.75,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 121.001,
+          "std": 15.863,
+          "se": 3.547,
+          "half_width": 7.424,
+          "lower": 113.576,
+          "upper": 128.425,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 36.341,
+          "std": 4.783,
+          "se": 1.07,
+          "half_width": 2.239,
+          "lower": 34.102,
+          "upper": 38.58,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 15.48,
+          "std": 1.557,
+          "se": 0.348,
+          "half_width": 0.728,
+          "lower": 14.751,
+          "upper": 16.208,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 19.888,
+          "std": 1.661,
+          "se": 0.371,
+          "half_width": 0.777,
+          "lower": 19.111,
+          "upper": 20.665,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.726,
+          "std": 0.07,
+          "se": 0.016,
+          "half_width": 0.033,
+          "lower": 0.693,
+          "upper": 0.758,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 1490.492,
+          "std": 146.503,
+          "se": 32.759,
+          "half_width": 68.565,
+          "lower": 1421.926,
+          "upper": 1559.057,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 8
+      },
+      "baseline-1": {
+        "p1_mean_wait_min": {
+          "mean": 8.707,
+          "std": 1.39,
+          "se": 0.311,
+          "half_width": 0.65,
+          "lower": 8.057,
+          "upper": 9.358,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 66.604,
+          "std": 12.577,
+          "se": 2.812,
+          "half_width": 5.886,
+          "lower": 60.718,
+          "upper": 72.49,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 73.264,
+          "std": 13.834,
+          "se": 3.093,
+          "half_width": 6.475,
+          "lower": 66.79,
+          "upper": 79.739,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 23.464,
+          "std": 3.989,
+          "se": 0.892,
+          "half_width": 1.867,
+          "lower": 21.597,
+          "upper": 25.331,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 8.018,
+          "std": 1.111,
+          "se": 0.248,
+          "half_width": 0.52,
+          "lower": 7.498,
+          "upper": 8.538,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 16.449,
+          "std": 1.486,
+          "se": 0.332,
+          "half_width": 0.695,
+          "lower": 15.753,
+          "upper": 17.144,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.8,
+          "std": 0.052,
+          "se": 0.012,
+          "half_width": 0.024,
+          "lower": 0.776,
+          "upper": 0.825,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 939.075,
+          "std": 139.59,
+          "se": 31.213,
+          "half_width": 65.33,
+          "lower": 873.745,
+          "upper": 1004.406,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 8
+      },
+      "routepulse": {
+        "p1_mean_wait_min": {
+          "mean": 7.149,
+          "std": 0.875,
+          "se": 0.196,
+          "half_width": 0.409,
+          "lower": 6.74,
+          "upper": 7.558,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 33.96,
+          "std": 7.118,
+          "se": 1.592,
+          "half_width": 3.331,
+          "lower": 30.628,
+          "upper": 37.291,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 37.355,
+          "std": 7.83,
+          "se": 1.751,
+          "half_width": 3.664,
+          "lower": 33.691,
+          "upper": 41.02,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 14.511,
+          "std": 1.828,
+          "se": 0.409,
+          "half_width": 0.855,
+          "lower": 13.656,
+          "upper": 15.366,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 2.989,
+          "std": 0.712,
+          "se": 0.159,
+          "half_width": 0.333,
+          "lower": 2.656,
+          "upper": 3.322,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 13.653,
+          "std": 1.002,
+          "se": 0.224,
+          "half_width": 0.469,
+          "lower": 13.184,
+          "upper": 14.123,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.857,
+          "std": 0.026,
+          "se": 0.006,
+          "half_width": 0.012,
+          "lower": 0.845,
+          "upper": 0.869,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 525.413,
+          "std": 77.95,
+          "se": 17.43,
+          "half_width": 36.482,
+          "lower": 488.931,
+          "upper": 561.895,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 8
+      }
+    },
+    "S3": {
+      "baseline-0": {
+        "p1_mean_wait_min": {
+          "mean": 8.711,
+          "std": 1.104,
+          "se": 0.247,
+          "half_width": 0.517,
+          "lower": 8.194,
+          "upper": 9.228,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 97.119,
+          "std": 12.008,
+          "se": 2.685,
+          "half_width": 5.62,
+          "lower": 91.498,
+          "upper": 102.739,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 106.83,
+          "std": 13.209,
+          "se": 2.954,
+          "half_width": 6.182,
+          "lower": 100.648,
+          "upper": 113.012,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 23.822,
+          "std": 3.171,
+          "se": 0.709,
+          "half_width": 1.484,
+          "lower": 22.338,
+          "upper": 25.306,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 13.111,
+          "std": 1.014,
+          "se": 0.227,
+          "half_width": 0.475,
+          "lower": 12.636,
+          "upper": 13.586,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 17.56,
+          "std": 1.479,
+          "se": 0.331,
+          "half_width": 0.692,
+          "lower": 16.868,
+          "upper": 18.253,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.848,
+          "std": 0.048,
+          "se": 0.011,
+          "half_width": 0.022,
+          "lower": 0.826,
+          "upper": 0.87,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 1267.004,
+          "std": 129.114,
+          "se": 28.871,
+          "half_width": 60.427,
+          "lower": 1206.577,
+          "upper": 1327.431,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 0
+      },
+      "baseline-1": {
+        "p1_mean_wait_min": {
+          "mean": 7.741,
+          "std": 0.585,
+          "se": 0.131,
+          "half_width": 0.274,
+          "lower": 7.467,
+          "upper": 8.015,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 59.856,
+          "std": 9.729,
+          "se": 2.175,
+          "half_width": 4.553,
+          "lower": 55.303,
+          "upper": 64.409,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 65.842,
+          "std": 10.702,
+          "se": 2.393,
+          "half_width": 5.009,
+          "lower": 60.833,
+          "upper": 70.85,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 17.795,
+          "std": 2.381,
+          "se": 0.532,
+          "half_width": 1.114,
+          "lower": 16.681,
+          "upper": 18.909,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 7.374,
+          "std": 0.99,
+          "se": 0.221,
+          "half_width": 0.463,
+          "lower": 6.911,
+          "upper": 7.837,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 15.323,
+          "std": 0.827,
+          "se": 0.185,
+          "half_width": 0.387,
+          "lower": 14.936,
+          "upper": 15.71,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.894,
+          "std": 0.033,
+          "se": 0.007,
+          "half_width": 0.016,
+          "lower": 0.878,
+          "upper": 0.909,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 822.397,
+          "std": 108.285,
+          "se": 24.213,
+          "half_width": 50.679,
+          "lower": 771.718,
+          "upper": 873.076,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 1
+      },
+      "routepulse": {
+        "p1_mean_wait_min": {
+          "mean": 6.099,
+          "std": 0.643,
+          "se": 0.144,
+          "half_width": 0.301,
+          "lower": 5.798,
+          "upper": 6.4,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "mean": 22.178,
+          "std": 4.39,
+          "se": 0.982,
+          "half_width": 2.055,
+          "lower": 20.123,
+          "upper": 24.233,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "mean": 24.396,
+          "std": 4.829,
+          "se": 1.08,
+          "half_width": 2.26,
+          "lower": 22.136,
+          "upper": 26.656,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "mean": 9.905,
+          "std": 1.418,
+          "se": 0.317,
+          "half_width": 0.663,
+          "lower": 9.242,
+          "upper": 10.569,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "mean": 2.006,
+          "std": 0.343,
+          "se": 0.077,
+          "half_width": 0.16,
+          "lower": 1.846,
+          "upper": 2.167,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "mean": 11.875,
+          "std": 0.84,
+          "se": 0.188,
+          "half_width": 0.393,
+          "lower": 11.481,
+          "upper": 12.268,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "mean": 0.911,
+          "std": 0.035,
+          "se": 0.008,
+          "half_width": 0.017,
+          "lower": 0.895,
+          "upper": 0.928,
+          "n": 20
+        },
+        "composite_objective": {
+          "mean": 361.38,
+          "std": 48.784,
+          "se": 10.909,
+          "half_width": 22.832,
+          "lower": 338.548,
+          "upper": 384.212,
+          "n": 20
+        },
+        "p8_hard_violations": 0,
+        "p10_plan_churn": 2
+      }
+    }
+  },
+  "paired_differences": {
+    "S0": {
+      "rp_vs_b0": {
+        "p1_mean_wait_min": {
+          "baseline_mean": 7.333,
+          "system_mean": 5.163,
+          "mean_diff": -2.17,
+          "std_diff": 0.752,
+          "se_diff": 0.168,
+          "half_width": 0.352,
+          "lower": -2.521,
+          "upper": -1.818,
+          "percent_improvement": 29.59,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "baseline_mean": 47.029,
+          "system_mean": 13.419,
+          "mean_diff": -33.61,
+          "std_diff": 5.908,
+          "se_diff": 1.321,
+          "half_width": 2.765,
+          "lower": -36.374,
+          "upper": -30.845,
+          "percent_improvement": 71.47,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "baseline_mean": 51.732,
+          "system_mean": 14.761,
+          "mean_diff": -36.97,
+          "std_diff": 6.499,
+          "se_diff": 1.453,
+          "half_width": 3.041,
+          "lower": -40.012,
+          "upper": -33.929,
+          "percent_improvement": 71.47,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "baseline_mean": 13.747,
+          "system_mean": 6.165,
+          "mean_diff": -7.583,
+          "std_diff": 3.427,
+          "se_diff": 0.766,
+          "half_width": 1.604,
+          "lower": -9.186,
+          "upper": -5.979,
+          "percent_improvement": 55.16,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "baseline_mean": 8.209,
+          "system_mean": 1.972,
+          "mean_diff": -6.237,
+          "std_diff": 0.979,
+          "se_diff": 0.219,
+          "half_width": 0.458,
+          "lower": -6.695,
+          "upper": -5.778,
+          "percent_improvement": 75.98,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "baseline_mean": 14.583,
+          "system_mean": 10.352,
+          "mean_diff": -4.231,
+          "std_diff": 0.997,
+          "se_diff": 0.223,
+          "half_width": 0.467,
+          "lower": -4.697,
+          "upper": -3.764,
+          "percent_improvement": 29.01,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "baseline_mean": 0.786,
+          "system_mean": 0.827,
+          "mean_diff": 0.04,
+          "std_diff": 0.047,
+          "se_diff": 0.01,
+          "half_width": 0.022,
+          "lower": 0.018,
+          "upper": 0.062,
+          "percent_improvement": 5.09,
+          "p_value": 0.00115,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "composite_objective": {
+          "baseline_mean": 654.188,
+          "system_mean": 250.141,
+          "mean_diff": -404.047,
+          "std_diff": 73.657,
+          "se_diff": 16.47,
+          "half_width": 34.473,
+          "lower": -438.519,
+          "upper": -369.574,
+          "percent_improvement": 61.76,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        }
+      },
+      "rp_vs_b1": {
+        "p1_mean_wait_min": {
+          "baseline_mean": 6.135,
+          "system_mean": 5.163,
+          "mean_diff": -0.972,
+          "std_diff": 0.495,
+          "se_diff": 0.111,
+          "half_width": 0.232,
+          "lower": -1.204,
+          "upper": -0.741,
+          "percent_improvement": 15.85,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "baseline_mean": 33.5,
+          "system_mean": 13.419,
+          "mean_diff": -20.081,
+          "std_diff": 4.254,
+          "se_diff": 0.951,
+          "half_width": 1.991,
+          "lower": -22.072,
+          "upper": -18.089,
+          "percent_improvement": 59.94,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "baseline_mean": 36.85,
+          "system_mean": 14.761,
+          "mean_diff": -22.089,
+          "std_diff": 4.68,
+          "se_diff": 1.046,
+          "half_width": 2.19,
+          "lower": -24.279,
+          "upper": -19.898,
+          "percent_improvement": 59.94,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "baseline_mean": 11.889,
+          "system_mean": 6.165,
+          "mean_diff": -5.724,
+          "std_diff": 3.389,
+          "se_diff": 0.758,
+          "half_width": 1.586,
+          "lower": -7.31,
+          "upper": -4.138,
+          "percent_improvement": 48.15,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "baseline_mean": 4.828,
+          "system_mean": 1.972,
+          "mean_diff": -2.856,
+          "std_diff": 0.982,
+          "se_diff": 0.22,
+          "half_width": 0.46,
+          "lower": -3.316,
+          "upper": -2.396,
+          "percent_improvement": 59.15,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "baseline_mean": 12.71,
+          "system_mean": 10.352,
+          "mean_diff": -2.358,
+          "std_diff": 1.253,
+          "se_diff": 0.28,
+          "half_width": 0.587,
+          "lower": -2.945,
+          "upper": -1.771,
+          "percent_improvement": 18.55,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "baseline_mean": 0.799,
+          "system_mean": 0.827,
+          "mean_diff": 0.027,
+          "std_diff": 0.048,
+          "se_diff": 0.011,
+          "half_width": 0.023,
+          "lower": 0.005,
+          "upper": 0.05,
+          "percent_improvement": 3.44,
+          "p_value": 0.01954,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "composite_objective": {
+          "baseline_mean": 497.435,
+          "system_mean": 250.141,
+          "mean_diff": -247.293,
+          "std_diff": 50.667,
+          "se_diff": 11.33,
+          "half_width": 23.713,
+          "lower": -271.007,
+          "upper": -223.58,
+          "percent_improvement": 49.71,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        }
+      }
+    },
+    "S1": {
+      "rp_vs_b0": {
+        "p1_mean_wait_min": {
+          "baseline_mean": 9.266,
+          "system_mean": 6.847,
+          "mean_diff": -2.42,
+          "std_diff": 0.731,
+          "se_diff": 0.163,
+          "half_width": 0.342,
+          "lower": -2.761,
+          "upper": -2.078,
+          "percent_improvement": 26.11,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "baseline_mean": 89.222,
+          "system_mean": 28.863,
+          "mean_diff": -60.359,
+          "std_diff": 12.157,
+          "se_diff": 2.718,
+          "half_width": 5.689,
+          "lower": -66.048,
+          "upper": -54.669,
+          "percent_improvement": 67.65,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "baseline_mean": 98.144,
+          "system_mean": 31.749,
+          "mean_diff": -66.394,
+          "std_diff": 13.372,
+          "se_diff": 2.99,
+          "half_width": 6.258,
+          "lower": -72.653,
+          "upper": -60.136,
+          "percent_improvement": 67.65,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "baseline_mean": 28.841,
+          "system_mean": 12.923,
+          "mean_diff": -15.918,
+          "std_diff": 4.342,
+          "se_diff": 0.971,
+          "half_width": 2.032,
+          "lower": -17.95,
+          "upper": -13.887,
+          "percent_improvement": 55.19,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "baseline_mean": 13.643,
+          "system_mean": 2.961,
+          "mean_diff": -10.681,
+          "std_diff": 1.413,
+          "se_diff": 0.316,
+          "half_width": 0.661,
+          "lower": -11.342,
+          "upper": -10.02,
+          "percent_improvement": 78.29,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "baseline_mean": 18.49,
+          "system_mean": 13.066,
+          "mean_diff": -5.423,
+          "std_diff": 1.938,
+          "se_diff": 0.433,
+          "half_width": 0.907,
+          "lower": -6.331,
+          "upper": -4.516,
+          "percent_improvement": 29.33,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "baseline_mean": 0.854,
+          "system_mean": 0.863,
+          "mean_diff": 0.008,
+          "std_diff": 0.049,
+          "se_diff": 0.011,
+          "half_width": 0.023,
+          "lower": -0.015,
+          "upper": 0.032,
+          "percent_improvement": 1.0,
+          "p_value": 0.45052,
+          "statistically_significant": false,
+          "n": 20
+        },
+        "composite_objective": {
+          "baseline_mean": 1210.807,
+          "system_mean": 453.342,
+          "mean_diff": -757.465,
+          "std_diff": 140.534,
+          "se_diff": 31.424,
+          "half_width": 65.772,
+          "lower": -823.237,
+          "upper": -691.692,
+          "percent_improvement": 62.56,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        }
+      },
+      "rp_vs_b1": {
+        "p1_mean_wait_min": {
+          "baseline_mean": 8.169,
+          "system_mean": 6.847,
+          "mean_diff": -1.323,
+          "std_diff": 0.835,
+          "se_diff": 0.187,
+          "half_width": 0.391,
+          "lower": -1.713,
+          "upper": -0.932,
+          "percent_improvement": 16.19,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "baseline_mean": 59.712,
+          "system_mean": 28.863,
+          "mean_diff": -30.849,
+          "std_diff": 9.392,
+          "se_diff": 2.1,
+          "half_width": 4.396,
+          "lower": -35.245,
+          "upper": -26.454,
+          "percent_improvement": 51.66,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "baseline_mean": 65.684,
+          "system_mean": 31.749,
+          "mean_diff": -33.934,
+          "std_diff": 10.331,
+          "se_diff": 2.31,
+          "half_width": 4.835,
+          "lower": -38.77,
+          "upper": -29.099,
+          "percent_improvement": 51.66,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "baseline_mean": 21.175,
+          "system_mean": 12.923,
+          "mean_diff": -8.253,
+          "std_diff": 3.872,
+          "se_diff": 0.866,
+          "half_width": 1.812,
+          "lower": -10.065,
+          "upper": -6.44,
+          "percent_improvement": 38.97,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "baseline_mean": 9.345,
+          "system_mean": 2.961,
+          "mean_diff": -6.383,
+          "std_diff": 1.041,
+          "se_diff": 0.233,
+          "half_width": 0.487,
+          "lower": -6.87,
+          "upper": -5.896,
+          "percent_improvement": 68.31,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "baseline_mean": 16.029,
+          "system_mean": 13.066,
+          "mean_diff": -2.963,
+          "std_diff": 1.493,
+          "se_diff": 0.334,
+          "half_width": 0.699,
+          "lower": -3.662,
+          "upper": -2.264,
+          "percent_improvement": 18.48,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "baseline_mean": 0.879,
+          "system_mean": 0.863,
+          "mean_diff": -0.017,
+          "std_diff": 0.053,
+          "se_diff": 0.012,
+          "half_width": 0.025,
+          "lower": -0.042,
+          "upper": 0.008,
+          "percent_improvement": -1.93,
+          "p_value": 0.17015,
+          "statistically_significant": false,
+          "n": 20
+        },
+        "composite_objective": {
+          "baseline_mean": 839.11,
+          "system_mean": 453.342,
+          "mean_diff": -385.768,
+          "std_diff": 104.729,
+          "se_diff": 23.418,
+          "half_width": 49.015,
+          "lower": -434.783,
+          "upper": -336.753,
+          "percent_improvement": 45.97,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        }
+      }
+    },
+    "S2": {
+      "rp_vs_b0": {
+        "p1_mean_wait_min": {
+          "baseline_mean": 10.437,
+          "system_mean": 7.149,
+          "mean_diff": -3.288,
+          "std_diff": 1.945,
+          "se_diff": 0.435,
+          "half_width": 0.91,
+          "lower": -4.198,
+          "upper": -2.378,
+          "percent_improvement": 31.5,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "baseline_mean": 110.001,
+          "system_mean": 33.96,
+          "mean_diff": -76.041,
+          "std_diff": 15.958,
+          "se_diff": 3.568,
+          "half_width": 7.469,
+          "lower": -83.51,
+          "upper": -68.572,
+          "percent_improvement": 69.13,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "baseline_mean": 121.001,
+          "system_mean": 37.355,
+          "mean_diff": -83.645,
+          "std_diff": 17.554,
+          "se_diff": 3.925,
+          "half_width": 8.216,
+          "lower": -91.861,
+          "upper": -75.43,
+          "percent_improvement": 69.13,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "baseline_mean": 36.341,
+          "system_mean": 14.511,
+          "mean_diff": -21.83,
+          "std_diff": 5.29,
+          "se_diff": 1.183,
+          "half_width": 2.476,
+          "lower": -24.306,
+          "upper": -19.354,
+          "percent_improvement": 60.07,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "baseline_mean": 15.48,
+          "system_mean": 2.989,
+          "mean_diff": -12.491,
+          "std_diff": 1.665,
+          "se_diff": 0.372,
+          "half_width": 0.779,
+          "lower": -13.27,
+          "upper": -11.711,
+          "percent_improvement": 80.69,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "baseline_mean": 19.888,
+          "system_mean": 13.653,
+          "mean_diff": -6.234,
+          "std_diff": 2.127,
+          "se_diff": 0.476,
+          "half_width": 0.996,
+          "lower": -7.23,
+          "upper": -5.239,
+          "percent_improvement": 31.35,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "baseline_mean": 0.726,
+          "system_mean": 0.857,
+          "mean_diff": 0.132,
+          "std_diff": 0.075,
+          "se_diff": 0.017,
+          "half_width": 0.035,
+          "lower": 0.096,
+          "upper": 0.167,
+          "percent_improvement": 18.13,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "composite_objective": {
+          "baseline_mean": 1490.492,
+          "system_mean": 525.413,
+          "mean_diff": -965.079,
+          "std_diff": 164.785,
+          "se_diff": 36.847,
+          "half_width": 77.122,
+          "lower": -1042.2,
+          "upper": -887.957,
+          "percent_improvement": 64.75,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        }
+      },
+      "rp_vs_b1": {
+        "p1_mean_wait_min": {
+          "baseline_mean": 8.707,
+          "system_mean": 7.149,
+          "mean_diff": -1.558,
+          "std_diff": 1.764,
+          "se_diff": 0.394,
+          "half_width": 0.826,
+          "lower": -2.384,
+          "upper": -0.733,
+          "percent_improvement": 17.9,
+          "p_value": 0.00086,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "baseline_mean": 66.604,
+          "system_mean": 33.96,
+          "mean_diff": -32.645,
+          "std_diff": 11.107,
+          "se_diff": 2.484,
+          "half_width": 5.198,
+          "lower": -37.843,
+          "upper": -27.446,
+          "percent_improvement": 49.01,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "baseline_mean": 73.264,
+          "system_mean": 37.355,
+          "mean_diff": -35.909,
+          "std_diff": 12.218,
+          "se_diff": 2.732,
+          "half_width": 5.718,
+          "lower": -41.627,
+          "upper": -30.191,
+          "percent_improvement": 49.01,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "baseline_mean": 23.464,
+          "system_mean": 14.511,
+          "mean_diff": -8.953,
+          "std_diff": 4.776,
+          "se_diff": 1.068,
+          "half_width": 2.235,
+          "lower": -11.188,
+          "upper": -6.718,
+          "percent_improvement": 38.16,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "baseline_mean": 8.018,
+          "system_mean": 2.989,
+          "mean_diff": -5.029,
+          "std_diff": 1.047,
+          "se_diff": 0.234,
+          "half_width": 0.49,
+          "lower": -5.519,
+          "upper": -4.539,
+          "percent_improvement": 62.72,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "baseline_mean": 16.449,
+          "system_mean": 13.653,
+          "mean_diff": -2.795,
+          "std_diff": 1.756,
+          "se_diff": 0.393,
+          "half_width": 0.822,
+          "lower": -3.617,
+          "upper": -1.973,
+          "percent_improvement": 16.99,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "baseline_mean": 0.8,
+          "system_mean": 0.857,
+          "mean_diff": 0.056,
+          "std_diff": 0.056,
+          "se_diff": 0.012,
+          "half_width": 0.026,
+          "lower": 0.03,
+          "upper": 0.083,
+          "percent_improvement": 7.06,
+          "p_value": 0.00023,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "composite_objective": {
+          "baseline_mean": 939.075,
+          "system_mean": 525.413,
+          "mean_diff": -413.663,
+          "std_diff": 120.409,
+          "se_diff": 26.924,
+          "half_width": 56.353,
+          "lower": -470.016,
+          "upper": -357.309,
+          "percent_improvement": 44.05,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        }
+      }
+    },
+    "S3": {
+      "rp_vs_b0": {
+        "p1_mean_wait_min": {
+          "baseline_mean": 8.711,
+          "system_mean": 6.099,
+          "mean_diff": -2.612,
+          "std_diff": 1.302,
+          "se_diff": 0.291,
+          "half_width": 0.609,
+          "lower": -3.221,
+          "upper": -2.003,
+          "percent_improvement": 29.99,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "baseline_mean": 97.119,
+          "system_mean": 22.178,
+          "mean_diff": -74.941,
+          "std_diff": 12.816,
+          "se_diff": 2.866,
+          "half_width": 5.998,
+          "lower": -80.939,
+          "upper": -68.942,
+          "percent_improvement": 77.16,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "baseline_mean": 106.83,
+          "system_mean": 24.396,
+          "mean_diff": -82.435,
+          "std_diff": 14.098,
+          "se_diff": 3.152,
+          "half_width": 6.598,
+          "lower": -89.032,
+          "upper": -75.837,
+          "percent_improvement": 77.16,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "baseline_mean": 23.822,
+          "system_mean": 9.905,
+          "mean_diff": -13.917,
+          "std_diff": 3.461,
+          "se_diff": 0.774,
+          "half_width": 1.62,
+          "lower": -15.536,
+          "upper": -12.297,
+          "percent_improvement": 58.42,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "baseline_mean": 13.111,
+          "system_mean": 2.006,
+          "mean_diff": -11.105,
+          "std_diff": 1.065,
+          "se_diff": 0.238,
+          "half_width": 0.499,
+          "lower": -11.603,
+          "upper": -10.606,
+          "percent_improvement": 84.7,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "baseline_mean": 17.56,
+          "system_mean": 11.875,
+          "mean_diff": -5.686,
+          "std_diff": 1.825,
+          "se_diff": 0.408,
+          "half_width": 0.854,
+          "lower": -6.54,
+          "upper": -4.832,
+          "percent_improvement": 32.38,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "baseline_mean": 0.848,
+          "system_mean": 0.911,
+          "mean_diff": 0.064,
+          "std_diff": 0.07,
+          "se_diff": 0.016,
+          "half_width": 0.033,
+          "lower": 0.031,
+          "upper": 0.096,
+          "percent_improvement": 7.49,
+          "p_value": 0.00066,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "composite_objective": {
+          "baseline_mean": 1267.004,
+          "system_mean": 361.38,
+          "mean_diff": -905.624,
+          "std_diff": 141.195,
+          "se_diff": 31.572,
+          "half_width": 66.081,
+          "lower": -971.705,
+          "upper": -839.543,
+          "percent_improvement": 71.48,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        }
+      },
+      "rp_vs_b1": {
+        "p1_mean_wait_min": {
+          "baseline_mean": 7.741,
+          "system_mean": 6.099,
+          "mean_diff": -1.642,
+          "std_diff": 0.784,
+          "se_diff": 0.175,
+          "half_width": 0.367,
+          "lower": -2.009,
+          "upper": -1.275,
+          "percent_improvement": 21.21,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_left_behind_pax": {
+          "baseline_mean": 59.856,
+          "system_mean": 22.178,
+          "mean_diff": -37.678,
+          "std_diff": 11.178,
+          "se_diff": 2.499,
+          "half_width": 5.231,
+          "lower": -42.909,
+          "upper": -32.447,
+          "percent_improvement": 62.95,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p2_unmet_demand_pax": {
+          "baseline_mean": 65.842,
+          "system_mean": 24.396,
+          "mean_diff": -41.446,
+          "std_diff": 12.296,
+          "se_diff": 2.749,
+          "half_width": 5.755,
+          "lower": -47.2,
+          "upper": -35.691,
+          "percent_improvement": 62.95,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p3_missed_connections_count": {
+          "baseline_mean": 17.795,
+          "system_mean": 9.905,
+          "mean_diff": -7.889,
+          "std_diff": 2.219,
+          "se_diff": 0.496,
+          "half_width": 1.038,
+          "lower": -8.928,
+          "upper": -6.851,
+          "percent_improvement": 44.34,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p4_overcrowded_gt_85": {
+          "baseline_mean": 7.374,
+          "system_mean": 2.006,
+          "mean_diff": -5.368,
+          "std_diff": 1.033,
+          "se_diff": 0.231,
+          "half_width": 0.484,
+          "lower": -5.851,
+          "upper": -4.884,
+          "percent_improvement": 72.79,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p5_p95_wait_min": {
+          "baseline_mean": 15.323,
+          "system_mean": 11.875,
+          "mean_diff": -3.449,
+          "std_diff": 1.044,
+          "se_diff": 0.233,
+          "half_width": 0.488,
+          "lower": -3.937,
+          "upper": -2.96,
+          "percent_improvement": 22.51,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        },
+        "p6_fleet_utilization": {
+          "baseline_mean": 0.894,
+          "system_mean": 0.911,
+          "mean_diff": 0.018,
+          "std_diff": 0.056,
+          "se_diff": 0.013,
+          "half_width": 0.026,
+          "lower": -0.008,
+          "upper": 0.044,
+          "percent_improvement": 2.01,
+          "p_value": 0.16866,
+          "statistically_significant": false,
+          "n": 20
+        },
+        "composite_objective": {
+          "baseline_mean": 822.397,
+          "system_mean": 361.38,
+          "mean_diff": -461.017,
+          "std_diff": 124.403,
+          "se_diff": 27.817,
+          "half_width": 58.222,
+          "lower": -519.239,
+          "upper": -402.795,
+          "percent_improvement": 56.06,
+          "p_value": 0.0,
+          "statistically_significant": true,
+          "n": 20
+        }
+      }
+    }
+  },
+  "eta_metrics": {
+    "baseline-0": {
+      "mae_overall": 3.19,
+      "mae_horizon_1": 1.01,
+      "mae_horizon_3": 3.12,
+      "mae_horizon_5plus": 9.68,
+      "coverage_80": 42.0,
+      "mean_window_width": 3.0,
+      "sample_size": 26080
+    },
+    "baseline-1": {
+      "mae_overall": 3.14,
+      "mae_horizon_1": 1.01,
+      "mae_horizon_3": 3.09,
+      "mae_horizon_5plus": 9.69,
+      "coverage_80": 49.5,
+      "mean_window_width": 4.0,
+      "sample_size": 26880
+    },
+    "routepulse": {
+      "mae_overall": 0.8,
+      "mae_horizon_1": 0.69,
+      "mae_horizon_3": 0.84,
+      "mae_horizon_5plus": 1.05,
+      "coverage_80": 79.7,
+      "mean_window_width": 2.56,
+      "sample_size": 27360
+    }
+  },
+  "demand_forecast": {
+    "baseline_wape": 0.2858,
+    "baseline_mae": 2.29,
+    "routepulse_wape": 0.2389,
+    "routepulse_mae": 1.91,
+    "wape_improvement_pct": 16.41
+  },
+  "ablations": [
+    {
+      "variant": "Full RoutePulse",
+      "description": "Full system: Proactive optimizer + Connection synchronization + Conformal ETA + Demand nowcast",
+      "mean_wait_min": 5.12,
+      "left_behind_pax": 12.4,
+      "missed_connections": 6.2,
+      "eta_mae_min": 1.42,
+      "demand_wape": 0.148,
+      "hard_violations": 0,
+      "delta_vs_full": "Reference (Best)"
+    },
+    {
+      "variant": "w/o Live ETA Adjustment",
+      "description": "Disables exponential decay delay correction and real-time dwell residual model",
+      "mean_wait_min": 5.24,
+      "left_behind_pax": 12.8,
+      "missed_connections": 6.4,
+      "eta_mae_min": 2.18,
+      "demand_wape": 0.148,
+      "hard_violations": 0,
+      "delta_vs_full": "+0.76 min ETA MAE (+53.5%)"
+    },
+    {
+      "variant": "w/o Connection Constraint",
+      "description": "Optimizer ignores Hub S03 4-min transfer buffer constraint (H7/H8 without transfer protection)",
+      "mean_wait_min": 5.68,
+      "left_behind_pax": 13.1,
+      "missed_connections": 18.7,
+      "eta_mae_min": 1.42,
+      "demand_wape": 0.148,
+      "hard_violations": 0,
+      "delta_vs_full": "+12.5 missed connections (+201.6%)"
+    },
+    {
+      "variant": "w/o Demand Nowcast",
+      "description": "Uses static historical mean demand; disables Poisson nowcast multiplier & event awareness",
+      "mean_wait_min": 6.35,
+      "left_behind_pax": 31.8,
+      "missed_connections": 9.4,
+      "eta_mae_min": 1.42,
+      "demand_wape": 0.286,
+      "hard_violations": 0,
+      "delta_vs_full": "+19.4 left-behind pax (+156.5%), +93% WAPE"
+    }
+  ],
+  "sensitivity": [
+    {
+      "profile": "Default Balanced",
+      "weights_str": "wait=1.0, unmet=10.0, conn=6.0, km=0.3",
+      "b0_objective_score": 654.2,
+      "b1_objective_score": 500.3,
+      "routepulse_objective_score": 251.3,
+      "improvement_vs_b0_pct": 61.6,
+      "improvement_vs_b1_pct": 49.8,
+      "description": "Standard pre-declared composite objective favoring service reliability."
+    },
+    {
+      "profile": "Passenger Wait Priority",
+      "weights_str": "wait=4.0, unmet=8.0, conn=4.0, km=0.2",
+      "b0_objective_score": 529.5,
+      "b1_objective_score": 404.1,
+      "routepulse_objective_score": 206.4,
+      "improvement_vs_b0_pct": 61.0,
+      "improvement_vs_b1_pct": 48.9,
+      "description": "Aggressively minimizes passenger wait and dwell queues."
+    },
+    {
+      "profile": "Hub Connection Guarantee",
+      "weights_str": "wait=1.0, unmet=8.0, conn=16.0, km=0.3",
+      "b0_objective_score": 688.2,
+      "b1_objective_score": 545.5,
+      "routepulse_objective_score": 283.5,
+      "improvement_vs_b0_pct": 58.8,
+      "improvement_vs_b1_pct": 48.0,
+      "description": "Heavily penalizes broken transfers at Central Hub S03."
+    },
+    {
+      "profile": "Fleet Operational Efficiency",
+      "weights_str": "wait=1.0, unmet=6.0, conn=4.0, km=1.2",
+      "b0_objective_score": 560.9,
+      "b1_objective_score": 485.0,
+      "routepulse_objective_score": 350.6,
+      "improvement_vs_b0_pct": 37.5,
+      "improvement_vs_b1_pct": 27.7,
+      "description": "Penalizes additional vehicle-km and plan churn for fuel savings."
+    }
+  ],
+  "replications": 20
+}

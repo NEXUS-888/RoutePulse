@@ -1,0 +1,6 @@
+{
+  "target_coverage": 0.8,
+  "stale_threshold_s": 120.0,
+  "q_correction": -0.011712151551023453,
+  "is_calibrated": true
+}

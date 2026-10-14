@@ -1,0 +1,24 @@
+{
+  "dispersion_alpha": 0.020829870096258942,
+  "feature_cols": [
+    "stop_code",
+    "hour",
+    "minute",
+    "slot_index",
+    "weekday",
+    "lag_1d",
+    "lag_2d",
+    "lag_3d",
+    "lag_7d",
+    "rolling_mean_3d",
+    "class_change_proximity",
+    "event_active",
+    "event_attendance",
+    "minutes_since_event_end"
+  ],
+  "learning_rate": 0.05,
+  "num_leaves": 31,
+  "min_child_samples": 20,
+  "n_estimators": 300,
+  "random_state": 42
+}

@@ -1,0 +1,26 @@
+{
+  "model_type": "LightGBM_Poisson_NegBin_Bands",
+  "train_split": "Days 1-20",
+  "validation_split": "Days 21-25",
+  "test_split_touched": false,
+  "dispersion_alpha": 0.020829870096258942,
+  "validation_metrics": {
+    "mae": 2.381684389325457,
+    "wape": 0.29346744221430326,
+    "bias": -0.03534176726316959,
+    "relative_bias": -0.004354757535692229,
+    "peak_slot_recall": 0.631578947367036,
+    "pinball_loss_0.8": 0.8721198156682027
+  },
+  "baseline_metrics": {
+    "mae": 2.567357910906298,
+    "wape": 0.3163458444532683,
+    "bias": -0.15352278545826933,
+    "relative_bias": -0.018916838592041053,
+    "peak_slot_recall": 0.627192982454765
+  },
+  "improvement_pct": {
+    "mae_reduction_pct": 7.232085592432902,
+    "wape_reduction_pct": 7.232085592432908
+  }
+}
