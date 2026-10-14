@@ -57,10 +57,12 @@ app.include_router(scenarios.router, prefix="/api")
 app.include_router(eval_router.router, prefix="/api")
 app.include_router(ingest.router, prefix="/api")
 app.include_router(student.router, prefix="/api")
+from fastapi.staticfiles import StaticFiles
 
-
-
-
+# Serve built frontend if available
+web_dist_dir = Path(__file__).resolve().parent.parent / "web" / "dist"
+if web_dist_dir.exists():
+    app.mount("/", StaticFiles(directory=str(web_dist_dir), html=True), name="web")
 
 if __name__ == "__main__":
     import uvicorn

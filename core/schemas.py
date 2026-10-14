@@ -5,7 +5,7 @@ Single source of truth for all entities, data contracts, and API payloads.
 
 from __future__ import annotations
 from typing import Any, Literal, Optional
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, field_validator
 
 
 # ---------------------------------------------------------------------------
@@ -57,6 +57,14 @@ class Trip(BaseModel):
     departure_min: int = Field(..., description="Trip departure time in minutes from midnight")
     scheduled_stop_times: dict[str, int] = Field(..., description="Mapping of stop_id -> scheduled arrival minute")
 
+    @field_validator("route_id")
+    @classmethod
+    def validate_route_id(cls, v: str) -> str:
+        valid_routes = {"R1", "R2", "R3", "R4"}
+        if v not in valid_routes:
+            raise ValueError(f"Invalid route_id '{v}'. Allowed routes are: {sorted(valid_routes)}")
+        return v
+
 
 class Plan(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -74,10 +82,10 @@ class GpsPing(BaseModel):
     model_config = ConfigDict(extra="forbid")
     vehicle_id: str
     t_sec: int = Field(..., description="Timestamp in seconds from midnight")
-    lat: float
-    lon: float
-    speed_mps: float
-    heading: float
+    lat: float = Field(..., ge=-90.0, le=90.0, description="WGS84 latitude")
+    lon: float = Field(..., ge=-180.0, le=180.0, description="WGS84 longitude")
+    speed_mps: float = Field(..., ge=0.0, description="Speed in m/s")
+    heading: float = Field(default=0.0, ge=0.0, le=360.0, description="Vehicle heading in degrees")
 
 
 class ApcRecord(BaseModel):

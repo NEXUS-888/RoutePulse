@@ -75,7 +75,7 @@ class RollingHorizonOptimizer:
         self,
         current_time_min: int,
         current_plan: Plan,
-        disruption: Optional[Disruption] = None,
+        disruption: Union[Disruption, Sequence[Disruption], None] = None,
         p80_demand: Optional[Dict[Tuple[str, int], float]] = None,
         p80_loads: Optional[Dict[str, float]] = None,
     ) -> RollingStepResult:
@@ -96,22 +96,27 @@ class RollingHorizonOptimizer:
         disrupted_vehicles: Set[str] = set()
         active_demand_spike = False
         active_traffic_delay = False
+        spike_params: Dict[str, Any] = {}
 
+        disruptions_list: List[Disruption] = []
         if disruption is not None:
-            d_start, d_end = disruption.start_min, disruption.end_min
-            # Check if disruption overlaps current horizon
+            if isinstance(disruption, (list, tuple)):
+                disruptions_list.extend(disruption)
+            else:
+                disruptions_list.append(disruption)
+
+        for d in disruptions_list:
+            d_start, d_end = d.start_min, d.end_min
             if not (d_end < w_start or d_start > w_end):
-                if disruption.type == "vehicle_out":
-                    vid = disruption.params.get("vehicle_id", "B2")
-                    # If failure has occurred
+                if d.type == "vehicle_out":
+                    vid = d.params.get("vehicle_id", "B2")
                     if current_time_min >= d_start:
                         disrupted_vehicles.add(vid)
-
-                elif disruption.type == "traffic":
+                elif d.type == "traffic":
                     active_traffic_delay = True
-
-                elif disruption.type == "demand_spike":
+                elif d.type == "demand_spike":
                     active_demand_spike = True
+                    spike_params = d.params
 
         # Working copy of plan
         working_plan = Plan(**copy.deepcopy(current_plan.model_dump()))
@@ -213,34 +218,48 @@ class RollingHorizonOptimizer:
         # DISRUPTION S3: DEMAND SPIKE -> Insert Extra Reserve Trip
         # -----------------------------------------------------------------
         if active_demand_spike:
-            surge_stop = disruption.params.get("stop_id", "S07") if disruption else "S07"
+            surge_stop = spike_params.get("stop_id", "S07")
             # Route serving S07 is R1 (Main Loop)
             target_dep = current_time_min + 12
-            rec_add = self.explainer.build_add_trip_card(
-                base_plan=working_plan,
-                route_id="R1",
-                departure_min=target_dep,
-                vehicle_id="B6",
-                direction=0,
-                p80_load_before=1.85,
-                p80_load_after=0.92,
-                pax_affected=95,
-            )
-            if rec_add:
-                recs.append(rec_add)
-                from optimize.candidates import build_stop_times
-                new_t = Trip(
-                    trip_id=f"T_SURGE_{current_time_min}",
+            
+            # Select an idle reserve vehicle not disabled and not conflicting at target_dep
+            available_reserves = ["B6", "B5", "M4"]
+            selected_res_vid: Optional[str] = None
+            for r_vid in available_reserves:
+                if r_vid in disrupted_vehicles:
+                    continue
+                assigned_trips = [t for t in working_plan.trips if t.vehicle_id == r_vid]
+                conflict = any(abs(t.departure_min - target_dep) < 20 for t in assigned_trips)
+                if not conflict:
+                    selected_res_vid = r_vid
+                    break
+
+            if selected_res_vid:
+                rec_add = self.explainer.build_add_trip_card(
+                    base_plan=working_plan,
                     route_id="R1",
-                    direction=0,
-                    vehicle_id="B6",
                     departure_min=target_dep,
-                    scheduled_stop_times=build_stop_times("R1", 0, target_dep),
+                    vehicle_id=selected_res_vid,
+                    direction=0,
+                    p80_load_before=1.85,
+                    p80_load_after=0.92,
+                    pax_affected=95,
                 )
-                working_plan.trips.append(new_t)
-                working_plan.trips.sort(key=lambda t: (t.departure_min, max(t.scheduled_stop_times.values())))
-                working_plan.vehicle_blocks.setdefault("B6", []).append(new_t.trip_id)
-                added_trips.append(new_t)
+                if rec_add:
+                    recs.append(rec_add)
+                    from optimize.candidates import build_stop_times
+                    new_t = Trip(
+                        trip_id=f"T_SURGE_{current_time_min}",
+                        route_id="R1",
+                        direction=0,
+                        vehicle_id=selected_res_vid,
+                        departure_min=target_dep,
+                        scheduled_stop_times=build_stop_times("R1", 0, target_dep),
+                    )
+                    working_plan.trips.append(new_t)
+                    working_plan.trips.sort(key=lambda t: (t.departure_min, max(t.scheduled_stop_times.values())))
+                    working_plan.vehicle_blocks.setdefault(selected_res_vid, []).append(new_t.trip_id)
+                    added_trips.append(new_t)
 
         # -----------------------------------------------------------------
         # Normal Rolling Optimization / Heuristic Adjustment if no major shock

@@ -86,7 +86,7 @@ class RoutePulseGreedyHeuristic:
         overloaded_slots = self._find_overloaded_slots(working_plan, p80_demand, p80_loads, w_start, w_end)
 
         # Step 2: Dispatch idle reserve vehicles for overloaded slots
-        reserves = list(reserve_vehicles) if reserve_vehicles else ["B6", "M4", "B5"]
+        reserves = list(reserve_vehicles) if reserve_vehicles is not None else ["B6", "M4", "B5"]
         add_counter = 1
 
         for r_id, direction, target_min, severity in overloaded_slots:
@@ -182,10 +182,10 @@ class RoutePulseGreedyHeuristic:
                 slot_start = slot_15m * 15
                 if not (w_start <= slot_start <= w_end):
                     continue
-                # Compute offered capacity in this slot
+                # Compute offered capacity in this slot for direction 0
                 trips_in_slot = [
                     t for t in plan.trips
-                    if t.route_id == r_id and (slot_start <= t.departure_min < slot_start + 15)
+                    if t.route_id == r_id and t.direction == 0 and (slot_start <= t.departure_min < slot_start + 15)
                 ]
                 offered_cap = sum(self.fleet[t.vehicle_id].capacity for t in trips_in_slot if t.vehicle_id in self.fleet)
                 slack = demand - offered_cap
@@ -203,7 +203,7 @@ class RoutePulseGreedyHeuristic:
                     overloaded.append((t.route_id, t.direction, t.departure_min, float(load - cap)))
 
         # Default heuristics for peak morning: R3 at Metro Station and R1 Main Loop
-        if not overloaded:
+        if not overloaded and p80_demand is None and p80_loads is None:
             # Morning peak high-demand windows
             for dep in range(max(w_start, 465), min(w_end, 570), 30):
                 overloaded.append(("R3", 0, dep, 40.0))
@@ -353,6 +353,7 @@ def run_fast_heuristic(
     p80_demand: Optional[Dict[Tuple[str, int], float]] = None,
     p80_loads: Optional[Dict[str, float]] = None,
     window: Optional[Tuple[int, int]] = None,
+    reserve_vehicles: Optional[Sequence[str]] = ("B6", "M4", "B5"),
 ) -> HeuristicResult:
     """Convenience entry point for fast greedy heuristic optimization."""
     engine = RoutePulseGreedyHeuristic()
@@ -361,4 +362,5 @@ def run_fast_heuristic(
         p80_demand=p80_demand,
         p80_loads=p80_loads,
         window=window,
+        reserve_vehicles=reserve_vehicles,
     )
