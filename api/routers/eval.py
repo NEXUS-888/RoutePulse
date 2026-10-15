@@ -8,7 +8,7 @@ from pathlib import Path
 from fastapi import APIRouter
 
 from core.schemas import EvalResultsResponse
-from eval.report import compute_headline
+from core.headline import compute_headline
 
 router = APIRouter(tags=["Evaluation"])
 FIXTURES_DIR = Path(__file__).resolve().parent.parent / "fixtures"

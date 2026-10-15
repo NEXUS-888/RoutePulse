@@ -443,3 +443,23 @@ def test_replayer_unit():
     eta_veh = replayer.get_vehicle_eta("B1", t_min=455)
     assert eta_veh.vehicle_id == "B1"
     assert len(eta_veh.downstream_stops) >= 1
+
+
+def test_api_imports_without_analytics_stack():
+    """The deployed API (e.g. Vercel) installs only the slim dependency set: no numpy/pandas/lightgbm.
+
+    Importing api.main must not require them, or the serverless function dies with
+    FUNCTION_INVOCATION_FAILED on startup.
+    """
+    import subprocess
+    import sys
+
+    code = (
+        "import sys\n"
+        "for m in ('numpy', 'pandas', 'scipy', 'sklearn', 'lightgbm', 'ortools', 'duckdb', 'pyarrow'):\n"
+        "    sys.modules[m] = None  # any import of these raises ImportError\n"
+        "import api.main\n"
+        "print('ok')\n"
+    )
+    res = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, timeout=60)
+    assert res.returncode == 0 and "ok" in res.stdout, res.stderr[-800:]
