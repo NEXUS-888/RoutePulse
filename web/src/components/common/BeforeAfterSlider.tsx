@@ -201,7 +201,7 @@ export const BeforeAfterSlider: React.FC = () => {
       </div>
 
       {/* KPI Comparison Matrix */}
-      <div
+      <div data-tour="kpi-compare"
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(4, 1fr)',

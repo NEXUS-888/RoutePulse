@@ -117,6 +117,9 @@ interface SimulationContextValue {
 
 const SimulationContext = createContext<SimulationContextValue | null>(null);
 
+/** Keep in sync with TOUR_STEPS in components/onboarding/SpotlightTour.tsx */
+export const TOUR_STEP_COUNT = 8;
+
 export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Morning peak: 07:30 (450 min) to 10:30 (630 min)
   const [simTimeMin, setSimTimeMin] = useState<number>(470); // Default 07:50
@@ -486,7 +489,7 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   const nextTourStep = useCallback(() => {
     setTourStep(prev => {
       const next = prev + 1;
-      if (next > 10) {
+      if (next >= TOUR_STEP_COUNT) {
         setIsTourActive(false);
         localStorage.setItem('rp_onboarded_v1', 'true');
         return 0;

@@ -62,3 +62,8 @@
   - *Cover-the-Logo Test:* Passed — custom 5-zone control room layout with live ECG waveform, health pill, and bottom time scrubber cannot be mistaken for generic admin SaaS.
   - *5-Second Test:* Passed — Route R3 immediately registers as congested during morning peak via pulsing coral halo and warning indicators.
   - *Banned Pattern Scan:* Clean — zero purple/blue gradient buttons, zero emoji icons, zero uniform card grids, zero Inter defaults, zero lorem ipsum.
+
+### Guided Tour & Auto-Demo: explain without hiding (revised)
+- The tour used to centre a card over a dimmed, click-blocking backdrop, so the feature being explained was covered. Now each step **outlines the real UI element** with a pulsing ring (`data-tour="..."` hooks plus a few stable selectors) and parks its card in whichever stage corner overlaps that element, the open inspector and the map controls the least (`components/onboarding/spotlight.tsx`). Nothing is dimmed or click-blocked.
+- The auto-demo caption uses the same placement and per-phase targets, and its timer is wall-clock based (the old timer advanced two phases at a time under React StrictMode).
+- The inspector drawer is closed at every tour step so it cannot hide the next target. Tour length: 8 steps (`TOUR_STEP_COUNT` in `SimulationContext.tsx` must match `TOUR_STEPS`).

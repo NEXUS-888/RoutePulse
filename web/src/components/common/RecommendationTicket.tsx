@@ -186,6 +186,7 @@ export const RecommendationTicket: React.FC<RecommendationTicketProps> = ({
             <button
               className="btn btn-primary"
               onClick={() => acceptRecommendation(recommendation.id)}
+              data-tour="rec-accept"
               style={{ flex: 1, gap: 6, fontWeight: 600 }}
             >
               <Check size={14} />

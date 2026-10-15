@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSimulation } from '../../context/SimulationContext';
-import { Play, Pause, RotateCcw, X, Sparkles, CheckCircle2 } from 'lucide-react';
+import { RotateCcw, Sparkles } from 'lucide-react';
+import { SpotlightRing, useCornerPlacement, useTargetBox } from './spotlight';
 
 interface DemoPhase {
   id: number;
   durationMs: number;
   caption: string;
+  /** Selectors for the UI element this phase is about; it is outlined while the caption plays. */
+  target: string[];
   setup: (sim: any) => void;
 }
 
 const DEMO_PHASES: DemoPhase[] = [
   {
     id: 1,
+    target: ['[data-tour="vehicle-B3"]', '.map-svg'],
     durationMs: 14000,
     caption: '1/6: Morning Peak Overload. Regional commuters arrive at Metro S13; Route R3 spikes over 130% capacity under the static baseline schedule.',
     setup: sim => {
@@ -23,6 +27,7 @@ const DEMO_PHASES: DemoPhase[] = [
   },
   {
     id: 2,
+    target: ['[data-tour="eta-window"]', '.solari-departure-board'],
     durationMs: 14000,
     caption: '2/6: ETA Arrival Windows. Operators inspect p10–p90 arrival bounds calibrated on historical dwell times rather than brittle static schedules.',
     setup: sim => {
@@ -31,6 +36,7 @@ const DEMO_PHASES: DemoPhase[] = [
   },
   {
     id: 3,
+    target: ['[data-tour="rec-accept"]', '.rec-ticket'],
     durationMs: 15000,
     caption: '3/6: Proactive Recommendation. The CP-SAT engine recommends dispatching idle reserve bus B5 at 08:21 to alleviate R3 crowding.',
     setup: sim => {
@@ -39,6 +45,7 @@ const DEMO_PHASES: DemoPhase[] = [
   },
   {
     id: 4,
+    target: ['.health-badge'],
     durationMs: 15000,
     caption: '4/6: Validated Plan Update. Rec-0007 accepted: 0 constraint violations guaranteed. Left-behind passengers immediately decrease by 41.',
     setup: sim => {
@@ -48,6 +55,7 @@ const DEMO_PHASES: DemoPhase[] = [
   },
   {
     id: 5,
+    target: ['[data-tour="vehicle-B3"]', '.map-svg'],
     durationMs: 16000,
     caption: '5/6: Disruption Resilience. Injecting S2 breakdown (bus B3 engine failure). The rolling optimizer activates recovery mode.',
     setup: sim => {
@@ -58,6 +66,7 @@ const DEMO_PHASES: DemoPhase[] = [
   },
   {
     id: 6,
+    target: ['[data-tour="kpi-compare"]', '[data-tour="before-after"]'],
     durationMs: 16000,
     caption: '6/6: Baseline vs RoutePulse Comparison. 25% lower passenger wait time, 66% fewer left behind, and 0 hard constraint violations.',
     setup: sim => {
@@ -72,6 +81,7 @@ export const ShowcaseDemo: React.FC = () => {
 
   const [phaseIndex, setPhaseIndex] = useState(0);
   const [phaseProgress, setPhaseProgress] = useState(0); // 0 to 100
+  const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!isAutoDemoActive) return;
@@ -89,31 +99,31 @@ export const ShowcaseDemo: React.FC = () => {
     currentPhase.setup(sim);
     setPhaseProgress(0);
 
-    const stepMs = 200;
-    const progressInc = (stepMs / currentPhase.durationMs) * 100;
-
+    // Wall-clock progress; no side effects inside state updaters (StrictMode runs those twice)
+    const startedAt = Date.now();
     const timer = setInterval(() => {
-      setPhaseProgress(prev => {
-        const next = prev + progressInc;
-        if (next >= 100) {
-          if (phaseIndex < DEMO_PHASES.length - 1) {
-            setPhaseIndex(p => p + 1);
-          } else {
-            // Demo finished, stay in final state or take control
-            stopAutoDemo();
-          }
-          return 0;
-        }
-        return next;
-      });
-    }, stepMs);
+      const pct = ((Date.now() - startedAt) / currentPhase.durationMs) * 100;
+      if (pct < 100) {
+        setPhaseProgress(pct);
+        return;
+      }
+      clearInterval(timer);
+      if (phaseIndex < DEMO_PHASES.length - 1) {
+        setPhaseIndex(phaseIndex + 1);
+      } else {
+        // Demo finished: hand control to the user in the final state
+        stopAutoDemo();
+      }
+    }, 200);
 
     return () => clearInterval(timer);
   }, [isAutoDemoActive, phaseIndex]);
 
-  if (!isAutoDemoActive) return null;
-
   const currentPhase = DEMO_PHASES[phaseIndex] || DEMO_PHASES[0];
+  const targetBox = useTargetBox(currentPhase.target, phaseIndex, isAutoDemoActive);
+  const placement = useCornerPlacement(targetBox, 440, cardRef, isAutoDemoActive);
+
+  if (!isAutoDemoActive) return null;
 
   const handleReset = () => {
     setPhaseIndex(0);
@@ -122,70 +132,68 @@ export const ShowcaseDemo: React.FC = () => {
   };
 
   return (
+    <>
+      {/* Outline the real UI element the caption is describing; the rest of the UI stays visible */}
+      <SpotlightRing box={targetBox} />
+
     <div
+      ref={cardRef}
       style={{
         position: 'fixed',
-        bottom: 84,
-        left: '50%',
-        transform: 'translateX(-50%)',
-        width: '90%',
-        maxWidth: '820px',
+        maxWidth: 440,
         background: 'var(--bg-surface)',
         border: '1.5px solid var(--accent)',
-        borderRadius: 'var(--radius-md)',
+        borderRadius: 'var(--radius-lg)',
         boxShadow: 'var(--shadow-lg)',
-        padding: '14px 20px',
-        zIndex: 150,
+        padding: '14px 18px',
+        zIndex: 300,
         display: 'flex',
         flexDirection: 'column',
-        gap: 8,
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)'
+        gap: 10,
+        transition: 'left 260ms var(--ease-standard), top 260ms var(--ease-standard)',
+        ...placement
       }}
     >
-      {/* Top Row: Caption + Phase Tracker + Buttons */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 14 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flex: 1 }}>
-          <div
-            style={{
-              padding: '4px 8px',
-              borderRadius: 'var(--radius-xs)',
-              background: 'var(--accent)',
-              color: 'var(--accent-contrast)',
-              fontWeight: 700,
-              fontSize: '0.72rem',
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase'
-            }}
-          >
-            Showcase
-          </div>
-          <span style={{ fontSize: '0.86rem', fontWeight: 600, color: 'var(--text-primary)', lineHeight: 1.4 }}>
-            {currentPhase.caption}
-          </span>
+      {/* Top Row: Tag + Buttons */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+        <div
+          style={{
+            padding: '3px 9px',
+            borderRadius: 'var(--radius-full)',
+            background: 'var(--accent)',
+            color: 'var(--accent-contrast)',
+            fontWeight: 700,
+            fontSize: '0.75rem'
+          }}
+        >
+          Auto-demo
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
           <button
-            className="btn btn-primary"
-            onClick={stopAutoDemo}
-            style={{ padding: '6px 12px', fontSize: '0.78rem', gap: 5 }}
-            title="Exit auto-demo and take interactive manual control"
-          >
-            <Sparkles size={13} style={{ color: 'var(--load-amber)' }} />
-            <span>Take Control</span>
-          </button>
-
-          <button
-            className="btn btn-outline"
+            className="btn"
             onClick={handleReset}
-            style={{ padding: '6px 10px', fontSize: '0.78rem' }}
+            style={{ padding: '5px 9px', fontSize: '0.8125rem' }}
             title="Restart showcase from Step 1"
+            aria-label="Restart showcase"
           >
             <RotateCcw size={13} />
           </button>
+          <button
+            className="btn btn-primary"
+            onClick={stopAutoDemo}
+            style={{ padding: '5px 12px', fontSize: '0.8125rem', gap: 5 }}
+            title="Exit auto-demo and take interactive manual control"
+          >
+            <Sparkles size={13} />
+            <span>Take control</span>
+          </button>
         </div>
       </div>
+
+      <span style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-primary)', lineHeight: 1.5 }}>
+        {currentPhase.caption}
+      </span>
 
       {/* Segmented Progress Bar */}
       <div style={{ display: 'flex', gap: 4, height: 4, width: '100%' }}>
@@ -217,5 +225,6 @@ export const ShowcaseDemo: React.FC = () => {
         })}
       </div>
     </div>
+    </>
   );
 };

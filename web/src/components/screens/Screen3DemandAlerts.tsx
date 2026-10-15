@@ -415,7 +415,7 @@ export const Screen3DemandAlerts: React.FC = () => {
             boxShadow: 'var(--shadow-sm)'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+          <div data-tour="bottlenecks" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
               <ShieldAlert size={18} style={{ color: 'var(--load-coral)' }} />
               <span style={{ fontSize: '0.92rem', fontWeight: 800 }}>Active Bottlenecks ({filteredAlerts.length})</span>

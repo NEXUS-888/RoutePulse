@@ -94,7 +94,7 @@ export const Screen5Disruptions: React.FC = () => {
         </div>
 
         {/* 4 Interactive Scenario Trigger Cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+        <div data-tour="scenario-cards" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
           {(['S0', 'S1', 'S2', 'S3'] as ScenarioId[]).map(s => {
             const info = scenarioMeta[s];
             const isActive = scenario === s;
@@ -155,7 +155,7 @@ export const Screen5Disruptions: React.FC = () => {
       </div>
 
       {/* Hero Interaction: Before / After Reveal Slider */}
-      <div className="screen-card">
+      <div className="screen-card" data-tour="before-after">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <Sliders size={18} style={{ color: 'var(--accent)' }} />

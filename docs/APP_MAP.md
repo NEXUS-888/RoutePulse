@@ -10,7 +10,7 @@
 ```mermaid
 flowchart TD
     Welcome["Welcome Modal & Role Selector\n(First-Run or Reset)"]
-    Welcome -->|"Take 90s Tour"| Tour["Spotlight Tour (11 Steps)"]
+    Welcome -->|"Take 90s Tour"| Tour["Spotlight Tour (8 Steps, outlines the real UI element)"]
     Welcome -->|"Watch Auto-Demo"| AutoDemo["Showcase Mode (Deterministic)"]
     Welcome -->|"Explore on Own"| CommandCentre
 

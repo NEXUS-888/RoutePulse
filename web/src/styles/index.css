@@ -1006,6 +1006,22 @@ select {
   }
 }
 
+/* Guided tour / auto-demo: outline on the real element being explained (never dims or blocks the UI) */
+.spotlight-ring {
+  pointer-events: none;
+  border: 2px solid var(--accent);
+  border-radius: 12px;
+  box-shadow: 0 0 0 4px var(--accent-bg), 0 0 18px 2px var(--accent-bg);
+  transition: left 200ms var(--ease-standard), top 200ms var(--ease-standard),
+    width 200ms var(--ease-standard), height 200ms var(--ease-standard);
+  animation: spotlight-pulse 1.6s infinite ease-in-out;
+}
+
+@keyframes spotlight-pulse {
+  0%, 100% { box-shadow: 0 0 0 4px var(--accent-bg), 0 0 18px 2px var(--accent-bg); }
+  50% { box-shadow: 0 0 0 9px transparent, 0 0 24px 4px var(--accent-bg); }
+}
+
 /* Subtle Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;

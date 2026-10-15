@@ -337,7 +337,7 @@ export const Screen2EtaBoard: React.FC = () => {
                 </div>
 
                 {/* Uncertainty window */}
-                <div>
+                <div data-tour={idx === 0 ? 'eta-window' : undefined}>
                   <EtaCapsule prediction={arrival} simTimeMin={simTimeMin} compact />
                 </div>
 

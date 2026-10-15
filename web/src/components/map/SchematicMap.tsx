@@ -539,6 +539,7 @@ export const SchematicMap: React.FC = () => {
               return (
                 <g
                   key={veh.vehicle_id}
+                  data-tour={`vehicle-${veh.vehicle_id}`}
                   transform={`translate(${x}, ${y})`}
                   onClick={e => {
                     e.stopPropagation();

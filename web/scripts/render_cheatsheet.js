@@ -88,7 +88,7 @@ const htmlContent = `<!DOCTYPE html>
       justify-content: center;
       font-weight: 800;
       font-size: 14px;
-      color: #fff;
+      color: #121110;
     }
     .title-text {
       font-family: var(--font-display, sans-serif);
@@ -317,7 +317,7 @@ const htmlContent = `<!DOCTYPE html>
       </div>
       <div class="step-card">
         <div class="step-header"><span>STEP 2: SPOT BOTTLENECK</span><span>08:15</span></div>
-        <div class="step-desc">Observe Route R3 turn coral at Metro Gateway S13 under morning surge.</div>
+        <div class="step-desc">Watch Route R3 turn red at Metro Gateway S13 under morning surge.</div>
       </div>
       <div class="step-card">
         <div class="step-header"><span>STEP 3: REVIEW TICKET</span><span>08:18</span></div>
@@ -335,7 +335,7 @@ const htmlContent = `<!DOCTYPE html>
       <div style="font-size: 11px; font-weight: 700; color: #3DD68C; margin-top: 4px;">STUDENT WORKFLOW (CATCH A BUS)</div>
       <div class="step-card">
         <div class="step-desc">
-          <strong>1. Open Student View:</strong> Click Graduation Cap icon in left rail.<br>
+          <strong>1. Open Student app:</strong> Click Student app in left rail.<br>
           <strong>2. Pick Route:</strong> Select Metro S13 to Science S05.<br>
           <strong>3. Read ETA Window:</strong> Trust p10–p90 band (e.g. 08:27–08:33) over single minutes.<br>
           <strong>4. Avoid Crowds:</strong> If 88% full, take comfortable alternative 8 min later.<br>
@@ -390,9 +390,9 @@ const htmlContent = `<!DOCTYPE html>
       <div style="font-size: 11px; font-weight: 700; color: #B8B1A4; margin-top: 6px;">NETWORK HEALTH FORMULA</div>
       <div class="math-box">
         Health = max(0, 100 - 40*overcap - 30*leftbehind - 20*missedconn - 10*delays)<br>
-        • 80–100: Teal (Optimal)<br>
+        • 80–100: Green (Optimal)<br>
         • 60–79:  Amber (Strained)<br>
-        • &lt; 60:   Coral (Critical)
+        • &lt; 60:   Red (Critical)
       </div>
 
       <div style="font-size: 11px; font-weight: 700; color: #B8B1A4; margin-top: 6px;">CONSTRAINTS &amp; GUARANTEES</div>
