@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSimulation } from '../../context/SimulationContext';
-import { Activity, Info } from 'lucide-react';
+import { Info } from 'lucide-react';
 
 export const NetworkHealthScore: React.FC = () => {
   const { networkHealth } = useSimulation();
@@ -32,34 +32,37 @@ export const NetworkHealthScore: React.FC = () => {
       style={{ position: 'relative' }}
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
+      onFocus={() => setShowTooltip(true)}
+      onBlur={() => setShowTooltip(false)}
     >
       <div
         className="health-badge"
+        tabIndex={0}
+        role="status"
+        aria-label={`Network health ${networkHealth.score} out of 100`}
         style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: 6,
-          padding: '4px 10px',
+          gap: 8,
+          padding: '5px 12px',
           borderRadius: 'var(--radius-full)',
           background: bandBg,
           border: `1px solid ${bandBorder}`,
           color: bandColor,
-          cursor: 'pointer',
+          cursor: 'help',
           userSelect: 'none',
           transition: 'var(--transition-fast)'
         }}
       >
-        <Activity size={14} />
-        <span style={{ fontSize: '0.72rem', fontWeight: 600, letterSpacing: '0.02em', textTransform: 'uppercase' }}>
-          Network Health:
+        <span className="health-label" style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)' }}>
+          Network health
         </span>
         <span
           className="tabular-nums font-display"
-          style={{ fontSize: '0.92rem', fontWeight: 700 }}
+          style={{ fontSize: '1.05rem', fontWeight: 700, lineHeight: 1 }}
         >
           {networkHealth.score}
         </span>
-        <span style={{ fontSize: '0.7rem', opacity: 0.8 }}>/100</span>
       </div>
 
       {showTooltip && (

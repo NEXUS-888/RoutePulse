@@ -51,3 +51,4 @@
 - **15:32:** One-page cheat sheet created (`docs/CHEATSHEET.md` and `docs/CHEATSHEET.png`).
 - **15:35:** Readability optimized to Grade 5.38 (Flesch Reading Ease 73.62); Cold-read test completed by independent reviewer subagent.
 - **15:40:** Python test suite (195 unit tests) verified passing 100%. All P0, P1, and P2 requirements satisfied.
+- **2026-10-14:** "Signage" theme and simplification pass: neutral cream-on-graphite chrome, route hues that never collide with status colours, 13-to-6 header controls, labelled rail, decluttered map, 7-column to 5-column Arrivals board, 7-step tour, and a vehicle-inspector bug fix. Rationale in `docs/UI_DECISIONS.md`.

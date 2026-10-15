@@ -13,17 +13,12 @@ interface TourStepDef {
 const TOUR_STEPS: TourStepDef[] = [
   {
     title: '1. Welcome to RoutePulse',
-    text: "RoutePulse doesn't just show buses on a map—it dynamically optimizes fleet schedules to prevent peak overcrowding.",
+    text: "RoutePulse doesn't just show buses on a map. It re-plans the fleet so the morning peak never overloads a bus.",
     screen: 'map'
   },
   {
-    title: '2. Status Ribbon & Health',
-    text: 'The top ribbon shows the live Pulse Line and Network Health score. Teal is healthy, amber is strained, coral is critical.',
-    screen: 'map'
-  },
-  {
-    title: '3. Schematic Campus Map',
-    text: 'View hand-authored 45°/90° metro lines. Vehicle capsules feature circular load rings that pulse when exceeding 85% capacity.',
+    title: '2. The live map',
+    text: 'Lines are coloured by route. Each bus wears its route colour, and the ring around it shows how full it is: green has seats, amber is filling up, red is full. The header chip shows overall network health.',
     screen: 'map',
     actionText: 'Inspect Bus B3',
     onAction: sim => {
@@ -32,49 +27,34 @@ const TOUR_STEPS: TourStepDef[] = [
     }
   },
   {
-    title: '4. Replay Time Deck',
-    text: 'Scrub replay time between 07:30 and 10:30. Observe the heat-strip showing passenger demand surge during morning peak.',
+    title: '3. Replay time',
+    text: 'Scrub between 07:30 and 10:30 along the bottom bar. The coloured strip above the slider shows when crowding peaks.',
     screen: 'map',
-    actionText: 'Jump to Peak (08:15)',
+    actionText: 'Jump to peak (08:15)',
     onAction: sim => sim.setSimTimeMin(495)
   },
   {
-    title: '5. ETA Arrival Windows',
-    text: 'Inspect arrival windows (p10–p90) rather than fragile single ETAs. Hover capsules to see plain-language delay diagnosis.',
+    title: '4. Arrivals and Crowding',
+    text: 'Arrivals shows an 80% likely arrival window for each bus, not one fragile number. Crowding highlights the stops and times where platforms will overflow.',
     screen: 'eta'
   },
   {
-    title: '6. Demand & Alerts',
-    text: 'Detect A1–A8 operational bottlenecks: corridor overcrowding, missed connections at Hub S03, and student queues.',
-    screen: 'demand'
-  },
-  {
-    title: '7. Recommendation Tickets',
-    text: 'Operator decision cards provide clear evidence, trade-offs, and delta metrics for passengers and vehicle kilometers.',
-    screen: 'recommendations'
-  },
-  {
-    title: '8. 0 Violations Guarantee',
-    text: 'Apply optimization recommendations with confidence. Hard rules H1–H12 are verified by solver to ensure 0 violations.',
+    title: '5. Suggestions',
+    text: 'Each suggestion shows what it gains and what it costs, and has already passed all 12 hard rules. Accept one to update the plan.',
     screen: 'recommendations',
-    actionText: 'Accept Rec-0007',
+    actionText: 'Accept rec-0007',
     onAction: sim => sim.acceptRecommendation('rec-0007')
   },
   {
-    title: '9. Scenario Lab',
-    text: 'Test resilience against real-world disruptions: inject S1 traffic delay, S2 vehicle breakdown, or S3 demand surge.',
+    title: '6. What-if lab',
+    text: 'Inject a traffic delay, a bus breakdown or an event surge, then drag the slider to compare the fixed timetable with RoutePulse.',
     screen: 'scenarios',
-    actionText: 'Test S2 Breakdown',
+    actionText: 'Try the S2 breakdown',
     onAction: sim => sim.triggerScenario('S2')
   },
   {
-    title: '10. Results & Plan Comparison',
-    text: 'Compare Baseline-0 vs RoutePulse. RoutePulse eliminates hard-rule violations and reduces left-behind passengers by up to 50%.',
-    screen: 'scenarios'
-  },
-  {
-    title: '11. Help Centre & Guide',
-    text: 'Press ? anytime to open the Help Centre, glossary, written guide, keyboard shortcuts, or replay this tour.',
+    title: '7. Help is one key away',
+    text: 'Press ? anytime for the glossary, guide and shortcuts. Press Ctrl+K to search any screen, stop or bus.',
     screen: 'map'
   }
 ];
@@ -102,7 +82,7 @@ export const SpotlightTour: React.FC = () => {
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(11, 16, 32, 0.65)',
+        backgroundColor: 'rgba(8, 7, 6, 0.65)',
         zIndex: 300,
         pointerEvents: 'auto',
         display: 'flex',
@@ -163,7 +143,7 @@ export const SpotlightTour: React.FC = () => {
               gap: 6
             }}
           >
-            <Sparkles size={13} style={{ color: 'var(--route-r1)' }} />
+            <Sparkles size={13} style={{ color: 'var(--accent)' }} />
             <span>{currentStep.actionText}</span>
           </button>
         )}
@@ -179,7 +159,7 @@ export const SpotlightTour: React.FC = () => {
                   width: idx === tourStep ? 16 : 6,
                   height: 6,
                   borderRadius: 3,
-                  backgroundColor: idx === tourStep ? 'var(--route-r1)' : 'var(--border-color)',
+                  backgroundColor: idx === tourStep ? 'var(--accent)' : 'var(--border-color)',
                   transition: 'all 0.2s ease'
                 }}
               />

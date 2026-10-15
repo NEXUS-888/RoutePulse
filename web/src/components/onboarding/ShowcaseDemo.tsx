@@ -131,7 +131,7 @@ export const ShowcaseDemo: React.FC = () => {
         width: '90%',
         maxWidth: '820px',
         background: 'var(--bg-surface)',
-        border: '1.5px solid var(--route-r1)',
+        border: '1.5px solid var(--accent)',
         borderRadius: 'var(--radius-md)',
         boxShadow: 'var(--shadow-lg)',
         padding: '14px 20px',
@@ -150,8 +150,8 @@ export const ShowcaseDemo: React.FC = () => {
             style={{
               padding: '4px 8px',
               borderRadius: 'var(--radius-xs)',
-              background: 'var(--route-r1)',
-              color: '#FFFFFF',
+              background: 'var(--accent)',
+              color: 'var(--accent-contrast)',
               fontWeight: 700,
               fontSize: '0.72rem',
               letterSpacing: '0.04em',
@@ -208,7 +208,7 @@ export const ShowcaseDemo: React.FC = () => {
                 style={{
                   height: '100%',
                   width: `${fillWidth}%`,
-                  background: 'var(--route-r1)',
+                  background: 'var(--accent)',
                   transition: 'width 0.15s linear'
                 }}
               />

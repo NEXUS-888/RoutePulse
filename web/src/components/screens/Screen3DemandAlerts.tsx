@@ -75,40 +75,22 @@ export const Screen3DemandAlerts: React.FC = () => {
     <div className="screen-scroll-container">
       {/* Screen Title & Severity Filter Bar */}
       <div
-        className="screen-card"
         style={{
-          padding: '14px 20px',
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-end',
           justifyContent: 'space-between',
           flexWrap: 'wrap',
           gap: 12
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 'var(--radius-sm)',
-              background: 'var(--bg-surface-elevated)',
-              border: '1px solid var(--border-color)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--load-amber)'
-            }}
-          >
-            <Flame size={20} />
-          </div>
-          <div>
-            <h1 style={{ fontSize: '1.15rem', fontWeight: 800, letterSpacing: '-0.02em', margin: 0 }}>
-              Platform Demand & Bottleneck Matrix
-            </h1>
-            <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: '2px 0 0 0' }}>
-              Calibrated <GlossaryPopover termId="loadFactor">P80 sizing arrivals</GlossaryPopover> evaluated against station platform holding capacity
-            </p>
-          </div>
+        <div>
+          <h1 style={{ fontSize: '1.6rem', fontWeight: 700, letterSpacing: '-0.02em', margin: 0 }}>
+            Crowding
+          </h1>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: '4px 0 0 0' }}>
+            Expected passengers per stop in 15-minute slots, against platform capacity (
+            <GlossaryPopover termId="loadFactor">P80 estimate</GlossaryPopover>). Only busy cells are coloured.
+          </p>
         </div>
 
         {/* Severity Filter Toggle */}
@@ -119,8 +101,8 @@ export const Screen3DemandAlerts: React.FC = () => {
               padding: '4px 11px',
               fontSize: '0.75rem',
               fontWeight: 600,
-              background: severityFilter === 'all' ? 'var(--route-r1)' : 'var(--bg-surface-elevated)',
-              color: severityFilter === 'all' ? '#FFFFFF' : 'var(--text-secondary)'
+              background: severityFilter === 'all' ? 'var(--accent)' : 'var(--bg-surface-elevated)',
+              color: severityFilter === 'all' ? 'var(--accent-contrast)' : 'var(--text-secondary)'
             }}
             onClick={() => setSeverityFilter('all')}
           >
@@ -187,10 +169,10 @@ export const Screen3DemandAlerts: React.FC = () => {
                           style={{
                             padding: '6px 4px',
                             textAlign: 'center',
-                            color: isCurrentSlot ? 'var(--route-r1)' : 'var(--text-tertiary)',
+                            color: isCurrentSlot ? 'var(--accent)' : 'var(--text-tertiary)',
                             fontWeight: isCurrentSlot ? 800 : 600,
-                            backgroundColor: isCurrentSlot ? 'var(--route-r1-bg)' : 'transparent',
-                            borderTop: isCurrentSlot ? '2px solid var(--route-r1)' : 'none',
+                            backgroundColor: isCurrentSlot ? 'var(--accent-bg)' : 'transparent',
+                            borderTop: isCurrentSlot ? '2px solid var(--accent)' : 'none',
                             fontFamily: 'var(--font-mono)',
                             letterSpacing: '0.02em'
                           }}
@@ -211,7 +193,7 @@ export const Screen3DemandAlerts: React.FC = () => {
                         key={stop.stop_id}
                         style={{
                           borderBottom: '1px solid var(--border-subtle)',
-                          backgroundColor: sIdx % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.015)'
+                          backgroundColor: sIdx % 2 === 0 ? 'transparent' : 'var(--border-subtle)'
                         }}
                       >
                         <td style={{ padding: '6px 8px', fontWeight: 600 }}>
@@ -242,20 +224,21 @@ export const Screen3DemandAlerts: React.FC = () => {
                           const isCurrentSlot = Math.abs(simTimeMin - slotTime) < 7.5;
 
                           // Continuous, authoritative transit color mapping
-                          let cellBg = 'rgba(255, 255, 255, 0.03)';
+                          let cellBg = 'var(--bg-surface-elevated)';
                           let cellColor = 'var(--text-secondary)';
+                          let cellWeight = 500; // calm cells stay quiet so the problems pop
                           let cellBorder = '1px solid transparent';
 
                           if (ratio >= 1.15) {
                             cellBg = 'var(--load-coral-bg)';
                             cellColor = 'var(--load-coral)';
                             cellBorder = '1px solid var(--load-coral-border)';
+                            cellWeight = 700;
                           } else if (ratio >= 0.85) {
                             cellBg = 'var(--load-amber-bg)';
                             cellColor = 'var(--load-amber)';
                             cellBorder = '1px solid var(--load-amber-border)';
-                          } else {
-                            cellColor = 'var(--load-teal)';
+                            cellWeight = 700;
                           }
 
                           const isSelected = selectedCell?.stopId === stop.stop_id && selectedCell?.slotStart === slotTime;
@@ -280,11 +263,11 @@ export const Screen3DemandAlerts: React.FC = () => {
                                 padding: '4px 2px',
                                 textAlign: 'center',
                                 cursor: 'pointer',
-                                backgroundColor: isSelected ? 'var(--route-r1)' : cellBg,
-                                color: isSelected ? '#FFFFFF' : cellColor,
-                                fontWeight: 700,
+                                backgroundColor: isSelected ? 'var(--accent)' : cellBg,
+                                color: isSelected ? 'var(--accent-contrast)' : cellColor,
+                                fontWeight: isSelected ? 700 : cellWeight,
                                 borderRadius: 'var(--radius-xs)',
-                                border: isSelected ? '2px solid #FFFFFF' : isCurrentSlot ? '1px dashed var(--route-r1)' : cellBorder,
+                                border: isSelected ? '2px solid var(--text-primary)' : isCurrentSlot ? '1px dashed var(--accent)' : cellBorder,
                                 fontFamily: 'var(--font-mono)',
                                 transition: 'all 120ms ease'
                               }}
@@ -315,25 +298,25 @@ export const Screen3DemandAlerts: React.FC = () => {
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-                <span style={{ fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
-                  Platform Saturation:
+                <span style={{ fontWeight: 600, color: 'var(--text-tertiary)' }}>
+                  Key
                 </span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span style={{ width: 10, height: 10, backgroundColor: 'rgba(255, 255, 255, 0.05)', border: '1px solid var(--border-color)', borderRadius: 2 }} />
-                  <span>&lt;85% Nominal</span>
+                  <span style={{ width: 10, height: 10, backgroundColor: 'var(--bg-surface-elevated)', border: '1px solid var(--border-strong)', borderRadius: 2 }} />
+                  <span>Under 85% of capacity</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span style={{ width: 10, height: 10, backgroundColor: 'var(--load-amber-bg)', border: '1px solid var(--load-amber-border)', borderRadius: 2 }} />
-                  <span>85–115% High Congestion</span>
+                  <span>85–115% busy</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                   <span style={{ width: 10, height: 10, backgroundColor: 'var(--load-coral-bg)', border: '1px solid var(--load-coral-border)', borderRadius: 2 }} />
-                  <span>&gt;115% Severe Overload Risk</span>
+                  <span>Over 115% overload risk</span>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--route-r1)' }}>
-                <span>[ | ] Highlighted Column = Current Sim Time</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>
+                <span>Dashed outline = current time</span>
               </div>
             </div>
           </div>
@@ -365,7 +348,7 @@ export const Screen3DemandAlerts: React.FC = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: 'var(--route-r1)'
+                    color: 'var(--accent)'
                   }}
                 >
                   <BarChart2 size={16} />
@@ -410,7 +393,7 @@ export const Screen3DemandAlerts: React.FC = () => {
                 </div>
 
                 <div style={{ background: 'var(--bg-surface-elevated)', padding: '6px 12px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-                  <div style={{ fontSize: '0.62rem', color: 'var(--route-r1)', fontWeight: 700, textTransform: 'uppercase' }}>
+                  <div style={{ fontSize: '0.62rem', color: 'var(--accent)', fontWeight: 700, textTransform: 'uppercase' }}>
                     Platform Saturation
                   </div>
                   <div className="tabular-nums font-mono" style={{ fontSize: '1.05rem', fontWeight: 800, color: selectedCell.p80 > selectedCell.capacity ? 'var(--load-coral)' : 'var(--load-teal)' }}>

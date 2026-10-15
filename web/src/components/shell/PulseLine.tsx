@@ -26,10 +26,10 @@ export const PulseLine: React.FC<PulseLineProps> = ({ width = 120, height = 28, 
       // Base line styling
       const strokeColor =
         networkHealth.band === 'teal'
-          ? (theme === 'dark' ? '#10B981' : '#059669')
+          ? (theme === 'dark' ? '#3DD68C' : '#12713F')
           : networkHealth.band === 'amber'
-          ? (theme === 'dark' ? '#F59E0B' : '#D97706')
-          : (theme === 'dark' ? '#EF4444' : '#DC2626');
+          ? (theme === 'dark' ? '#FFB02E' : '#A85A00')
+          : (theme === 'dark' ? '#FF5F52' : '#C4301F');
 
       ctx.lineWidth = 1.75;
       ctx.strokeStyle = strokeColor;

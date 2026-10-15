@@ -15,8 +15,8 @@ flowchart TD
     Welcome -->|"Explore on Own"| CommandCentre
 
     subgraph AppShell["Master App Shell (5-Zone Grid)"]
-        Ribbon["Status Ribbon\n(Logo, Clock, Pulse Line, Health Score, Theme, Tour, Help)"]
-        Rail["Icon Rail\n(Command Centre, ETA Board, Demand, Recs, Scenarios, Student)"]
+        Ribbon["Top Bar\n(Logo, Scenario, Health Score, Live, Search, Theme, Help, More)"]
+        Rail["Labelled Rail\n(Live map, Arrivals, Crowding, Suggestions, What-if, Student app)"]
         TimeDeck["Time Deck\n(Clock, Play/Pause, Scrubber, Heat-Strip, Speed 1x/10x/30x)"]
         Inspector["Sliding Inspector Drawer\n(Stops, Vehicles, Alerts, Recommendations)"]
 
@@ -166,4 +166,4 @@ flowchart TD
 - **Purpose:** Comprehensive searchable reference for definitions, operational recipes, user paths, and keyboard shortcuts.
 - **Who uses it:** All roles.
 - **Primary action:** Search glossary, read step-by-step how-to recipes, replay 90-second tour.
-- **Entry points:** Status ribbon `?` button; keyboard shortcut `?`; rail bottom link.
+- **Entry points:** Top bar `?` button; keyboard shortcut `?`.

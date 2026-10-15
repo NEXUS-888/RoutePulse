@@ -131,170 +131,98 @@ export const Screen2EtaBoard: React.FC = () => {
     }
   ];
 
-  return (
-    <div className="screen-scroll-container">
-      {/* Station Control & Filter Bar */}
-      <div
-        className="screen-card"
+  const statusBadge = (timetableDiff: number) => {
+    let color: 'coral' | 'amber' | 'teal' = 'teal';
+    let text = 'On time';
+    if (timetableDiff > 1.5) {
+      color = 'coral';
+      text = `${timetableDiff.toFixed(1)} min late`;
+    } else if (timetableDiff > 0.4) {
+      color = 'amber';
+      text = `${timetableDiff.toFixed(1)} min late`;
+    } else if (timetableDiff < -0.5) {
+      text = `${Math.abs(timetableDiff).toFixed(1)} min early`;
+    }
+    return (
+      <span
         style={{
-          padding: '14px 20px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: 14
+          display: 'inline-block',
+          padding: '4px 10px',
+          borderRadius: 'var(--radius-full)',
+          backgroundColor: `var(--load-${color}-bg)`,
+          border: `1px solid var(--load-${color}-border)`,
+          color: `var(--load-${color})`,
+          fontSize: '0.8125rem',
+          fontWeight: 600,
+          whiteSpace: 'nowrap'
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-          <div
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 'var(--radius-sm)',
-              background: 'var(--bg-surface-elevated)',
-              border: '1px solid var(--border-color)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              color: 'var(--route-r1)'
-            }}
-          >
-            <Clock size={20} />
-          </div>
-          <div>
-            <h1 style={{ fontSize: '1.15rem', fontWeight: 800, letterSpacing: '-0.02em', margin: 0 }}>
-              Station Arrival Telemetry Board
-            </h1>
-            <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', margin: '2px 0 0 0' }}>
-              High-precision <GlossaryPopover termId="arrivalWindow">conformal 80% arrival bands (p10–p90)</GlossaryPopover> compared against the published timetable
-            </p>
-          </div>
+        {text}
+      </span>
+    );
+  };
+
+  const ROW_COLUMNS = '64px minmax(180px, 1.4fr) 160px minmax(200px, 1fr) 120px';
+
+  return (
+    <div className="screen-scroll-container">
+      {/* Title + the single control this screen needs */}
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+        <div>
+          <h1 style={{ fontSize: '1.6rem', fontWeight: 700, letterSpacing: '-0.02em', margin: 0 }}>Arrivals</h1>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: '4px 0 0 0' }}>
+            Next buses at a stop. Each bar is the{' '}
+            <GlossaryPopover termId="arrivalWindow">80% likely arrival window</GlossaryPopover>.
+          </p>
         </div>
 
-        {/* Quick Station Selection Chips & Full Dropdown */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', gap: 4, background: 'var(--bg-surface-elevated)', padding: 3, borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
-            {KEY_STATIONS.map(stn => {
-              const isActive = selectedStopId === stn.id;
-              return (
-                <button
-                  key={stn.id}
-                  onClick={() => setSelectedStopId(stn.id)}
-                  style={{
-                    padding: '3px 9px',
-                    fontSize: '0.74rem',
-                    fontWeight: 600,
-                    borderRadius: 'var(--radius-xs)',
-                    border: 'none',
-                    background: isActive ? 'var(--route-r1)' : 'transparent',
-                    color: isActive ? '#FFFFFF' : 'var(--text-secondary)',
-                    cursor: 'pointer'
-                  }}
-                >
-                  {stn.id} {stn.name}
-                </button>
-              );
-            })}
-          </div>
-
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <select
+            className="select"
             value={selectedStopId}
             onChange={e => setSelectedStopId(e.target.value)}
             aria-label="Select Station for Arrival Board"
-            style={{
-              padding: '5px 10px',
-              fontSize: '0.8rem',
-              borderRadius: 'var(--radius-sm)',
-              border: '1px solid var(--border-color)',
-              backgroundColor: 'var(--bg-surface-elevated)',
-              color: 'var(--text-primary)',
-              fontWeight: 600,
-              cursor: 'pointer'
-            }}
+            style={{ minWidth: 240, fontSize: '0.95rem', padding: '8px 12px' }}
           >
             {network?.stops.map(s => (
               <option key={s.stop_id} value={s.stop_id}>
-                {s.stop_id} — {s.name} {s.is_hub ? '(Central Hub ★)' : ''}
+                {s.name} ({s.stop_id}){s.is_hub ? ' ★' : ''}
               </option>
             ))}
           </select>
-
-          <button
-            className="btn-icon"
-            onClick={fetchEta}
-            title="Refresh arrival telemetry"
-            style={{ width: 30, height: 30 }}
-          >
-            <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+          <button className="btn-icon" onClick={fetchEta} title="Refresh arrivals" aria-label="Refresh arrivals">
+            <RefreshCw size={16} className={loading ? 'animate-spin' : ''} />
           </button>
         </div>
       </div>
 
-      {/* Selected Station Operational Banner */}
+      {/* Selected stop: one quiet line */}
       {selectedStop && (
-        <div
-          style={{
-            backgroundColor: 'var(--bg-surface)',
-            border: '1px solid var(--border-color)',
-            borderLeft: `4px solid ${selectedStop.is_hub ? 'var(--accent-hub)' : 'var(--route-r1)'}`,
-            borderRadius: 'var(--radius-sm)',
-            padding: '10px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-            gap: 12
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <MapPin size={18} style={{ color: selectedStop.is_hub ? 'var(--accent-hub)' : 'var(--route-r1)' }} />
-            <span style={{ fontWeight: 800, fontSize: '1.05rem', letterSpacing: '-0.01em' }}>
-              {selectedStop.name}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <MapPin size={18} style={{ color: 'var(--text-secondary)' }} />
+          <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>{selectedStop.name}</span>
+          {selectedStop.is_hub && (
+            <span
+              style={{
+                padding: '2px 10px',
+                borderRadius: 'var(--radius-full)',
+                border: '1px solid var(--border-strong)',
+                fontWeight: 600,
+                fontSize: '0.8125rem'
+              }}
+            >
+              ★ Transfer hub
             </span>
-            <span style={{ color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)', fontSize: '0.82rem' }}>
-              [{selectedStop.stop_id}]
+          )}
+          {selectedStop.accessible && (
+            <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: 'var(--text-secondary)', fontSize: '0.8125rem' }}>
+              <Accessibility size={14} />
+              Step-free
             </span>
-            {selectedStop.is_hub && (
-              <span
-                style={{
-                  padding: '2px 8px',
-                  borderRadius: 'var(--radius-full)',
-                  background: 'rgba(168, 85, 247, 0.15)',
-                  color: 'var(--accent-hub)',
-                  fontWeight: 700,
-                  fontSize: '0.72rem',
-                  border: '1px solid rgba(168, 85, 247, 0.3)'
-                }}
-              >
-                ★ Central Transfer Hub
-              </span>
-            )}
-            {selectedStop.accessible && (
-              <span
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 4,
-                  padding: '2px 8px',
-                  borderRadius: 'var(--radius-full)',
-                  background: 'var(--load-teal-bg)',
-                  color: 'var(--load-teal)',
-                  fontWeight: 600,
-                  fontSize: '0.72rem',
-                  border: '1px solid var(--load-teal-border)'
-                }}
-              >
-                <Accessibility size={12} />
-                <span>Ramp Accessible</span>
-              </span>
-            )}
-          </div>
-
-          <div style={{ color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: 18, fontSize: '0.8rem' }}>
-            <span>Sim Clock: <strong className="tabular-nums font-mono" style={{ color: 'var(--text-primary)' }}>{formatTimeMin(simTimeMin)}</strong></span>
-            <span>Platform Capacity: <strong className="tabular-nums font-mono" style={{ color: 'var(--text-primary)' }}>{selectedStop.capacity_waiting || 40} pax</strong></span>
-            <span>Upcoming (30m): <strong className="tabular-nums font-mono" style={{ color: 'var(--load-teal)' }}>{displayedArrivals.length} departures</strong></span>
-          </div>
+          )}
+          <span style={{ marginLeft: 'auto', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
+            {displayedArrivals.length} departures in the next 30 min
+          </span>
         </div>
       )}
 
@@ -311,221 +239,110 @@ export const Screen2EtaBoard: React.FC = () => {
       {/* Loading Skeleton */}
       {loading && <SkeletonLoader type="table" count={4} />}
 
-      {/* True Solari / LED Transit Departure Table */}
+      {/* Departure board: line, where, when, how sure, on time? */}
       {!loading && displayedArrivals.length > 0 && (
         <div
           className="solari-departure-board"
           style={{
             backgroundColor: 'var(--bg-surface)',
             border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-md)',
+            borderRadius: 'var(--radius-lg)',
             overflow: 'hidden',
-            boxShadow: 'var(--shadow-md)'
+            boxShadow: 'var(--shadow-sm)'
           }}
         >
-          {/* Solari Board Header Strip */}
           <div
             style={{
-              backgroundColor: 'var(--bg-surface-elevated)',
               borderBottom: '1px solid var(--border-color)',
-              padding: '8px 16px',
+              padding: '10px 20px',
               display: 'grid',
-              gridTemplateColumns: '70px 1.5fr 110px 90px 130px 1fr 140px',
-              gap: 14,
-              fontSize: '0.7rem',
-              fontWeight: 700,
-              color: 'var(--text-tertiary)',
-              textTransform: 'uppercase',
-              letterSpacing: '0.04em'
+              gridTemplateColumns: ROW_COLUMNS,
+              gap: 16,
+              fontSize: '0.8125rem',
+              fontWeight: 600,
+              color: 'var(--text-tertiary)'
             }}
           >
             <div>Line</div>
-            <div>Destination & Service</div>
-            <div>Vehicle / Trip</div>
-            <div>Sched</div>
-            <div>Expected (p50)</div>
-            <div>Conformal Window (80%)</div>
+            <div>Going to</div>
+            <div>Arrives</div>
+            <div>Likely window</div>
             <div style={{ textAlign: 'right' }}>Status</div>
           </div>
 
-          {/* Solari Rows */}
           {displayedArrivals.map((arrival, idx) => {
             const minUntilArrival = Math.max(0, arrival.eta_p50_min - simTimeMin);
             const timetableDiff = arrival.eta_p50_min - arrival.scheduled_time_min;
             const dest = ROUTE_DESTINATIONS[arrival.route_id] || 'Campus Core Loop';
-
-            // Vehicle load details
             const matchedVehicle = activeVehicles.find(v => v.vehicle_id === arrival.vehicle_id);
+            const due = minUntilArrival <= 0.6;
 
             return (
               <div
                 key={`${arrival.trip_id}-${idx}`}
+                className="solari-row"
                 style={{
                   display: 'grid',
-                  gridTemplateColumns: '70px 1.5fr 110px 90px 130px 1fr 140px',
-                  gap: 14,
+                  gridTemplateColumns: ROW_COLUMNS,
+                  gap: 16,
                   alignItems: 'center',
-                  padding: '12px 16px',
-                  borderBottom: idx === displayedArrivals.length - 1 ? 'none' : '1px solid var(--border-subtle)',
-                  backgroundColor: idx % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.015)',
-                  transition: 'background-color 150ms ease'
+                  padding: '14px 20px',
+                  borderBottom: idx === displayedArrivals.length - 1 ? 'none' : '1px solid var(--border-subtle)'
                 }}
-                className="solari-row"
               >
-                {/* 1. Route Token */}
+                {/* Line */}
                 <div>
                   <span
                     style={{
                       display: 'inline-block',
-                      padding: '3px 8px',
-                      borderRadius: 'var(--radius-xs)',
+                      padding: '4px 10px',
+                      borderRadius: 'var(--radius-sm)',
                       background: `var(--route-${arrival.route_id.toLowerCase()})`,
-                      color: '#FFFFFF',
+                      color: 'var(--on-route)',
                       fontWeight: 800,
-                      fontSize: '0.84rem',
-                      fontFamily: 'var(--font-mono)',
-                      letterSpacing: '0.02em'
+                      fontSize: '0.9rem',
+                      fontFamily: 'var(--font-mono)'
                     }}
                   >
                     {arrival.route_id}
                   </span>
                 </div>
 
-                {/* 2. Destination & Telemetry Observation */}
+                {/* Destination, with vehicle + the one reason that matters */}
                 <div>
-                  <div style={{ fontWeight: 700, fontSize: '0.88rem', color: 'var(--text-primary)' }}>
-                    {dest}
-                  </div>
-                  <div style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)', marginTop: 2 }}>
-                    {arrival.reasons && arrival.reasons[0] ? arrival.reasons[0] : 'Nominal corridor transit flow'}
-                  </div>
-                </div>
-
-                {/* 3. Vehicle & Trip ID */}
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                    <span
-                      style={{
-                        width: 6,
-                        height: 6,
-                        borderRadius: '50%',
-                        backgroundColor: matchedVehicle?.status === 'breakdown' ? 'var(--load-coral)' : 'var(--load-teal)'
-                      }}
-                    />
-                    <span className="font-mono" style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--text-primary)' }}>
-                      {arrival.vehicle_id}
-                    </span>
-                    {matchedVehicle && (
-                      <span style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)' }}>
-                        ({matchedVehicle.loadPct}%)
-                      </span>
-                    )}
-                  </div>
-                  <div style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>
-                    {arrival.trip_id}
+                  <div style={{ fontWeight: 600, fontSize: '0.975rem' }}>{dest}</div>
+                  <div style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', marginTop: 2 }}>
+                    Bus {arrival.vehicle_id}
+                    {matchedVehicle ? ` · ${matchedVehicle.loadPct}% full` : ''}
+                    {arrival.reasons && arrival.reasons[0] ? ` · ${arrival.reasons[0]}` : ''}
                   </div>
                 </div>
 
-                {/* 4. Published Timetable Time */}
-                <div className="font-mono tabular-nums" style={{ fontSize: '0.84rem', color: 'var(--text-secondary)' }}>
-                  {formatTimeMin(arrival.scheduled_time_min)}
-                </div>
-
-                {/* 5. Large Solari Countdown (Amber/White LED style) */}
+                {/* Countdown */}
                 <div>
                   <div
                     className="font-mono tabular-nums"
                     style={{
-                      fontSize: '1.15rem',
-                      fontWeight: 800,
-                      color: minUntilArrival <= 1 ? 'var(--load-amber)' : 'var(--text-primary)',
-                      lineHeight: 1
+                      fontSize: '1.3rem',
+                      fontWeight: 700,
+                      lineHeight: 1.1,
+                      color: due ? 'var(--load-teal)' : 'var(--text-primary)'
                     }}
                   >
-                    {minUntilArrival <= 0.6 ? (
-                      <span style={{ color: 'var(--load-teal)', fontWeight: 800 }}>DUE NOW</span>
-                    ) : (
-                      `${Math.round(minUntilArrival)} MIN`
-                    )}
+                    {due ? 'Due' : `${Math.round(minUntilArrival)} min`}
                   </div>
-                  <div style={{ fontSize: '0.7rem', color: 'var(--text-tertiary)', marginTop: 2 }}>
-                    Arr: <span className="font-mono">{formatTimeMin(arrival.eta_p50_min)}</span>
+                  <div className="font-mono" style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', marginTop: 3 }}>
+                    {formatTimeMin(arrival.eta_p50_min).slice(0, 5)} · sched {formatTimeMin(arrival.scheduled_time_min).slice(0, 5)}
                   </div>
                 </div>
 
-                {/* 6. Conformal Uncertainty Window (p10–p90) */}
+                {/* Uncertainty window */}
                 <div>
-                  <EtaCapsule prediction={arrival} simTimeMin={simTimeMin} />
+                  <EtaCapsule prediction={arrival} simTimeMin={simTimeMin} compact />
                 </div>
 
-                {/* 7. Timetable Status Badge */}
-                <div style={{ textAlign: 'right' }}>
-                  {timetableDiff > 1.5 ? (
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        padding: '3px 8px',
-                        borderRadius: 'var(--radius-xs)',
-                        backgroundColor: 'var(--load-coral-bg)',
-                        border: '1px solid var(--load-coral-border)',
-                        color: 'var(--load-coral)',
-                        fontSize: '0.72rem',
-                        fontWeight: 700,
-                        fontFamily: 'var(--font-mono)'
-                      }}
-                    >
-                      +{timetableDiff.toFixed(1)}m DELAY
-                    </span>
-                  ) : timetableDiff > 0.4 ? (
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        padding: '3px 8px',
-                        borderRadius: 'var(--radius-xs)',
-                        backgroundColor: 'var(--load-amber-bg)',
-                        border: '1px solid var(--load-amber-border)',
-                        color: 'var(--load-amber)',
-                        fontSize: '0.72rem',
-                        fontWeight: 700,
-                        fontFamily: 'var(--font-mono)'
-                      }}
-                    >
-                      +{timetableDiff.toFixed(1)}m DELAY
-                    </span>
-                  ) : timetableDiff < -0.5 ? (
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        padding: '3px 8px',
-                        borderRadius: 'var(--radius-xs)',
-                        backgroundColor: 'var(--load-teal-bg)',
-                        border: '1px solid var(--load-teal-border)',
-                        color: 'var(--load-teal)',
-                        fontSize: '0.72rem',
-                        fontWeight: 700,
-                        fontFamily: 'var(--font-mono)'
-                      }}
-                    >
-                      {timetableDiff.toFixed(1)}m EARLY
-                    </span>
-                  ) : (
-                    <span
-                      style={{
-                        display: 'inline-block',
-                        padding: '3px 8px',
-                        borderRadius: 'var(--radius-xs)',
-                        backgroundColor: 'var(--load-teal-bg)',
-                        border: '1px solid var(--load-teal-border)',
-                        color: 'var(--load-teal)',
-                        fontSize: '0.72rem',
-                        fontWeight: 700,
-                        fontFamily: 'var(--font-mono)'
-                      }}
-                    >
-                      ON TIME
-                    </span>
-                  )}
-                </div>
+                {/* Status */}
+                <div style={{ textAlign: 'right' }}>{statusBadge(timetableDiff)}</div>
               </div>
             );
           })}

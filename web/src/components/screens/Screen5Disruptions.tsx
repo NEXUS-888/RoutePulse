@@ -76,39 +76,20 @@ export const Screen5Disruptions: React.FC = () => {
 
   return (
     <div className="screen-scroll-container">
-      {/* Top Banner & Scenario Injector */}
-      <div className="screen-card" style={{ padding: '16px 20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14, marginBottom: 16 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 'var(--radius-sm)',
-                background: 'var(--bg-surface-elevated)',
-                border: '1px solid var(--border-color)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--route-r1)'
-              }}
-            >
-              <Layers size={22} />
-            </div>
-            <div>
-              <h1 style={{ fontSize: '1.2rem', fontWeight: 700 }}>
-                Scenario Lab & Plan Evaluation
-              </h1>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                Stress testing <GlossaryPopover termId="routepulsePlan">RoutePulse</GlossaryPopover> vs{' '}
-                <GlossaryPopover termId="baselinePlan">Baseline-0 (Fixed Timetable)</GlossaryPopover> under disruptions
-              </p>
-            </div>
+      {/* Title & Scenario Injector */}
+      <div>
+        <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14, marginBottom: 16 }}>
+          <div>
+            <h1 style={{ fontSize: '1.6rem', fontWeight: 700, letterSpacing: '-0.02em', margin: 0 }}>What-if lab</h1>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: '4px 0 0 0' }}>
+              Pick a disruption and see how <GlossaryPopover termId="routepulsePlan">RoutePulse</GlossaryPopover> copes compared with the{' '}
+              <GlossaryPopover termId="baselinePlan">fixed timetable</GlossaryPopover>.
+            </p>
           </div>
 
           <div className="validation-seal" style={{ padding: '6px 12px' }}>
             <ShieldCheck size={16} />
-            <span>Violations = 0 Gate Check Passed Across All 20 Seeds</span>
+            <span>0 rule violations across 20 test runs</span>
           </div>
         </div>
 
@@ -123,8 +104,8 @@ export const Screen5Disruptions: React.FC = () => {
                 key={s}
                 onClick={() => handleTriggerScenario(s)}
                 style={{
-                  backgroundColor: isActive ? 'var(--route-r1-bg)' : 'var(--bg-surface-elevated)',
-                  border: `2px solid ${isActive ? 'var(--route-r1)' : 'var(--border-color)'}`,
+                  backgroundColor: isActive ? 'var(--accent-bg)' : 'var(--bg-surface-elevated)',
+                  border: `2px solid ${isActive ? 'var(--accent)' : 'var(--border-color)'}`,
                   borderRadius: 'var(--radius-md)',
                   padding: 14,
                   cursor: 'pointer',
@@ -133,7 +114,7 @@ export const Screen5Disruptions: React.FC = () => {
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-                  <span style={{ fontWeight: 800, fontSize: '0.95rem', color: isActive ? 'var(--route-r1)' : 'var(--text-primary)' }}>
+                  <span style={{ fontWeight: 800, fontSize: '0.95rem', color: isActive ? 'var(--accent)' : 'var(--text-primary)' }}>
                     {info.title}
                   </span>
                   <span style={{ fontSize: '1.1rem' }}>{info.icon}</span>
@@ -158,12 +139,12 @@ export const Screen5Disruptions: React.FC = () => {
                   </span>
 
                   {isActive ? (
-                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--route-r1)' }}>
+                    <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--accent)' }}>
                       ● ACTIVE
                     </span>
                   ) : (
                     <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>
-                      Click to Inject
+                      Click to try
                     </span>
                   )}
                 </div>
@@ -177,13 +158,13 @@ export const Screen5Disruptions: React.FC = () => {
       <div className="screen-card">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <Sliders size={18} style={{ color: 'var(--route-r1)' }} />
+            <Sliders size={18} style={{ color: 'var(--accent)' }} />
             <h2 style={{ fontSize: '1.05rem', fontWeight: 700 }}>
-              Before / After Reveal Slider (Baseline Plan vs RoutePulse)
+              Before / After Reveal Slider
             </h2>
           </div>
           <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>
-            Drag handle horizontally to compare network crowding & KPIs
+            Drag the handle to compare
           </span>
         </div>
 
@@ -194,9 +175,9 @@ export const Screen5Disruptions: React.FC = () => {
       <div className="screen-card">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <GitBranch size={18} style={{ color: 'var(--route-r1)' }} />
+            <GitBranch size={18} style={{ color: 'var(--accent)' }} />
             <h3 style={{ fontSize: '0.95rem', fontWeight: 700 }}>
-              Autonomous Closed-Loop Response Timeline ({scenarioMeta[scenario].title})
+              How RoutePulse responds to {scenarioMeta[scenario].title}
             </h3>
           </div>
           <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>
@@ -304,7 +285,7 @@ export const Screen5Disruptions: React.FC = () => {
       <div className="screen-card">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <BarChart3 size={20} style={{ color: 'var(--route-r1)' }} />
+            <BarChart3 size={20} style={{ color: 'var(--accent)' }} />
             <h3 style={{ fontSize: '1rem', fontWeight: 700 }}>
               Evaluation Benchmarking: {scenarioMeta[activeTabScenario].title}
             </h3>
@@ -318,8 +299,8 @@ export const Screen5Disruptions: React.FC = () => {
                 style={{
                   padding: '4px 10px',
                   fontSize: '0.75rem',
-                  backgroundColor: activeTabScenario === s ? 'var(--route-r1)' : 'var(--bg-surface-elevated)',
-                  color: activeTabScenario === s ? '#FFFFFF' : 'var(--text-secondary)'
+                  backgroundColor: activeTabScenario === s ? 'var(--accent)' : 'var(--bg-surface-elevated)',
+                  color: activeTabScenario === s ? 'var(--accent-contrast)' : 'var(--text-secondary)'
                 }}
                 onClick={() => setActiveTabScenario(s)}
               >
@@ -350,14 +331,14 @@ export const Screen5Disruptions: React.FC = () => {
                     key={idx}
                     style={{
                       borderBottom: '1px solid var(--border-color)',
-                      backgroundColor: isRoutePulse ? 'var(--route-r1-bg)' : 'transparent',
+                      backgroundColor: isRoutePulse ? 'var(--accent-bg)' : 'transparent',
                       fontWeight: isRoutePulse ? 700 : 500
                     }}
                   >
                     <td style={{ padding: '12px 14px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        {isRoutePulse && <CheckCircle2 size={16} style={{ color: 'var(--route-r1)' }} />}
-                        <span style={{ color: isRoutePulse ? 'var(--route-r1)' : 'var(--text-primary)' }}>
+                        {isRoutePulse && <CheckCircle2 size={16} style={{ color: 'var(--accent)' }} />}
+                        <span style={{ color: isRoutePulse ? 'var(--accent)' : 'var(--text-primary)' }}>
                           {item.system}
                         </span>
                       </div>

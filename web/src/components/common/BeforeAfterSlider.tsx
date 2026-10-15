@@ -51,7 +51,7 @@ export const BeforeAfterSlider: React.FC = () => {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'radial-gradient(ellipse at 30% 60%, rgba(239, 68, 68, 0.18), transparent 70%)',
+            background: 'radial-gradient(ellipse at 30% 60%, rgba(255, 95, 82, 0.14), transparent 70%)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -88,11 +88,11 @@ export const BeforeAfterSlider: React.FC = () => {
             />
             {/* Passenger Overcrowding Clusters */}
             <circle cx="160" cy="120" r="14" fill="var(--load-coral)" opacity="0.8" />
-            <text x="160" y="124" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="700">62</text>
+            <text x="160" y="124" textAnchor="middle" fill="var(--on-route)" fontSize="10" fontWeight="700">62</text>
             <text x="160" y="146" textAnchor="middle" fill="var(--load-coral)" fontSize="10" fontWeight="700">Left Behind</text>
 
             <circle cx="260" cy="120" r="10" fill="var(--load-coral)" opacity="0.6" />
-            <text x="260" y="124" textAnchor="middle" fill="#FFFFFF" fontSize="9" fontWeight="700">134%</text>
+            <text x="260" y="124" textAnchor="middle" fill="var(--on-route)" fontSize="9" fontWeight="700">134%</text>
             <text x="260" y="144" textAnchor="middle" fill="var(--load-coral)" fontSize="9" fontWeight="600">Overload</text>
           </svg>
 
@@ -109,7 +109,7 @@ export const BeforeAfterSlider: React.FC = () => {
             position: 'absolute',
             inset: 0,
             clipPath: `polygon(${sliderPos}% 0, 100% 0, 100% 100%, ${sliderPos}% 100%)`,
-            background: 'radial-gradient(ellipse at 70% 60%, rgba(16, 185, 129, 0.16), transparent 70%)',
+            background: 'radial-gradient(ellipse at 70% 60%, rgba(61, 214, 140, 0.14), transparent 70%)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -147,11 +147,11 @@ export const BeforeAfterSlider: React.FC = () => {
             />
             {/* Smooth flow */}
             <circle cx="160" cy="120" r="10" fill="var(--load-teal)" opacity="0.8" />
-            <text x="160" y="124" textAnchor="middle" fill="#FFFFFF" fontSize="9" fontWeight="700">21</text>
+            <text x="160" y="124" textAnchor="middle" fill="var(--on-route)" fontSize="9" fontWeight="700">21</text>
             <text x="160" y="144" textAnchor="middle" fill="var(--load-teal)" fontSize="9" fontWeight="700">-41 Pax</text>
 
             <circle cx="260" cy="120" r="10" fill="var(--load-teal)" opacity="0.8" />
-            <text x="260" y="124" textAnchor="middle" fill="#FFFFFF" fontSize="9" fontWeight="700">82%</text>
+            <text x="260" y="124" textAnchor="middle" fill="var(--on-route)" fontSize="9" fontWeight="700">82%</text>
             <text x="260" y="144" textAnchor="middle" fill="var(--load-teal)" fontSize="9" fontWeight="600">Optimal</text>
           </svg>
 

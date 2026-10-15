@@ -46,7 +46,7 @@ export const WelcomeModal: React.FC = () => {
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(11, 16, 32, 0.88)',
+        backgroundColor: 'rgba(8, 7, 6, 0.88)',
         backdropFilter: 'blur(8px)',
         WebkitBackdropFilter: 'blur(8px)',
         zIndex: 200,
@@ -130,8 +130,8 @@ export const WelcomeModal: React.FC = () => {
                   fontSize: '0.78rem',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  background: userRole === r.id ? 'var(--route-r1)' : 'transparent',
-                  color: userRole === r.id ? '#FFFFFF' : 'var(--text-secondary)',
+                  background: userRole === r.id ? 'var(--accent)' : 'transparent',
+                  color: userRole === r.id ? 'var(--accent-contrast)' : 'var(--text-secondary)',
                   transition: 'var(--transition-fast)'
                 }}
               >

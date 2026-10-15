@@ -60,7 +60,7 @@ async function runCapture() {
   const server = await startServer(4173);
   console.log('Server running at http://localhost:4173');
 
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({ headless: true, channel: process.env.PW_CHANNEL || undefined });
   const context = await browser.newContext({
     viewport: { width: 1440, height: 900 }
   });

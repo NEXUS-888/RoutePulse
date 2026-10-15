@@ -298,7 +298,7 @@ export const CommandPalette: React.FC = () => {
           category: 'Stops',
           title: `${stop.stop_id}: ${stop.name}`,
           subtitle: isHub ? 'Interchange Ring Hub (4m walk transfer)' : isMetro ? 'Metro Rail Campus Gateway' : 'Bus Station',
-          icon: <MapPin size={16} style={{ color: isHub ? 'var(--route-r3)' : isMetro ? 'var(--route-r1)' : 'var(--text-secondary)' }} />,
+          icon: <MapPin size={16} style={{ color: isHub ? 'var(--route-r3)' : isMetro ? 'var(--accent)' : 'var(--text-secondary)' }} />,
           badge: isHub ? 'HUB' : isMetro ? 'METRO' : undefined,
           onSelect: () => {
             setActiveScreen('map');
@@ -477,7 +477,7 @@ export const CommandPalette: React.FC = () => {
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                     <div
                       style={{
-                        color: isSelected ? 'var(--route-r1)' : 'var(--text-secondary)',
+                        color: isSelected ? 'var(--accent)' : 'var(--text-secondary)',
                         display: 'flex',
                         alignItems: 'center'
                       }}
@@ -513,7 +513,7 @@ export const CommandPalette: React.FC = () => {
                         {item.badge}
                       </span>
                     )}
-                    {isSelected && <ArrowRight size={14} style={{ color: 'var(--route-r1)' }} />}
+                    {isSelected && <ArrowRight size={14} style={{ color: 'var(--accent)' }} />}
                   </div>
                 </div>
               );

@@ -138,6 +138,29 @@ if not exist "data\scenarios.json" (
 )
 
 :: ------------------------------------------------------------
+:: 3.5. Verify Web Dashboard Distribution
+:: ------------------------------------------------------------
+if not exist "web\dist\index.html" (
+    echo [RoutePulse] Pre-built web dashboard distribution not found in web\dist.
+    where npm >nul 2>nul
+    if %ERRORLEVEL% equ 0 (
+        echo [RoutePulse] Building production web dashboard...
+        pushd web
+        call npm run build
+        popd
+        if exist "web\dist\index.html" (
+            echo [OK] Web dashboard built successfully.
+        )
+    ) else (
+        echo [WARNING] Node.js/npm not found to build web dashboard.
+        echo The API documentation will be available at http://localhost:8000/docs
+    )
+    echo.
+) else (
+    echo [OK] Web dashboard distribution verified.
+)
+
+:: ------------------------------------------------------------
 :: 4. Launch Server and Open Browser
 :: ------------------------------------------------------------
 echo.

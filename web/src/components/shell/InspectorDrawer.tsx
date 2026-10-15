@@ -76,7 +76,7 @@ export const InspectorDrawer: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'var(--route-r1)'
+              color: 'var(--accent)'
             }}
           >
             <MapPin size={20} />
@@ -322,12 +322,12 @@ export const InspectorDrawer: React.FC = () => {
               width: 36,
               height: 36,
               borderRadius: 'var(--radius-sm)',
-              background: 'var(--route-r1-bg)',
+              background: 'var(--accent-bg)',
               border: '1px solid var(--border-color)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'var(--route-r1)'
+              color: 'var(--accent)'
             }}
           >
             <Sparkles size={20} />
@@ -418,8 +418,8 @@ export const InspectorDrawer: React.FC = () => {
   return (
     <aside className="inspector-drawer open" aria-label="Entity Inspector Drawer">
       <div className="drawer-header">
-        <span style={{ fontSize: '0.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--text-secondary)' }}>
-          {type} Inspector
+        <span style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)', textTransform: 'capitalize' }}>
+          {type} details
         </span>
         <button
           className="btn-icon"
@@ -433,7 +433,7 @@ export const InspectorDrawer: React.FC = () => {
 
       <div className="drawer-body">
         {type === 'stop' && renderStopDetails(data)}
-        {type === 'vehicle' && renderVehicleDetails(data)}
+        {type === 'vehicle' && renderVehicleDetails(typeof data === 'string' ? data : data.vehicle_id)}
         {type === 'alert' && renderAlertDetails(data)}
         {type === 'recommendation' && renderRecommendationDetails(data)}
       </div>

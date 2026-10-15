@@ -53,8 +53,8 @@ const htmlContent = `<!DOCTYPE html>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background-color: #0B1020;
-      color: #F8FAFC;
+      background-color: #121110;
+      color: #F4EEE2;
       font-family: var(--font-body, system-ui, sans-serif);
       padding: 24px;
       width: 1440px;
@@ -69,8 +69,8 @@ const htmlContent = `<!DOCTYPE html>
       justify-content: space-between;
       align-items: center;
       padding: 14px 20px;
-      background: #111827;
-      border: 1px solid #1E293B;
+      background: #1A1917;
+      border: 1px solid #34312D;
       border-radius: 8px;
     }
     .title-row {
@@ -81,7 +81,7 @@ const htmlContent = `<!DOCTYPE html>
     .brand-icon {
       width: 32px;
       height: 32px;
-      background: #3B82F6;
+      background: #F4EEE2;
       border-radius: 6px;
       display: flex;
       align-items: center;
@@ -98,7 +98,7 @@ const htmlContent = `<!DOCTYPE html>
     }
     .tagline {
       font-size: 12px;
-      color: #94A3B8;
+      color: #B8B1A4;
       font-family: var(--font-mono, monospace);
     }
     .banner-badges {
@@ -112,8 +112,8 @@ const htmlContent = `<!DOCTYPE html>
       border-radius: 4px;
       font-weight: 600;
     }
-    .badge-teal { background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.4); }
-    .badge-blue { background: rgba(59, 130, 246, 0.15); color: #3B82F6; border: 1px solid rgba(59, 130, 246, 0.4); }
+    .badge-teal { background: rgba(61, 214, 140, 0.15); color: #3DD68C; border: 1px solid rgba(61, 214, 140, 0.4); }
+    .badge-blue { background: rgba(244, 238, 226, 0.15); color: #F4EEE2; border: 1px solid rgba(244, 238, 226, 0.4); }
 
     .grid-container {
       display: grid;
@@ -122,8 +122,8 @@ const htmlContent = `<!DOCTYPE html>
       flex: 1;
     }
     .panel {
-      background: #111827;
-      border: 1px solid #1E293B;
+      background: #1A1917;
+      border: 1px solid #34312D;
       border-radius: 8px;
       padding: 16px;
       display: flex;
@@ -136,8 +136,8 @@ const htmlContent = `<!DOCTYPE html>
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: #94A3B8;
-      border-bottom: 1px solid #1E293B;
+      color: #B8B1A4;
+      border-bottom: 1px solid #34312D;
       padding-bottom: 6px;
     }
     .legend-row {
@@ -157,8 +157,8 @@ const htmlContent = `<!DOCTYPE html>
     .line-indicator { width: 18px; height: 4px; border-radius: 2px; }
 
     .step-card {
-      background: #0B1020;
-      border: 1px solid #1E293B;
+      background: #121110;
+      border: 1px solid #34312D;
       border-radius: 6px;
       padding: 8px 10px;
       font-size: 11.5px;
@@ -166,14 +166,14 @@ const htmlContent = `<!DOCTYPE html>
     }
     .step-header {
       font-weight: 700;
-      color: #38BDF8;
+      color: #F4EEE2;
       font-family: var(--font-mono, monospace);
       margin-bottom: 3px;
       display: flex;
       justify-content: space-between;
     }
     .step-desc {
-      color: #CBD5E1;
+      color: #D9D2C4;
     }
 
     table {
@@ -186,25 +186,25 @@ const htmlContent = `<!DOCTYPE html>
       text-align: left;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
-    th { color: #94A3B8; font-family: var(--font-mono, monospace); font-size: 10px; }
+    th { color: #B8B1A4; font-family: var(--font-mono, monospace); font-size: 10px; }
     kbd {
-      background: #0B1020;
-      border: 1px solid #334155;
+      background: #121110;
+      border: 1px solid #4A463F;
       padding: 1px 5px;
       border-radius: 3px;
       font-family: var(--font-mono, monospace);
       font-size: 10px;
-      color: #F8FAFC;
+      color: #F4EEE2;
     }
 
     .math-box {
-      background: #0B1020;
-      border: 1px solid #1E293B;
+      background: #121110;
+      border: 1px solid #34312D;
       border-radius: 6px;
       padding: 8px;
       font-family: var(--font-mono, monospace);
       font-size: 10px;
-      color: #38BDF8;
+      color: #F4EEE2;
       line-height: 1.4;
     }
   </style>
@@ -229,80 +229,80 @@ const htmlContent = `<!DOCTYPE html>
     <div class="panel">
       <div class="panel-title">1. Transit Visual Legend</div>
 
-      <div style="font-size: 11px; font-weight: 700; color: #94A3B8; margin-top: 2px;">PASSENGER LOAD SEMANTICS</div>
+      <div style="font-size: 11px; font-weight: 700; color: #B8B1A4; margin-top: 2px;">PASSENGER LOAD SEMANTICS</div>
       <div class="legend-row">
         <div class="legend-indicator">
-          <span class="dot" style="background: #10B981; box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);"></span>
+          <span class="dot" style="background: #3DD68C; box-shadow: 0 0 6px rgba(61, 214, 140, 0.5);"></span>
           <strong>&lt; 85% Load</strong>
         </div>
-        <span style="color: #10B981;">Seats Available (Teal)</span>
+        <span style="color: #3DD68C;">Seats Available (Green)</span>
       </div>
       <div class="legend-row">
         <div class="legend-indicator">
-          <span class="dot" style="background: #F59E0B; box-shadow: 0 0 6px rgba(245, 158, 11, 0.5);"></span>
+          <span class="dot" style="background: #FFB02E; box-shadow: 0 0 6px rgba(255, 176, 46, 0.5);"></span>
           <strong>85%–100% Load</strong>
         </div>
-        <span style="color: #F59E0B;">Standing Room (Amber)</span>
+        <span style="color: #FFB02E;">Standing Room (Amber)</span>
       </div>
       <div class="legend-row">
         <div class="legend-indicator">
-          <span class="dot" style="background: #EF4444; box-shadow: 0 0 6px rgba(239, 68, 68, 0.5);"></span>
+          <span class="dot" style="background: #FF5F52; box-shadow: 0 0 6px rgba(255, 95, 82, 0.5);"></span>
           <strong>&gt; 100% Load</strong>
         </div>
-        <span style="color: #EF4444;">Overcrowded (Coral)</span>
+        <span style="color: #FF5F52;">Overcrowded (Red)</span>
       </div>
 
-      <div style="font-size: 11px; font-weight: 700; color: #94A3B8; margin-top: 6px;">ROUTES &amp; CORRIDORS</div>
+      <div style="font-size: 11px; font-weight: 700; color: #B8B1A4; margin-top: 6px;">ROUTES &amp; CORRIDORS</div>
       <div class="legend-row">
         <div class="legend-indicator">
-          <span class="line-indicator" style="background: #3B82F6;"></span>
+          <span class="line-indicator" style="background: #4DB8FF;"></span>
           <strong>Route R1</strong>
         </div>
-        <span style="color: #94A3B8;">Main Loop (Gate ↔ Hub)</span>
+        <span style="color: #B8B1A4;">Main Loop (Gate ↔ Hub)</span>
       </div>
       <div class="legend-row">
         <div class="legend-indicator">
-          <span class="line-indicator" style="background: #10B981;"></span>
+          <span class="line-indicator" style="background: #7C8CFF;"></span>
           <strong>Route R2</strong>
         </div>
-        <span style="color: #94A3B8;">Hostel Express Loop</span>
+        <span style="color: #B8B1A4;">Hostel Express Loop</span>
       </div>
       <div class="legend-row">
         <div class="legend-indicator">
-          <span class="line-indicator" style="background: #8B5CF6;"></span>
+          <span class="line-indicator" style="background: #C77BFF;"></span>
           <strong>Route R3</strong>
         </div>
-        <span style="color: #94A3B8;">Metro Gateway Connector</span>
+        <span style="color: #B8B1A4;">Metro Gateway Connector</span>
       </div>
       <div class="legend-row">
         <div class="legend-indicator">
-          <span class="line-indicator" style="background: #F59E0B;"></span>
+          <span class="line-indicator" style="background: #FF70C4;"></span>
           <strong>Route R4</strong>
         </div>
-        <span style="color: #94A3B8;">Research &amp; Sports Loop</span>
+        <span style="color: #B8B1A4;">Research &amp; Sports Loop</span>
       </div>
 
-      <div style="font-size: 11px; font-weight: 700; color: #94A3B8; margin-top: 6px;">KEY TRANSIT NODES</div>
+      <div style="font-size: 11px; font-weight: 700; color: #B8B1A4; margin-top: 6px;">KEY TRANSIT NODES</div>
       <div class="legend-row">
         <div class="legend-indicator">
-          <span style="font-family: var(--font-mono, monospace); font-weight: 700; color: #8B5CF6;">◎ S03</span>
+          <span style="font-family: var(--font-mono, monospace); font-weight: 700; color: #F4EEE2;">◎ S03</span>
           <strong>Central Hub</strong>
         </div>
-        <span style="color: #CBD5E1;">4m Walk Transfer Ring</span>
+        <span style="color: #D9D2C4;">4m Walk Transfer Ring</span>
       </div>
       <div class="legend-row">
         <div class="legend-indicator">
-          <span style="font-family: var(--font-mono, monospace); font-weight: 700; color: #06B6D4;">■ S13</span>
+          <span style="font-family: var(--font-mono, monospace); font-weight: 700; color: #F4EEE2;">■ S13</span>
           <strong>Metro Gateway</strong>
         </div>
-        <span style="color: #CBD5E1;">Regional Rail Entry</span>
+        <span style="color: #D9D2C4;">Regional Rail Entry</span>
       </div>
       <div class="legend-row">
         <div class="legend-indicator">
-          <span style="font-family: var(--font-mono, monospace); font-weight: 700; color: #EF4444;">◌ S2</span>
+          <span style="font-family: var(--font-mono, monospace); font-weight: 700; color: #FF5F52;">◌ S2</span>
           <strong>Breakdown Bus</strong>
         </div>
-        <span style="color: #EF4444;">Ghost Marker (B3)</span>
+        <span style="color: #FF5F52;">Ghost Marker (B3)</span>
       </div>
     </div>
 
@@ -310,10 +310,10 @@ const htmlContent = `<!DOCTYPE html>
     <div class="panel">
       <div class="panel-title">2. Operational Workflows (5 Steps)</div>
 
-      <div style="font-size: 11px; font-weight: 700; color: #38BDF8;">OPERATOR WORKFLOW (FIX OVERCROWDING)</div>
+      <div style="font-size: 11px; font-weight: 700; color: #F4EEE2;">OPERATOR WORKFLOW (FIX OVERCROWDING)</div>
       <div class="step-card">
         <div class="step-header"><span>STEP 1: MONITOR HEALTH</span><span>08:00</span></div>
-        <div class="step-desc">Check ribbon: Pulse Line waveform &amp; Network Health score (target &gt;80 Teal).</div>
+        <div class="step-desc">Check the top bar: Network health score (target &gt;80, green).</div>
       </div>
       <div class="step-card">
         <div class="step-header"><span>STEP 2: SPOT BOTTLENECK</span><span>08:15</span></div>
@@ -321,7 +321,7 @@ const htmlContent = `<!DOCTYPE html>
       </div>
       <div class="step-card">
         <div class="step-header"><span>STEP 3: REVIEW TICKET</span><span>08:18</span></div>
-        <div class="step-desc">Open Recommendations. Inspect Rec-0007: delta wait time and riders rescued.</div>
+        <div class="step-desc">Open Suggestions. Inspect Rec-0007: delta wait time and riders rescued.</div>
       </div>
       <div class="step-card">
         <div class="step-header"><span>STEP 4: ACCEPT &amp; APPLY</span><span>08:19</span></div>
@@ -329,10 +329,10 @@ const htmlContent = `<!DOCTYPE html>
       </div>
       <div class="step-card">
         <div class="step-header"><span>STEP 5: REVEAL GAIN</span><span>08:30</span></div>
-        <div class="step-desc">Open Scenario Lab. Drag Before/After slider to confirm 66% left-behind drop.</div>
+        <div class="step-desc">Open What-if. Drag Before/After slider to confirm 66% left-behind drop.</div>
       </div>
 
-      <div style="font-size: 11px; font-weight: 700; color: #10B981; margin-top: 4px;">STUDENT WORKFLOW (CATCH A BUS)</div>
+      <div style="font-size: 11px; font-weight: 700; color: #3DD68C; margin-top: 4px;">STUDENT WORKFLOW (CATCH A BUS)</div>
       <div class="step-card">
         <div class="step-desc">
           <strong>1. Open Student View:</strong> Click Graduation Cap icon in left rail.<br>
@@ -387,7 +387,7 @@ const htmlContent = `<!DOCTYPE html>
         </tbody>
       </table>
 
-      <div style="font-size: 11px; font-weight: 700; color: #94A3B8; margin-top: 6px;">NETWORK HEALTH FORMULA</div>
+      <div style="font-size: 11px; font-weight: 700; color: #B8B1A4; margin-top: 6px;">NETWORK HEALTH FORMULA</div>
       <div class="math-box">
         Health = max(0, 100 - 40*overcap - 30*leftbehind - 20*missedconn - 10*delays)<br>
         • 80–100: Teal (Optimal)<br>
@@ -395,8 +395,8 @@ const htmlContent = `<!DOCTYPE html>
         • &lt; 60:   Coral (Critical)
       </div>
 
-      <div style="font-size: 11px; font-weight: 700; color: #94A3B8; margin-top: 6px;">CONSTRAINTS &amp; GUARANTEES</div>
-      <div style="font-size: 11px; color: #CBD5E1; line-height: 1.4;">
+      <div style="font-size: 11px; font-weight: 700; color: #B8B1A4; margin-top: 6px;">CONSTRAINTS &amp; GUARANTEES</div>
+      <div style="font-size: 11px; color: #D9D2C4; line-height: 1.4;">
         • <strong>H1–H12 Rules:</strong> Strictly 0 violations (capacity, breaks, battery, 4m walk).<br>
         • <strong>Offline Guarantee:</strong> 100% self-hosted, 0 external network requests.<br>
         • <strong>Conformal ETAs:</strong> 80% coverage on p10–p90 arrival windows.
@@ -410,7 +410,7 @@ async function capture() {
   console.log('Starting static server for cheatsheet...');
   const server = await startServer(4174);
 
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({ headless: true, channel: process.env.PW_CHANNEL || undefined });
   const context = await browser.newContext({
     viewport: { width: 1440, height: 900 }
   });

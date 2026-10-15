@@ -93,7 +93,7 @@ export const HelpDrawer: React.FC = () => {
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(11, 16, 32, 0.5)',
+        backgroundColor: 'rgba(8, 7, 6, 0.5)',
         zIndex: 250,
         display: 'flex',
         justifyContent: 'flex-end'
@@ -118,7 +118,7 @@ export const HelpDrawer: React.FC = () => {
         {/* Drawer Header */}
         <div className="drawer-header" style={{ padding: '16px 20px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <HelpCircle size={18} style={{ color: 'var(--route-r1)' }} />
+            <HelpCircle size={18} style={{ color: 'var(--accent)' }} />
             <h2 style={{ fontSize: '1.05rem', fontWeight: 700 }}>RoutePulse Help Centre</h2>
           </div>
           <button
@@ -188,7 +188,7 @@ export const HelpDrawer: React.FC = () => {
                 padding: '10px 4px',
                 border: 'none',
                 background: 'transparent',
-                borderBottom: activeTab === tabKey ? '2px solid var(--route-r1)' : '2px solid transparent',
+                borderBottom: activeTab === tabKey ? '2px solid var(--accent)' : '2px solid transparent',
                 color: activeTab === tabKey ? 'var(--text-primary)' : 'var(--text-secondary)',
                 fontWeight: activeTab === tabKey ? 700 : 500,
                 fontSize: '0.78rem',
@@ -247,7 +247,7 @@ export const HelpDrawer: React.FC = () => {
                     padding: '12px 14px'
                   }}
                 >
-                  <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--route-r1)', marginBottom: 8 }}>
+                  <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--accent)', marginBottom: 8 }}>
                     {recipe.title}
                   </h4>
                   <ol style={{ paddingLeft: 18, fontSize: '0.78rem', color: 'var(--text-secondary)', display: 'flex', flexDirection: 'column', gap: 6, lineHeight: 1.4 }}>
@@ -265,7 +265,7 @@ export const HelpDrawer: React.FC = () => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <div style={{ background: 'var(--bg-surface-elevated)', padding: 12, borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-color)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 700, marginBottom: 4 }}>
-                  <User size={15} style={{ color: 'var(--route-r1)' }} />
+                  <User size={15} style={{ color: 'var(--accent)' }} />
                   <span>Operator: Your First 3 Minutes</span>
                 </div>
                 <p style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>

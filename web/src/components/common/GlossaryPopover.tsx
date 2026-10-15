@@ -71,7 +71,7 @@ export const GlossaryPopover: React.FC<GlossaryPopoverProps> = ({ termId, childr
             textAlign: 'left'
           }}
         >
-          <div style={{ fontWeight: 700, color: 'var(--route-r1)', marginBottom: 3 }}>
+          <div style={{ fontWeight: 700, color: 'var(--accent)', marginBottom: 3 }}>
             {entry.term}
           </div>
           <div style={{ color: 'var(--text-secondary)' }}>

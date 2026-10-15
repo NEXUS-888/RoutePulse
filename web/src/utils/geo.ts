@@ -49,40 +49,40 @@ export function getLoadColor(loadPct: number): {
 } {
   if (loadPct < 85) {
     return {
-      ring: 'var(--load-teal, #10B981)',
-      bg: 'var(--load-teal-bg, rgba(16, 185, 129, 0.16))',
-      border: 'var(--load-teal-border, rgba(16, 185, 129, 0.35))',
-      text: 'var(--load-teal, #10B981)',
+      ring: 'var(--load-teal, #3DD68C)',
+      bg: 'var(--load-teal-bg, rgba(61, 214, 140, 0.14))',
+      border: 'var(--load-teal-border, rgba(61, 214, 140, 0.38))',
+      text: 'var(--load-teal, #3DD68C)',
       badge: 'Seats Available (<85%)',
       status: 'comfortable'
     };
   }
   if (loadPct <= 100) {
     return {
-      ring: 'var(--load-amber, #F59E0B)',
-      bg: 'var(--load-amber-bg, rgba(245, 158, 11, 0.16))',
-      border: 'var(--load-amber-border, rgba(245, 158, 11, 0.35))',
-      text: 'var(--load-amber, #F59E0B)',
+      ring: 'var(--load-amber, #FFB02E)',
+      bg: 'var(--load-amber-bg, rgba(255, 176, 46, 0.14))',
+      border: 'var(--load-amber-border, rgba(255, 176, 46, 0.40))',
+      text: 'var(--load-amber, #FFB02E)',
       badge: 'High Load (85–100%)',
       status: 'crowded'
     };
   }
   return {
-    ring: 'var(--load-coral, #EF4444)',
-    bg: 'var(--load-coral-bg, rgba(239, 68, 68, 0.2))',
-    border: 'var(--load-coral-border, rgba(239, 68, 68, 0.45))',
-    text: 'var(--load-coral, #EF4444)',
+    ring: 'var(--load-coral, #FF5F52)',
+    bg: 'var(--load-coral-bg, rgba(255, 95, 82, 0.16))',
+    border: 'var(--load-coral-border, rgba(255, 95, 82, 0.45))',
+    text: 'var(--load-coral, #FF5F52)',
     badge: 'OVERLOADED (>100% / Left Behind)',
     status: 'overcrowded'
   };
 }
 
-// Colour-Blind-Safe Route Palette
+// Route palette: hues chosen to never collide with the ok / warn / bad status colours
 export const ROUTE_COLORS: Record<string, { stroke: string; lightBg: string; name: string }> = {
-  R1: { stroke: 'var(--route-r1, #3B82F6)', lightBg: 'var(--route-r1-bg, rgba(59, 130, 246, 0.15))', name: 'Main Loop' },
-  R2: { stroke: 'var(--route-r2, #10B981)', lightBg: 'var(--route-r2-bg, rgba(16, 185, 129, 0.15))', name: 'Hostel Express' },
-  R3: { stroke: 'var(--route-r3, #8B5CF6)', lightBg: 'var(--route-r3-bg, rgba(139, 92, 246, 0.15))', name: 'Metro Connector' },
-  R4: { stroke: 'var(--route-r4, #F59E0B)', lightBg: 'var(--route-r4-bg, rgba(245, 158, 11, 0.15))', name: 'Research & Sports' }
+  R1: { stroke: 'var(--route-r1, #4DB8FF)', lightBg: 'var(--route-r1-bg, rgba(77, 184, 255, 0.16))', name: 'Main Loop' },
+  R2: { stroke: 'var(--route-r2, #7C8CFF)', lightBg: 'var(--route-r2-bg, rgba(124, 140, 255, 0.16))', name: 'Hostel Express' },
+  R3: { stroke: 'var(--route-r3, #C77BFF)', lightBg: 'var(--route-r3-bg, rgba(199, 123, 255, 0.16))', name: 'Metro Connector' },
+  R4: { stroke: 'var(--route-r4, #FF70C4)', lightBg: 'var(--route-r4-bg, rgba(255, 112, 196, 0.16))', name: 'Research & Sports' }
 };
 
 // Interpolate vehicle position along a geographic polyline given a progress fraction [0, 1]

@@ -38,6 +38,7 @@ export const RecommendationTicket: React.FC<RecommendationTicketProps> = ({
 }) => {
   const { acceptRecommendation, rejectRecommendation, appliedRecIds, setActiveScreen } = useSimulation();
   const [showWhatIfModal, setShowWhatIfModal] = useState(false);
+  const [showRules, setShowRules] = useState(false);
 
   const isApplied = appliedRecIds.has(recommendation.id);
   const leftBehindDelta = recommendation.impact.left_behind ?? -41;
@@ -55,44 +56,25 @@ export const RecommendationTicket: React.FC<RecommendationTicketProps> = ({
 
   return (
     <div className={`rec-ticket ${recommendation.validated ? 'validated' : ''}`}>
-      {/* Header: Ticket ID + Type + Validated Seal */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span
-            style={{
-              padding: '2px 8px',
-              borderRadius: 'var(--radius-xs)',
-              background: 'var(--bg-surface-elevated)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.74rem',
-              fontWeight: 700,
-              color: 'var(--text-secondary)'
-            }}
-          >
-            {recommendation.id}
+      {/* Header: what kind of change + the validator seal */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+          <span style={{ fontSize: '0.8125rem', fontWeight: 700, color: 'var(--text-secondary)' }}>
+            {recommendation.type.charAt(0) + recommendation.type.slice(1).toLowerCase().replace(/_/g, ' ')}
           </span>
-          <span
-            style={{
-              fontSize: '0.74rem',
-              fontWeight: 700,
-              letterSpacing: '0.03em',
-              textTransform: 'uppercase',
-              color: 'var(--route-r1)'
-            }}
-          >
-            {recommendation.type}
+          <span className="font-mono" style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>
+            {recommendation.id}
           </span>
         </div>
 
-        {/* Validated 0 Violations Seal */}
-        <span className="validation-seal" title="Checked by CP-SAT formal constraint validator">
+        <span className="validation-seal" title="Checked by the CP-SAT constraint validator">
           <ShieldCheck size={14} />
-          <span>Validated: 0 Violations</span>
+          <span>0 rule violations</span>
         </span>
       </div>
 
       {/* Summary */}
-      <h3 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.35 }}>
+      <h3 style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.35 }}>
         {recommendation.summary}
       </h3>
 
@@ -109,12 +91,12 @@ export const RecommendationTicket: React.FC<RecommendationTicketProps> = ({
         }}
       >
         <div>
-          <span style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', fontWeight: 600 }}>
-            Left Behind
+          <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+            Left behind
           </span>
           <div
             className="tabular-nums font-display"
-            style={{ fontSize: '1.35rem', fontWeight: 700, color: 'var(--load-teal)' }}
+            style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--load-teal)' }}
           >
             {leftBehindDelta > 0 ? `+${leftBehindDelta}` : leftBehindDelta}
             <span style={{ fontSize: '0.75rem', fontWeight: 500, marginLeft: 2 }}>pax</span>
@@ -122,12 +104,12 @@ export const RecommendationTicket: React.FC<RecommendationTicketProps> = ({
         </div>
 
         <div>
-          <span style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', fontWeight: 600 }}>
-            Avg Wait Time
+          <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+            Average wait
           </span>
           <div
             className="tabular-nums font-display"
-            style={{ fontSize: '1.35rem', fontWeight: 700, color: 'var(--load-teal)' }}
+            style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--load-teal)' }}
           >
             {waitDelta > 0 ? `+${waitDelta}` : waitDelta}
             <span style={{ fontSize: '0.75rem', fontWeight: 500, marginLeft: 2 }}>min</span>
@@ -135,12 +117,12 @@ export const RecommendationTicket: React.FC<RecommendationTicketProps> = ({
         </div>
 
         <div>
-          <span style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)', textTransform: 'uppercase', fontWeight: 600 }}>
-            Missed Transfers
+          <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+            Missed transfers
           </span>
           <div
             className="tabular-nums font-display"
-            style={{ fontSize: '1.35rem', fontWeight: 700, color: 'var(--load-teal)' }}
+            style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--load-teal)' }}
           >
             {missedConnDelta > 0 ? `+${missedConnDelta}` : missedConnDelta}
             <span style={{ fontSize: '0.75rem', fontWeight: 500, marginLeft: 2 }}>pax</span>
@@ -148,67 +130,53 @@ export const RecommendationTicket: React.FC<RecommendationTicketProps> = ({
         </div>
       </div>
 
-      {/* Gain vs Cost Trade-off Row */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 4,
-          fontSize: '0.78rem',
-          background: 'var(--bg-surface)',
-          border: '1px solid var(--border-subtle)',
-          borderRadius: 'var(--radius-xs)',
-          padding: '8px 10px'
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <strong style={{ color: 'var(--text-secondary)', textTransform: 'uppercase', fontSize: '0.7rem' }}>
-            Gain vs Cost Trade-Off
-          </strong>
-          <span className="font-mono tabular-nums" style={{ color: 'var(--text-tertiary)', fontSize: '0.72rem' }}>
-            Resource: +{kmDelta} km (+52 min idle reserve)
-          </span>
-        </div>
-        <p style={{ color: 'var(--text-primary)', lineHeight: 1.4 }}>
-          {recommendation.tradeoff}
+      {/* Trade-off in plain words, cost on its own quiet line */}
+      <div style={{ fontSize: '0.9rem', lineHeight: 1.5 }}>
+        <p style={{ color: 'var(--text-primary)' }}>{recommendation.tradeoff}</p>
+        <p style={{ color: 'var(--text-tertiary)', fontSize: '0.8125rem', marginTop: 4 }}>
+          Cost: {kmDelta > 0 ? '+' : ''}{kmDelta} km and 52 min of reserve bus time.
         </p>
       </div>
 
-      {/* Hard Constraint Chips H1–H12 ticking green */}
+      {/* The 12 hard rules stay one click away instead of always on screen */}
       <div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
-          <span style={{ fontSize: '0.68rem', fontWeight: 700, color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
-            Hard Constraints Verification (0 Violations Gate)
-          </span>
-          <span style={{ fontSize: '0.68rem', color: 'var(--load-teal)', fontWeight: 600 }}>
-            12 / 12 Checked ✓
-          </span>
-        </div>
+        <button
+          className="link-btn"
+          onClick={() => setShowRules(prev => !prev)}
+          aria-expanded={showRules}
+          style={{ color: 'var(--load-teal)', fontSize: '0.8125rem' }}
+        >
+          <Check size={13} />
+          <span>Passed all 12 hard rules · {showRules ? 'hide' : 'show details'}</span>
+        </button>
 
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-          {CONSTRAINTS.map(c => (
-            <span
-              key={c.id}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 3,
-                padding: '2px 6px',
-                borderRadius: 'var(--radius-xs)',
-                fontSize: '0.66rem',
-                fontFamily: 'var(--font-mono)',
-                fontWeight: 600,
-                background: 'var(--load-teal-bg)',
-                color: 'var(--load-teal)',
-                border: '1px solid var(--load-teal-border)'
-              }}
-              title={`${c.id}: ${c.name} — Checked and Validated (0 Violations)`}
-            >
-              <Check size={10} />
-              <span>{c.id}</span>
-            </span>
-          ))}
-        </div>
+        {showRules && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
+            {CONSTRAINTS.map(c => (
+              <span
+                key={c.id}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 5,
+                  padding: '3px 8px',
+                  borderRadius: 'var(--radius-xs)',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  background: 'var(--load-teal-bg)',
+                  color: 'var(--load-teal)',
+                  border: '1px solid var(--load-teal-border)'
+                }}
+                title={`${c.id}: ${c.name} — checked, 0 violations`}
+              >
+                <Check size={11} />
+                <span>
+                  {c.id} {c.name}
+                </span>
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Bottom Action Buttons: Accept / Reject / Try What-If */}
@@ -221,7 +189,7 @@ export const RecommendationTicket: React.FC<RecommendationTicketProps> = ({
               style={{ flex: 1, gap: 6, fontWeight: 600 }}
             >
               <Check size={14} />
-              <span>Accept Recommendation</span>
+              <span>Accept</span>
             </button>
 
             <button
@@ -231,7 +199,7 @@ export const RecommendationTicket: React.FC<RecommendationTicketProps> = ({
               style={{ gap: 5 }}
             >
               <Sliders size={14} />
-              <span>Try What-If</span>
+              <span>Try what-if</span>
             </button>
 
             <button
@@ -261,7 +229,7 @@ export const RecommendationTicket: React.FC<RecommendationTicketProps> = ({
             }}
           >
             <ShieldCheck size={16} />
-            <span>Applied to Active Plan — KPIs Recalculated Live</span>
+            <span>Applied — KPIs updated</span>
           </div>
         )}
       </div>

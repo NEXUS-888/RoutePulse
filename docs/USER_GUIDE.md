@@ -15,15 +15,15 @@ It is built for two groups. First, transit operators who run daily campus bus fl
 +-------------------------------------------------------------------------------+
 |                        TRY ROUTEPULSE IN 2 MINUTES                            |
 +-------------------------------------------------------------------------------+
-| 1. Watch the top ribbon: See the live Pulse Line beat with bus stress.        |
-|    The Network Health badge reads 92/100 (Teal).                              |
-| 2. Jump to peak time: Click "Peak (08:15)" on the bottom deck.                |
+| 1. Check the top bar: The Network health chip shows one score out of 100.     |
+|    Green is healthy, amber is strained, red is critical.                      |
+| 2. Jump to peak time: Click "Jump to peak" on the bottom bar.                 |
 |    Watch Route R3 turn coral under heavy morning student demand.              |
-| 3. Read the alert: Open Demand & Alerts from the left rail.                   |
+| 3. Read the alert: Open Crowding from the left rail.                          |
 |    See 62 riders at risk of being left behind at Metro Gateway S13.           |
-| 4. Fix it with one click: Go to Recommendations. Click                 |
-|    "Accept & Apply Live" on Rec-0007 to dispatch spare bus B5.        |
-| 5. See the gain: Open Scenario Lab. Drag the Before/After slider              |
+| 4. Fix it with one click: Go to Suggestions. Click "Accept"                   |
+|    on rec-0007 to dispatch spare bus B5.                                      |
+| 5. See the gain: Open What-if. Drag the Before/After slider                   |
 |    to see left-behind student lines drop by 66%.                              |
 +-------------------------------------------------------------------------------+
 ```
@@ -49,12 +49,12 @@ Below is the Command Centre mission control layout with numbered callouts:
 
 ![RoutePulse Command Centre Overview](img/command_centre_dark.png)
 
-1. **Top Status Ribbon:** Shows the RoutePulse brand, active scenario (`S0–S3`), live clock, the **Pulse Line** wave, and the **Network Health** score.
-2. **Left Navigation Rail:** Fast one-click links to the Command Centre, ETA Board, Demand & Alerts, Recommendations, Scenario Lab, and Student View.
+1. **Top Bar:** The RoutePulse brand, the **Scenario** picker (`S0–S3`), one **Network health** score, search (`Ctrl K`), theme, help, and a `...` menu for the tour and plan reset.
+2. **Left Navigation Rail:** Always-labelled links to Live map, Arrivals, Crowding, Suggestions, What-if, and Student app. A number bubble appears only where something needs attention.
 3. **Centre Hero Transit Map:** Clean subway-style map with 45° corridors, Central Hub S03 transfer ring, and Metro Gateway S13.
-4. **Vehicle Capsules & Load Rings:** Moving bus icons with colored rings that show how full each bus is. They pulse when crowded.
+4. **Buses & Load Rings:** Each bus wears its route colour. The ring around it shows how full it is: green has seats, amber is filling up, red is full. The ring pulses when crowded.
 5. **Right Inspector Drawer:** Slides out when you click any stop, bus, alert, or card to show live telemetry.
-6. **Bottom Time Deck:** Lets you scrub time, change speed (1x, 10x, 30x), and see crowd levels along the color heat-strip.
+6. **Bottom Time Bar:** Play or pause, scrub time, change speed (1×, 10×, 30×), and see crowd levels along the colour strip.
 
 ---
 
@@ -94,18 +94,20 @@ Below is the Command Centre mission control layout with numbered callouts:
 
 ## 5. Colour and Symbol Legend
 
+> **Colour always means something.** Buttons and panels are neutral cream-on-graphite. Colour appears only for route lines (blue, periwinkle, orchid, pink) and for load or health status (green, amber, red). No route colour is ever green, amber or red, so a line can never be mistaken for a warning.
+
 | Element | Visual Appearance | Meaning in Plain Words |
 |---|---|---|
-| **Load: Teal** | Teal green ring | **Seats Available (<85% full):** Comfortable ride with open seats. |
+| **Load: Green** | Green ring | **Seats Available (<85% full):** Comfortable ride with open seats. |
 | **Load: Amber** | Warm amber ring | **High Load (85–100% full):** Standing room only; near full capacity. |
-| **Load: Coral** | Coral red ring | **Overcrowded (>100% full):** Full bus; riders left behind at stop. |
-| **Route R1** | Sapphire Blue line | **Main Loop:** Connects Main Gate, Admin Block, Hub, and Science. |
-| **Route R2** | Emerald Green line | **Hostel Express:** High-frequency loop serving student hostels. |
-| **Route R3** | Radiant Purple line | **Metro Connector:** Main commuter spine linking regional rail with campus. |
-| **Route R4** | Warm Amber line | **Research & Sports Shuttle:** Connects Central Hub with Research Park. |
-| **Central Hub (S03)** | Double purple ring & dashed link | **Main Interchange:** 4-minute walk path linking all 4 routes. |
-| **Metro Station (S13)** | Cyan square gate | **Campus Gateway:** Major south rail arrival point. |
-| **Broken Bus (S2)** | Dashed coral ghost icon | **Vehicle Breakdown:** Bus out of service due to motor fault. |
+| **Load: Red** | Red ring | **Overcrowded (>100% full):** Full bus; riders left behind at stop. |
+| **Route R1** | Sky blue line | **Main Loop:** Connects Main Gate, Admin Block, Hub, and Science. |
+| **Route R2** | Periwinkle line | **Hostel Express:** High-frequency loop serving student hostels. |
+| **Route R3** | Orchid line | **Metro Connector:** Main commuter spine linking regional rail with campus. |
+| **Route R4** | Pink line | **Research & Sports Shuttle:** Connects Central Hub with Research Park. |
+| **Central Hub (S03)** | Large cream ring | **Main Interchange:** 4-minute walk path linking all 4 routes. |
+| **Metro Station (S13)** | Cream square gate | **Campus Gateway:** Major south rail arrival point. |
+| **Broken Bus (S2)** | Dashed red ghost icon | **Vehicle Breakdown:** Bus out of service due to motor fault. |
 
 ---
 

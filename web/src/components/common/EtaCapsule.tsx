@@ -6,9 +6,13 @@ import { Clock, Info } from 'lucide-react';
 interface EtaCapsuleProps {
   prediction: EtaPrediction;
   simTimeMin: number;
+  /** Bar + window only: for rows that already show the route, vehicle and countdown. */
+  compact?: boolean;
 }
 
-export const EtaCapsule: React.FC<EtaCapsuleProps> = ({ prediction, simTimeMin }) => {
+const hhmm = (min: number) => formatTimeMin(min).slice(0, 5);
+
+export const EtaCapsule: React.FC<EtaCapsuleProps> = ({ prediction, simTimeMin, compact = false }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const {
@@ -56,33 +60,37 @@ export const EtaCapsule: React.FC<EtaCapsuleProps> = ({ prediction, simTimeMin }
       onMouseLeave={() => setShowTooltip(false)}
       style={{ position: 'relative', cursor: 'pointer' }}
     >
+      {!compact && (
+        <>
       {/* Top Header: Route + Vehicle + Arrival Delta */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.75rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 600 }}>
-          <span
-            style={{
-              padding: '1px 5px',
-              borderRadius: 'var(--radius-xs)',
-              background: `var(--route-${route_id.toLowerCase()}, var(--route-r1))`,
-              color: '#FFFFFF',
-              fontSize: '0.68rem',
-              fontWeight: 700
-            }}
-          >
-            {route_id}
-          </span>
-          <span style={{ color: 'var(--text-primary)' }}>{vehicle_id}</span>
-        </div>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 600 }}>
+              <span
+                style={{
+                  padding: '1px 5px',
+                  borderRadius: 'var(--radius-xs)',
+                  background: `var(--route-${route_id.toLowerCase()}, var(--route-r1))`,
+                  color: 'var(--on-route)',
+                  fontSize: '0.68rem',
+                  fontWeight: 700
+                }}
+              >
+                {route_id}
+              </span>
+              <span style={{ color: 'var(--text-primary)' }}>{vehicle_id}</span>
+            </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-          <span className="tabular-nums font-display" style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-primary)' }}>
-            {minutesAway} min
-          </span>
-          <span style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)' }}>
-            ({formatTimeMin(eta_p50_min)})
-          </span>
-        </div>
-      </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+              <span className="tabular-nums font-display" style={{ fontSize: '0.92rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+                {minutesAway} min
+              </span>
+              <span style={{ fontSize: '0.68rem', color: 'var(--text-tertiary)' }}>
+                ({formatTimeMin(eta_p50_min)})
+              </span>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Horizontal Confidence Capsule Bar */}
       <div className="eta-capsule-bar" style={{ marginTop: 4 }}>
@@ -111,14 +119,16 @@ export const EtaCapsule: React.FC<EtaCapsuleProps> = ({ prediction, simTimeMin }
         />
       </div>
 
-      {/* Bottom Labels: Window + Timetable */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.66rem', color: 'var(--text-tertiary)', marginTop: 2 }}>
+      {/* Bottom Labels: Window (+ timetable when not compact) */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: 2 }}>
         <span className="font-mono">
-          Win: {formatTimeMin(eta_p10_min)}–{formatTimeMin(eta_p90_min)}
+          {compact ? '' : 'Win: '}{hhmm(eta_p10_min)}–{hhmm(eta_p90_min)}
         </span>
-        <span className="font-mono">
-          Sched: {formatTimeMin(scheduled_time_min)}
-        </span>
+        {!compact && (
+          <span className="font-mono">
+            Sched: {formatTimeMin(scheduled_time_min)}
+          </span>
+        )}
       </div>
 
       {/* Hover Diagnostic Tooltip */}

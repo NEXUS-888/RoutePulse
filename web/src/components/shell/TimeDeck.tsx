@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Play,
-  Pause,
-  RotateCcw,
-  FastForward,
-  AlertCircle,
-  Zap
-} from 'lucide-react';
+import { Play, Pause, AlertCircle, Zap } from 'lucide-react';
 import { useSimulation } from '../../context/SimulationContext';
 import { formatTimeMin } from '../../utils/geo';
 
@@ -32,41 +25,27 @@ export const TimeDeck: React.FC = () => {
   return (
     <footer className="time-deck" aria-label="Simulation Time Deck">
       {/* Deck Left: Play/Pause + Clock */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+      <div className="time-deck-left">
         <button
-          className="btn-icon"
+          className="play-btn"
           onClick={togglePlay}
-          title={isPlaying ? "Pause replay" : "Play replay"}
-          style={{
-            width: 38,
-            height: 38,
-            borderRadius: 'var(--radius-sm)',
-            background: isPlaying ? 'var(--bg-surface-elevated)' : 'var(--route-r1)',
-            color: isPlaying ? 'var(--text-primary)' : '#FFFFFF',
-            border: '1px solid var(--border-color)'
-          }}
+          title={isPlaying ? 'Pause replay (Space)' : 'Play replay (Space)'}
+          aria-label={isPlaying ? 'Pause replay' : 'Play replay'}
         >
           {isPlaying ? <Pause size={18} /> : <Play size={18} />}
         </button>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ fontSize: '0.68rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase' }}>
-            Simulated Time
-          </div>
-          <div className="time-deck-clock tabular-nums">
-            {formatTimeMin(simTimeMin)}
-          </div>
+        <div className="time-deck-clock-wrap">
+          <div className="time-deck-clock tabular-nums">{formatTimeMin(simTimeMin)}</div>
+          <button
+            className="link-btn"
+            onClick={jumpToMorningPeak}
+            title="Jump the playhead to the 08:15 morning peak"
+          >
+            <Zap size={12} />
+            <span>Jump to peak</span>
+          </button>
         </div>
-
-        <button
-          className="btn"
-          onClick={jumpToMorningPeak}
-          title="Jump playhead directly to 08:15 Morning Peak"
-          style={{ padding: '3px 8px', fontSize: '0.72rem', gap: 4 }}
-        >
-          <Zap size={13} style={{ color: 'var(--load-amber)' }} />
-          <span>Peak (08:15)</span>
-        </button>
       </div>
 
       {/* Deck Center: Scrubber Track with Demand Heat-Strip & Event Pins */}
@@ -160,53 +139,30 @@ export const TimeDeck: React.FC = () => {
           value={simTimeMin}
           onChange={handleSliderChange}
           className="time-range-slider"
+          style={{ ['--pct' as string]: `${((simTimeMin - 450) / 180) * 100}%` }}
           aria-label="Simulation Time Scrubber"
         />
 
-        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.68rem', color: 'var(--text-tertiary)', fontFamily: 'var(--font-mono)' }}>
+        <div className="scrubber-ticks">
           <span>07:30</span>
-          <span>08:00</span>
-          <span style={{ color: 'var(--load-coral)', fontWeight: 600 }}>08:30 (Peak)</span>
-          <span>09:00</span>
+          <span>08:30</span>
           <span>09:30</span>
-          <span>10:00</span>
           <span>10:30</span>
         </div>
       </div>
 
       {/* Deck Right: Speed Controls */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-        <span style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', fontWeight: 600 }}>
-          Speed:
-        </span>
-        <div
-          style={{
-            display: 'flex',
-            backgroundColor: 'var(--bg-surface)',
-            borderRadius: 'var(--radius-sm)',
-            border: '1px solid var(--border-color)',
-            padding: 2
-          }}
-        >
-          {([1, 10, 30] as const).map(s => (
-            <button
-              key={s}
-              onClick={() => setSpeed(s)}
-              className="btn"
-              style={{
-                padding: '3px 9px',
-                fontSize: '0.75rem',
-                fontWeight: 600,
-                border: 'none',
-                background: speed === s ? 'var(--route-r1)' : 'transparent',
-                color: speed === s ? '#FFFFFF' : 'var(--text-secondary)',
-                borderRadius: 'var(--radius-xs)'
-              }}
-            >
-              {s}x
-            </button>
-          ))}
-        </div>
+      <div className="segmented" role="group" aria-label="Replay speed">
+        {([1, 10, 30] as const).map(s => (
+          <button
+            key={s}
+            onClick={() => setSpeed(s)}
+            className={speed === s ? 'active' : ''}
+            aria-pressed={speed === s}
+          >
+            {s}×
+          </button>
+        ))}
       </div>
     </footer>
   );

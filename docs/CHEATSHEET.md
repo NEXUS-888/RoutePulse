@@ -16,16 +16,16 @@
 
 | Category | Indicator | Visual Marker | Plain Language Meaning |
 |---|---|---|---|
-| **Passenger Load** | **Comfortable** | `● Teal Ring (<85%)` | Seats available; passengers board freely |
+| **Passenger Load** | **Comfortable** | `● Green Ring (<85%)` | Seats available; passengers board freely |
 | | **Crowded** | `● Amber Ring (85–100%)` | High load; standing room only; monitor closely |
-| | **Overcrowded** | `● Coral Ring (>100%)` | Over capacity; passengers left behind at stop |
-| **Corridors** | **Route R1** | `━━ Sapphire Blue (#3B82F6)` | Main Loop: Main Gate ↔ Admin ↔ Central Hub ↔ Science |
-| | **Route R2** | `━━ Emerald Green (#10B981)` | Hostel Express: High-frequency loop serving student dorms |
-| | **Route R3** | `━━ Radiant Purple (#8B5CF6)`| Metro Connector: Primary commuter spine linking rail to campus |
-| | **Route R4** | `━━ Amber Gold (#F59E0B)` | Research Shuttle: Central Hub ↔ Research Quad & Sports |
-| **Key Nodes** | **Central Hub (S03)** | `◎ Double Purple Ring` | Main interchange with dashed 4-minute walking corridor |
-| | **Metro Station (S13)** | `■ Cyan Gate Square` | Regional commuter rail entry gateway into campus |
-| | **Breakdown Bus** | `◌ Dashed Coral Ghost` | Mechanical vehicle breakdown (Scenario S2 event) |
+| | **Overcrowded** | `● Red Ring (>100%)` | Over capacity; passengers left behind at stop |
+| **Corridors** | **Route R1** | `━━ Sky Blue (#4DB8FF)` | Main Loop: Main Gate ↔ Admin ↔ Central Hub ↔ Science |
+| | **Route R2** | `━━ Periwinkle (#7C8CFF)` | Hostel Express: High-frequency loop serving student dorms |
+| | **Route R3** | `━━ Orchid (#C77BFF)`    | Metro Connector: Primary commuter spine linking rail to campus |
+| | **Route R4** | `━━ Pink (#FF70C4)` | Research Shuttle: Central Hub ↔ Research Quad & Sports |
+| **Key Nodes** | **Central Hub (S03)** | `◎ Large Cream Ring` | Main interchange with dashed 4-minute walking corridor |
+| | **Metro Station (S13)** | `■ Cream Gate Square` | Regional commuter rail entry gateway into campus |
+| | **Breakdown Bus** | `◌ Dashed Red Ghost` | Mechanical vehicle breakdown (Scenario S2 event) |
 
 ---
 
@@ -35,11 +35,11 @@
 +--------------------------------------------------------------------------------------------------------+
 |                                     5-STEP OPERATOR QUICKSTART                                         |
 +--------------------------------------------------------------------------------------------------------+
-| 1. MONITOR HEALTH   | Check Top Ribbon: Watch live Pulse Line and Network Health (target > 80 Teal).   |
-| 2. SPOT BOTTLENECK  | Look at Schematic Map: Observe which corridor turns coral during peak rush.     |
-| 3. REVIEW TICKET    | Open Recommendations: Check delta metrics (saved wait time and riders rescued). |
-| 4. VERIFY & APPLY   | Confirm 0 Hard Rule Violations (H1–H12); click "Accept & Apply Live".            |
-| 5. REVEAL GAIN      | Open Scenario Lab: Drag Before/After slider to confirm left-behind drop of 66%.  |
+| 1. MONITOR HEALTH   | Check the top bar: Network health score (target > 80, green).                    |
+| 2. SPOT BOTTLENECK  | Look at Schematic Map: Watch the bus rings turn red during peak rush.          |
+| 3. REVIEW TICKET    | Open Suggestions: Check delta metrics (saved wait time and riders rescued). |
+| 4. VERIFY & APPLY   | Confirm 0 Hard Rule Violations (H1–H12); click "Accept".                         |
+| 5. REVEAL GAIN      | Open What-if:         Drag Before/After slider to confirm left-behind drop of 66%.  |
 +--------------------------------------------------------------------------------------------------------+
 ```
 
@@ -66,7 +66,7 @@
 | **`Ctrl+K`** or **`/`** | Open Command Palette (Jump to screens, stops, buses) | Anywhere |
 | **`Spacebar`** | Play / Pause Simulation Replay Clock | Anywhere |
 | **`1`, `2`, `3`, `4`, `5`, `6`** | Jump to Screen 1 (Map) through Screen 6 (Student) | Anywhere |
-| **`T`** | Toggle Theme (Paper Light ↔ Control Room Dark) | Anywhere |
+| **`T`** | Toggle Theme (Timetable Light ↔ Signage Dark) | Anywhere |
 | **`M`** | Toggle Map View (Subway Schematic ↔ Geographic) | Anywhere |
 | **Click Stop / Bus** | Open detailed Inspector Drawer telemetry | Map & ETA Board |
 | **Double-Click Route**| Isolate and spotlight selected route | Map |

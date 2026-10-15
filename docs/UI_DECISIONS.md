@@ -10,20 +10,27 @@
 - **Data, Codes & Timestamps:** `@fontsource/jetbrains-mono` (tabular numerals enabled via `font-variant-numeric: tabular-nums`). Guarantees zero jitter when replay clock and countdowns tick.
 - **Self-Hosted Offline Requirement:** Installed directly via npm. Zero external CDN or Google Fonts calls.
 
-### Color Palette & Semantics
+### Color Palette & Semantics ("Signage" theme, revised)
+**Principle: colour always means something.** The UI chrome (buttons, panels, selection, play control) is neutral cream-on-graphite. Hue is reserved for exactly two jobs: route identity and status. This removes the previous blue/purple "dashboard" look, where blue was simultaneously the brand, the primary button and Route R1, and where Route R2 was the same green as the "healthy" status.
+
 - **Dual Themes:**
-  - **"Control Room" Dark (Default):** Base background `#0B1020`, elevated panels `#111827`, border hairline `rgba(255, 255, 255, 0.08)`, text `#F9FAFB`.
-  - **"Paper" Light:** Base background `#F8F9FA`, elevated panels `#FFFFFF`, border `#E2E8F0`, text `#0F172A`.
-- **Colour-Blind-Safe Route Palette:**
-  - Route R1 (SW Corridor / Metro Feeder): Sapphire Blue (`#2563EB` / `#3B82F6`)
-  - Route R2 (North Quad Express): Emerald Green (`#059669` / `#10B981`)
-  - Route R3 (Perimeter Loop / Commuter Spine): Violet / Purple (`#7C3AED` / `#8B5CF6`)
-  - Route R4 (Science & Research Connector): Warm Amber (`#D97706` / `#F59E0B`)
-- **Strict Load Semantics:**
-  - Teal (`#10B981` / `#059669`): Normal (<85%)
-  - Amber (`#F59E0B` / `#D97706`): Approaching capacity (85%–100%)
-  - Coral / Red (`#EF4444` / `#DC2626`): Overloaded (>100% / left behind)
-  - Redundant encoding: Always accompanied by ring fill percentage, shape/icon, and textual status ("FULL", "HIGH LOAD", "SEATS AVAILABLE").
+  - **"Signage" Dark (default):** warm graphite `#121110`, panels `#1A1917` / `#242220`, cream text `#F4EEE2` (16:1), secondary `#B8B1A4` (8.9:1), tertiary `#8F887C` (5.4:1).
+  - **"Timetable" Light:** printed-paper `#F3EFE5`, panels `#FFFDF8`, ink `#1C1A16` (15:1), secondary `#58534A`, tertiary `#6A6459`.
+- **Accent (brand, primary action, selection, focus):** cream `#F4EEE2` in dark, ink `#1C1A16` in light, exposed as `--accent`, `--accent-bg`, `--accent-contrast`. Hub and metro gateway use the same accent, distinguished by shape (ring vs square), not hue.
+- **Route palette (never green, amber or red):**
+  - R1 Sky `#4DB8FF` / `#0A74BE`; R2 Periwinkle `#7C8CFF` / `#4655E0`; R3 Orchid `#C77BFF` / `#9333D6`; R4 Pink `#FF70C4` / `#CC2E93`.
+  - Text on a route chip uses `--on-route` (graphite in dark, white in light). All chips are 4.7:1 or better.
+- **Status language (unchanged semantics, retuned values):** green `#3DD68C` / `#12713F` (<85%), amber `#FFB02E` / `#A85A00` (85-100%), red `#FF5F52` / `#C4301F` (>100%). Always paired with a ring fill, text label, or icon, never colour alone.
+- Token names (`--load-teal`, `--load-amber`, `--load-coral`, `--route-r1..r4`) are kept so components did not need renaming; only values changed.
+
+### Simplification Pass (UX)
+- **Header: 13 controls to 6.** Removed the duplicate sim clock (the time bar already shows it), the decorative fleet-cadence canvas, the tagline, the duplicate Schematic/Geographic toggle (now only on the map), and folded Tour and Reset into a `...` menu. One health signal remains.
+- **Navigation:** the rail is always labelled (icon over text) instead of icon-only with hover tooltips. Plain names: Live map, Arrivals, Crowding, Suggestions, What-if, Student app. Count bubbles appear only for alerts and pending suggestions. The pin/dock toggle and the duplicate Help button were removed.
+- **Map:** toolbar reduced to Schematic/Geographic, zoom and Layers (follow-vehicle moved into the Layers popover). Compact two-row legend at top-right (collapsed by default under 1280px wide). Minimap appears only when zoomed or panned. Vehicles are route-coloured badges whose outer ring shows load; the old ring-through-capsule glyph was ambiguous.
+- **Screens:** one plain `h1` + one-line sentence per screen instead of icon tile + banner. Arrivals went from 7 columns to 5. Crowding matrix colours only busy cells. Suggestions collapse the twelve H1-H12 chips behind "Passed all 12 hard rules".
+- **Tour:** shortened from 11 to 7 steps.
+- **Type:** root font-size 16px (was 14px) so rem-based secondary text is at least 12px; uppercase micro-labels replaced with sentence case.
+- **Bug fixed:** clicking a bus on the map showed "Vehicle telemetry unavailable" because the inspector received the vehicle object instead of its id.
 
 ### Transit Map Architecture
 - Hand-authored schematic coordinates in `web/src/map/schematic.ts` using 45°/90° octolinear lines and station ticks.

@@ -48,7 +48,7 @@ export const SchematicMap: React.FC = () => {
   const [hoveredStopId, setHoveredStopId] = useState<string | null>(null);
 
   // Legend collapsed state
-  const [legendOpen, setLegendOpen] = useState(true);
+  const [legendOpen, setLegendOpen] = useState(() => window.innerWidth >= 1280);
   const [layersMenuOpen, setLayersMenuOpen] = useState(false);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -132,195 +132,116 @@ export const SchematicMap: React.FC = () => {
       onMouseLeave={handleMouseUp}
       style={{ cursor: isDragging ? 'grabbing' : 'grab' }}
     >
-      {/* Floating View Controls (Top Left) */}
-      <div className="map-floating-panel">
-        <button
-          className="btn"
-          onClick={toggleMapViewMode}
-          title="Toggle between Schematic Metro diagram and Geographic real-metre map"
-          style={{ padding: '3px 8px', fontSize: '0.74rem', gap: 5 }}
-        >
-          <Compass size={13} />
-          <span>{mapViewMode === 'schematic' ? 'Metro Schematic' : 'Geographic'}</span>
-        </button>
+      {/* Floating View Controls (Top Left): map style, zoom, layers — nothing else */}
+      <div className="map-toolbar" onMouseDown={e => e.stopPropagation()}>
+        <div className="segmented" role="group" aria-label="Map style">
+          <button
+            className={mapViewMode === 'schematic' ? 'active' : ''}
+            aria-pressed={mapViewMode === 'schematic'}
+            onClick={() => mapViewMode !== 'schematic' && toggleMapViewMode()}
+            title="Clean metro-style diagram (M)"
+          >
+            Schematic
+          </button>
+          <button
+            className={mapViewMode === 'geographic' ? 'active' : ''}
+            aria-pressed={mapViewMode === 'geographic'}
+            onClick={() => mapViewMode !== 'geographic' && toggleMapViewMode()}
+            title="True-to-scale campus geography (M)"
+          >
+            Geographic
+          </button>
+        </div>
 
-        <div style={{ height: 16, width: 1, backgroundColor: 'var(--border-color)' }} />
+        <div className="map-toolbar-group">
+          <button className="btn-icon" onClick={() => handleZoom(-0.2)} title="Zoom out" aria-label="Zoom out">
+            <ZoomOut size={16} />
+          </button>
+          <button className="btn-icon" onClick={() => handleZoom(0.2)} title="Zoom in" aria-label="Zoom in">
+            <ZoomIn size={16} />
+          </button>
+          <button className="btn-icon" onClick={resetView} title="Fit the whole network" aria-label="Fit network">
+            <Maximize2 size={16} />
+          </button>
+        </div>
 
-        <button className="btn-icon" onClick={() => handleZoom(0.2)} title="Zoom In">
-          <ZoomIn size={15} />
-        </button>
-        <button className="btn-icon" onClick={() => handleZoom(-0.2)} title="Zoom Out">
-          <ZoomOut size={15} />
-        </button>
-        <button className="btn-icon" onClick={resetView} title="Fit Entire Network (Reset)">
-          <Maximize2 size={15} />
-        </button>
-
-        <div style={{ height: 16, width: 1, backgroundColor: 'var(--border-color)' }} />
-
-        {/* Follow Vehicle Selector */}
-        <select
-          value={followedVehicleId || ''}
-          onChange={e => setFollowedVehicleId(e.target.value || null)}
-          aria-label="Follow moving vehicle"
-          title="Track and follow vehicle as it moves"
-          style={{
-            padding: '3px 8px',
-            fontSize: '0.74rem',
-            background: 'var(--bg-surface-elevated)',
-            color: 'var(--text-primary)',
-            border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-sm)',
-            cursor: 'pointer',
-            maxWidth: 135
-          }}
-        >
-          <option value="">Follow: Off</option>
-          {activeVehicles.map(v => (
-            <option key={v.vehicle_id} value={v.vehicle_id}>
-              Follow {v.vehicle_id} ({v.route_id})
-            </option>
-          ))}
-        </select>
-
-        <div style={{ height: 16, width: 1, backgroundColor: 'var(--border-color)' }} />
-
-        {/* Layers Dropdown Button */}
         <button
           className="btn"
           onClick={() => setLayersMenuOpen(prev => !prev)}
-          title="Toggle Map Data Layers"
-          style={{ padding: '3px 8px', fontSize: '0.74rem', gap: 5 }}
+          aria-expanded={layersMenuOpen}
+          title="Choose what the map shows"
+          style={{ boxShadow: 'var(--shadow-md)' }}
         >
-          <Layers size={13} />
+          <Layers size={15} />
           <span>Layers</span>
         </button>
       </div>
 
-      {/* Layers Menu Modal */}
+      {/* Layers & follow popover */}
       {layersMenuOpen && (
-        <div
-          style={{
-            position: 'absolute',
-            top: 56,
-            left: 16,
-            background: 'var(--bg-surface)',
-            border: '1px solid var(--border-color)',
-            borderRadius: 'var(--radius-md)',
-            padding: 12,
-            boxShadow: 'var(--shadow-lg)',
-            zIndex: 30,
-            width: 220,
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 6
-          }}
-        >
-          <div style={{ fontSize: '0.74rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: 4 }}>
-            Map Layers
-          </div>
+        <div className="map-popover" onMouseDown={e => e.stopPropagation()}>
+          <h4>Show on map</h4>
           {(
             [
-              ['routes', 'Route Corridors'],
-              ['stops', 'Station Nodes'],
-              ['vehicles', 'Vehicle Glyphs'],
-              ['loadRings', 'Load Ring Rings'],
-              ['demandGlow', 'Station Demand Glow'],
-              ['alerts', 'Disruption Alerts'],
-              ['transfers', 'Central Hub Ring'],
-              ['accessibility', 'Wheelchair Ramps'],
-              ['disruptions', 'Disruption Zones']
+              ['routes', 'Route lines'],
+              ['stops', 'Stops'],
+              ['vehicles', 'Vehicles'],
+              ['loadRings', 'Load rings'],
+              ['alerts', 'Alerts'],
+              ['transfers', 'Hub interchange'],
+              ['accessibility', 'Wheelchair access'],
+              ['disruptions', 'Disruption zones']
             ] as const
           ).map(([key, label]) => (
-            <label
-              key={key}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                fontSize: '0.78rem',
-                cursor: 'pointer',
-                color: 'var(--text-primary)'
-              }}
-            >
+            <label key={key} className="toggle-row">
               <span>{label}</span>
-              <input
-                type="checkbox"
-                checked={mapLayers[key]}
-                onChange={() => toggleLayer(key)}
-                style={{ accentColor: 'var(--route-r1)' }}
-              />
+              <input type="checkbox" checked={mapLayers[key]} onChange={() => toggleLayer(key)} />
             </label>
           ))}
+
+          <div style={{ height: 1, background: 'var(--border-subtle)', margin: '4px 0' }} />
+
+          <h4>Follow a vehicle</h4>
+          <select
+            className="select"
+            value={followedVehicleId || ''}
+            onChange={e => setFollowedVehicleId(e.target.value || null)}
+            aria-label="Follow moving vehicle"
+          >
+            <option value="">Not following</option>
+            {activeVehicles.map(v => (
+              <option key={v.vehicle_id} value={v.vehicle_id}>
+                {v.vehicle_id} · {v.route_id}
+              </option>
+            ))}
+          </select>
         </div>
       )}
 
-      {/* Collapsible Transit Legend (Bottom Left) */}
-      <div className="map-legend-panel">
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            cursor: 'pointer',
-            fontSize: '0.76rem',
-            fontWeight: 700
-          }}
-          onClick={() => setLegendOpen(prev => !prev)}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ color: 'var(--text-primary)' }}>TRANSIT LEGEND</span>
-          </div>
-          <span style={{ fontSize: '0.7rem', color: 'var(--text-tertiary)' }}>
-            {legendOpen ? 'Hide' : 'Show'}
-          </span>
-        </div>
+      {/* Compact legend (bottom left): what the lines and rings mean */}
+      <div className="map-legend-panel" onMouseDown={e => e.stopPropagation()}>
+        <button className="legend-head" onClick={() => setLegendOpen(prev => !prev)} aria-expanded={legendOpen}>
+          <span>Legend</span>
+          <span>{legendOpen ? 'Hide' : 'Show'}</span>
+        </button>
 
         {legendOpen && (
-          <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 6, fontSize: '0.72rem' }}>
-            {/* Routes */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4 }}>
+          <div className="legend-body">
+            <div className="legend-routes">
               {network.routes.map(r => (
-                <div key={r.route_id} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-                  <span
-                    style={{
-                      width: 12,
-                      height: 3,
-                      borderRadius: 1.5,
-                      background: `var(--route-${r.route_id.toLowerCase()})`
-                    }}
-                  />
-                  <span style={{ color: 'var(--text-secondary)' }}>
-                    <strong>{r.route_id}</strong> {r.name.split(' ')[0]}
+                <div key={r.route_id} className="legend-route">
+                  <i style={{ background: `var(--route-${r.route_id.toLowerCase()})` }} />
+                  <span>
+                    <strong style={{ color: 'var(--text-primary)' }}>{r.route_id}</strong> {r.name.split(' ')[0]}
                   </span>
                 </div>
               ))}
             </div>
 
-            <div style={{ height: 1, backgroundColor: 'var(--border-subtle)', margin: '4px 0' }} />
-
-            {/* Semantic Load Language */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--load-teal)' }} />
-                <span>&lt;85% (Seats)</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--load-amber)' }} />
-                <span>85–100% (High)</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--load-coral)' }} />
-                <span>&gt;100% (Full)</span>
-              </div>
-            </div>
-
-            <div style={{ height: 1, backgroundColor: 'var(--border-subtle)', margin: '4px 0' }} />
-
-            {/* Key Symbols */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--text-tertiary)' }}>
-              <span>◎ S03 Grand Hub (4m walk)</span>
-              <span>⧉ S13 Metro Gateway</span>
+            <div className="legend-load" aria-label="Vehicle load ring colours">
+              <span><i style={{ background: 'var(--load-teal)' }} />Seats free</span>
+              <span><i style={{ background: 'var(--load-amber)' }} />Filling up</span>
+              <span><i style={{ background: 'var(--load-coral)' }} />Full</span>
             </div>
           </div>
         )}
@@ -458,30 +379,23 @@ export const SchematicMap: React.FC = () => {
                 r="7"
                 fill="var(--accent-hub)"
               />
-              {/* 4-Minute Walk Corridor Dashed Link */}
+              {/* Hub caption: the 4-minute interchange walk, placed clear of the route lines */}
               {mapViewMode === 'schematic' && (
-                <g>
-                  <line
-                    x1="466"
-                    y1="340"
-                    x2="534"
-                    y2="340"
-                    stroke="var(--accent-hub)"
-                    strokeWidth="2"
-                    strokeDasharray="4 3"
-                  />
-                  <text
-                    x="500"
-                    y="354"
-                    textAnchor="middle"
-                    fill="var(--text-secondary)"
-                    fontSize="10"
-                    fontWeight="600"
-                    fontFamily="var(--font-mono)"
-                  >
-                    4 min walk
-                  </text>
-                </g>
+                <text
+                  x={HUB_WALK_CORRIDOR.ring.cx - 26}
+                  y={HUB_WALK_CORRIDOR.ring.cy - 24}
+                  textAnchor="end"
+                  fill="var(--text-secondary)"
+                  stroke="var(--map-label-halo)"
+                  strokeWidth="3.5"
+                  strokeLinejoin="round"
+                  style={{ paintOrder: 'stroke fill' }}
+                  fontSize="11"
+                  fontWeight="600"
+                  fontFamily="var(--font-body)"
+                >
+                  Central Hub · 4 min walk
+                </text>
               )}
             </g>
           )}
@@ -599,7 +513,7 @@ export const SchematicMap: React.FC = () => {
                     y={labelY}
                     textAnchor={anchor}
                     fill="var(--text-primary)"
-                    stroke={theme === 'dark' ? '#0B1020' : '#FFFFFF'}
+                    stroke={'var(--map-label-halo)'}
                     strokeWidth="3.5"
                     strokeLinejoin="round"
                     style={{ paintOrder: 'stroke fill' }}
@@ -653,7 +567,7 @@ export const SchematicMap: React.FC = () => {
                         width="36"
                         height="24"
                         rx="6"
-                        fill="rgba(239, 68, 68, 0.2)"
+                        fill="var(--load-coral-bg)"
                         stroke="var(--load-coral)"
                         strokeWidth="2"
                         strokeDasharray="4 3"
@@ -671,41 +585,31 @@ export const SchematicMap: React.FC = () => {
                       </text>
                     </g>
                   ) : (
-                    /* Active Vehicle Capsule */
+                    /* Active vehicle: route colour = which line, ring = how full */
                     <g>
-                      {/* Vehicle Body Capsule */}
-                      <rect
-                        x="-16"
-                        y="-10"
-                        width="32"
-                        height="20"
-                        rx="5"
-                        fill="var(--bg-surface)"
-                        stroke="var(--border-strong)"
-                        strokeWidth="1.5"
-                        filter="drop-shadow(0 2px 4px rgba(0,0,0,0.4))"
-                      />
-
-                      {/* Load Ring Encircling Vehicle */}
                       {mapLayers.loadRings && (
-                        <circle
-                          r="14"
-                          fill="none"
-                          stroke={loadColor.ring}
-                          strokeWidth="2.5"
-                          strokeDasharray="88"
-                          strokeDashoffset={88 - (88 * Math.min(100, veh.loadPct)) / 100}
-                        />
+                        <>
+                          <circle r="18" fill="var(--bg-surface)" stroke="var(--border-strong)" strokeWidth="1" opacity="0.9" />
+                          <circle
+                            r="16"
+                            fill="none"
+                            stroke={loadColor.ring}
+                            strokeWidth="3.5"
+                            strokeLinecap="round"
+                            strokeDasharray="100.53"
+                            strokeDashoffset={100.53 - (100.53 * Math.min(100, Math.max(6, veh.loadPct))) / 100}
+                            transform="rotate(-90)"
+                          />
+                        </>
                       )}
-
-                      {/* Route Pill in Capsule */}
+                      <circle r="12" fill={`var(--route-${veh.route_id.toLowerCase()}, var(--text-secondary))`} />
                       <text
                         x="0"
-                        y="3"
+                        y="3.5"
                         textAnchor="middle"
-                        fill="var(--text-primary)"
-                        fontSize="9"
-                        fontWeight="700"
+                        fill="var(--on-route)"
+                        fontSize="10"
+                        fontWeight="800"
                         fontFamily="var(--font-mono)"
                       >
                         {veh.vehicle_id}
@@ -718,24 +622,9 @@ export const SchematicMap: React.FC = () => {
         </g>
       </svg>
 
-      {/* Interactive Minimap (Bottom Right) */}
-      <div
-        className="map-minimap-panel"
-        style={{
-          position: 'absolute',
-          bottom: 16,
-          right: 16,
-          width: 140,
-          height: 90,
-          backgroundColor: 'var(--bg-surface-elevated)',
-          border: '1px solid var(--border-color)',
-          borderRadius: 'var(--radius-sm)',
-          boxShadow: 'var(--shadow-elevation-2)',
-          overflow: 'hidden',
-          pointerEvents: 'none',
-          zIndex: 10
-        }}
-      >
+      {/* Minimap (bottom right): only useful once the view is zoomed in or panned */}
+      {(zoom > 1.05 || Math.abs(pan.x) > 8 || Math.abs(pan.y) > 8) && (
+      <div className="map-minimap-panel" aria-hidden="true">
         <svg viewBox="0 0 1000 640" width="100%" height="100%" style={{ opacity: 0.7 }}>
           {network.routes.map(r => {
             const routeKey = r.route_id as keyof typeof SCHEMATIC_ROUTES;
@@ -765,26 +654,14 @@ export const SchematicMap: React.FC = () => {
             width={Math.min(1000, 1000 / zoom)}
             height={Math.min(640, 640 / zoom)}
             fill="none"
-            stroke="var(--route-r1)"
+            stroke="var(--accent)"
             strokeWidth="18"
             strokeDasharray="24 12"
             opacity="0.85"
           />
         </svg>
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 2,
-            right: 4,
-            fontSize: '0.55rem',
-            color: 'var(--text-tertiary)',
-            fontFamily: 'var(--font-mono)',
-            fontWeight: 700
-          }}
-        >
-          MINIMAP
-        </div>
       </div>
+      )}
     </div>
   );
 };

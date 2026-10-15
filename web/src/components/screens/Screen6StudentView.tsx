@@ -61,7 +61,7 @@ export const Screen6StudentView: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'var(--route-r1)'
+              color: 'var(--accent)'
             }}
           >
             <GraduationCap size={20} />
@@ -259,7 +259,7 @@ export const Screen6StudentView: React.FC = () => {
                         top: -10,
                         right: 14,
                         background: 'var(--load-teal)',
-                        color: '#FFFFFF',
+                        color: 'var(--on-route)',
                         fontSize: '0.66rem',
                         fontWeight: 700,
                         padding: '2px 8px',
@@ -282,7 +282,7 @@ export const Screen6StudentView: React.FC = () => {
                           padding: '2px 7px',
                           borderRadius: 'var(--radius-xs)',
                           background: `var(--route-${option.route_id.toLowerCase()})`,
-                          color: '#FFFFFF',
+                          color: 'var(--on-route)',
                           fontWeight: 700,
                           fontSize: '0.78rem'
                         }}
@@ -341,7 +341,7 @@ export const Screen6StudentView: React.FC = () => {
                         color: 'var(--text-secondary)',
                         padding: '4px 8px',
                         borderRadius: 'var(--radius-xs)',
-                        background: 'rgba(168, 85, 247, 0.1)'
+                        background: 'var(--accent-bg)'
                       }}
                     >
                       <span>Hub S03 Transfer (4m buffer):</span>

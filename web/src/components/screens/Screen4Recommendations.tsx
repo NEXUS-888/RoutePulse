@@ -58,49 +58,19 @@ export const Screen4Recommendations: React.FC = () => {
 
   return (
     <div className="screen-scroll-container">
-      {/* Top Banner */}
-      <div className="screen-card" style={{ padding: '16px 20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 'var(--radius-sm)',
-                background: 'var(--bg-surface-elevated)',
-                border: '1px solid var(--border-color)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: 'var(--route-r1)'
-              }}
-            >
-              <Sparkles size={22} />
-            </div>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <h1 style={{ fontSize: '1.2rem', fontWeight: 700 }}>
-                  Operator AI Copilot & Recommendations
-                </h1>
-                <span className="validation-seal" style={{ gap: 4 }}>
-                  <ShieldCheck size={14} />
-                  <span>Validator: 0 Violations Guarantee</span>
-                </span>
-              </div>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
-                Stage A service sizing & Stage B CP-SAT vehicle blocking proposals. Transparent{' '}
-                <GlossaryPopover termId="tradeoff">Gain vs Cost trade-offs</GlossaryPopover> and{' '}
-                <GlossaryPopover termId="hardConstraint">binding constraint proofs</GlossaryPopover>.
-              </p>
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-              Active Working Plan: <strong className="font-mono">{workingPlan?.plan_id || 'baseline'}</strong>
-            </span>
-          </div>
+      {/* Title */}
+      <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 14 }}>
+        <div>
+          <h1 style={{ fontSize: '1.6rem', fontWeight: 700, letterSpacing: '-0.02em', margin: 0 }}>Suggestions</h1>
+          <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: '4px 0 0 0' }}>
+            Changes the optimizer proposes. Each passes every{' '}
+            <GlossaryPopover termId="hardConstraint">hard rule</GlossaryPopover> before you can accept it, and shows its{' '}
+            <GlossaryPopover termId="tradeoff">gain vs cost</GlossaryPopover>.
+          </p>
         </div>
+        <span style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+          Working plan: <strong className="font-mono">{workingPlan?.plan_id || 'baseline'}</strong>
+        </span>
       </div>
 
       {/* Success Notification Banner */}
@@ -148,7 +118,7 @@ export const Screen4Recommendations: React.FC = () => {
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: 'rgba(11, 16, 32, 0.75)',
+            backgroundColor: 'rgba(8, 7, 6, 0.75)',
             backdropFilter: 'blur(6px)',
             WebkitBackdropFilter: 'blur(6px)',
             display: 'flex',
@@ -166,7 +136,7 @@ export const Screen4Recommendations: React.FC = () => {
           >
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <Layers size={20} style={{ color: 'var(--route-r1)' }} />
+                <Layers size={20} style={{ color: 'var(--accent)' }} />
                 <h3 style={{ fontSize: '1.05rem', fontWeight: 700 }}>
                   What-If Sandbox: {whatIfModalRec.id}
                 </h3>
