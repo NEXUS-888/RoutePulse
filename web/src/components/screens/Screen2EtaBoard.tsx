@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSimulation } from '../../context/SimulationContext';
 import { api } from '../../api/client';
 import type { EtaPrediction, Stop } from '../../types';
@@ -43,22 +43,35 @@ export const Screen2EtaBoard: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [hasError, setHasError] = useState<boolean>(false);
 
+  const requestSeq = useRef(0);
+
   const fetchEta = async () => {
+    const seq = ++requestSeq.current;
     try {
       setLoading(true);
       setHasError(false);
       const res = await api.getStopEta(selectedStopId, Math.floor(simTimeMin));
+      if (seq !== requestSeq.current) return; // a newer request superseded this one
       setArrivals(res.data.arrivals || []);
     } catch (err) {
-      setHasError(true);
+      if (seq === requestSeq.current) setHasError(true);
     } finally {
-      setLoading(false);
+      if (seq === requestSeq.current) setLoading(false);
     }
   };
+
+  // New stop: drop the old stop's rows so the skeleton shows once, instead of stale data
+  useEffect(() => {
+    setArrivals([]);
+  }, [selectedStopId]);
 
   useEffect(() => {
     fetchEta();
   }, [selectedStopId, Math.floor(simTimeMin / 2)]);
+
+  // Background refreshes (every ~2 simulated minutes, much faster in the auto-demo) must not
+  // swap the board for a skeleton: that made the whole table flicker. Skeleton = first load only.
+  const showSkeleton = loading && arrivals.length === 0;
 
   const selectedStop = network?.stops.find(s => s.stop_id === selectedStopId);
 
@@ -237,10 +250,10 @@ export const Screen2EtaBoard: React.FC = () => {
       )}
 
       {/* Loading Skeleton */}
-      {loading && <SkeletonLoader type="table" count={4} />}
+      {showSkeleton && <SkeletonLoader type="table" count={4} />}
 
       {/* Departure board: line, where, when, how sure, on time? */}
-      {!loading && displayedArrivals.length > 0 && (
+      {!showSkeleton && displayedArrivals.length > 0 && (
         <div
           className="solari-departure-board"
           style={{
@@ -350,7 +363,7 @@ export const Screen2EtaBoard: React.FC = () => {
       )}
 
       {/* Empty State */}
-      {!loading && displayedArrivals.length === 0 && (
+      {!showSkeleton && displayedArrivals.length === 0 && (
         <EmptyState
           title="No Upcoming Arrivals"
           description="There are currently no scheduled or active departures in the next 30-minute window for this station."

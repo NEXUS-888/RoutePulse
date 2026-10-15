@@ -56,6 +56,7 @@ interface SimulationContextValue {
   setSimTimeMin: (t: number) => void;
   isPlaying: boolean;
   togglePlay: () => void;
+  setPlaying: (playing: boolean) => void;
   speed: 1 | 10 | 30;
   setSpeed: (s: 1 | 10 | 30) => void;
   scenario: ScenarioId;
@@ -516,9 +517,11 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     setScenario('S0');
     setSimTimeMin(470);
     setSpeed(10);
+    setIsPlaying(true);
   }, []);
 
   const stopAutoDemo = useCallback(() => {
+    setIsPlaying(true); // never hand control back on a frozen clock
     setIsAutoDemoActive(false);
     setAutoDemoCaption('');
   }, []);
@@ -547,6 +550,7 @@ export const SimulationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       setSimTimeMin,
       isPlaying,
       togglePlay,
+      setPlaying: setIsPlaying,
       speed,
       setSpeed,
       scenario,

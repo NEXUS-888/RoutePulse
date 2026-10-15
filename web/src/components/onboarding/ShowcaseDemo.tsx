@@ -9,12 +9,15 @@ interface DemoPhase {
   caption: string;
   /** Selectors for the UI element this phase is about; it is outlined while the caption plays. */
   target: string[];
+  /** Clock runs only where motion is the point (map). Reading screens hold still so numbers don't drift under the caption. */
+  clockRunning: boolean;
   setup: (sim: any) => void;
 }
 
 const DEMO_PHASES: DemoPhase[] = [
   {
     id: 1,
+    clockRunning: true,
     target: ['[data-tour="vehicle-B3"]', '.map-svg'],
     durationMs: 14000,
     caption: '1/6: Morning Peak Overload. Regional commuters arrive at Metro S13; Route R3 spikes over 130% capacity under the static baseline schedule.',
@@ -27,6 +30,7 @@ const DEMO_PHASES: DemoPhase[] = [
   },
   {
     id: 2,
+    clockRunning: false,
     target: ['[data-tour="eta-window"]', '.solari-departure-board'],
     durationMs: 14000,
     caption: '2/6: ETA Arrival Windows. Operators inspect p10–p90 arrival bounds calibrated on historical dwell times rather than brittle static schedules.',
@@ -36,6 +40,7 @@ const DEMO_PHASES: DemoPhase[] = [
   },
   {
     id: 3,
+    clockRunning: false,
     target: ['[data-tour="rec-accept"]', '.rec-ticket'],
     durationMs: 15000,
     caption: '3/6: Proactive Recommendation. The CP-SAT engine recommends dispatching idle reserve bus B5 at 08:21 to alleviate R3 crowding.',
@@ -45,6 +50,7 @@ const DEMO_PHASES: DemoPhase[] = [
   },
   {
     id: 4,
+    clockRunning: true,
     target: ['.health-badge'],
     durationMs: 15000,
     caption: '4/6: Validated Plan Update. Rec-0007 accepted: 0 constraint violations guaranteed. Left-behind passengers immediately decrease by 41.',
@@ -55,6 +61,7 @@ const DEMO_PHASES: DemoPhase[] = [
   },
   {
     id: 5,
+    clockRunning: true,
     target: ['[data-tour="vehicle-B3"]', '.map-svg'],
     durationMs: 16000,
     caption: '5/6: Disruption Resilience. Injecting S2 breakdown (bus B3 engine failure). The rolling optimizer activates recovery mode.',
@@ -66,6 +73,7 @@ const DEMO_PHASES: DemoPhase[] = [
   },
   {
     id: 6,
+    clockRunning: false,
     target: ['[data-tour="kpi-compare"]', '[data-tour="before-after"]'],
     durationMs: 16000,
     caption: '6/6: Baseline vs RoutePulse Comparison. 25% lower passenger wait time, 66% fewer left behind, and 0 hard constraint violations.',
@@ -97,6 +105,7 @@ export const ShowcaseDemo: React.FC = () => {
     if (!currentPhase) return;
 
     currentPhase.setup(sim);
+    sim.setPlaying(currentPhase.clockRunning);
     setPhaseProgress(0);
 
     // Wall-clock progress; no side effects inside state updaters (StrictMode runs those twice)
