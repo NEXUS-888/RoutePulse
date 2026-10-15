@@ -1,203 +1,211 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSimulation } from '../../context/SimulationContext';
+import { useEvalHeadline } from '../../utils/evalStats';
 import { PulseLine } from '../shell/PulseLine';
-import {
-  Sparkles,
-  Play,
-  Compass,
-  User,
-  GraduationCap,
-  ShieldCheck,
-  Check
-} from 'lucide-react';
+import { Play, Sparkles, ArrowRight } from 'lucide-react';
 import type { UserRole } from '../../types';
 
+const whole = (n: number) => Math.round(n);
+
+/**
+ * First impression. One promise, four measured proof points, one obvious next step.
+ * Every number comes from the evaluation results (never typed in), and the live map stays
+ * visible behind it so the product is the backdrop.
+ */
 export const WelcomeModal: React.FC = () => {
   const {
     isWelcomeOpen,
     setIsWelcomeOpen,
     startTour,
     startAutoDemo,
-    userRole,
     setUserRole,
     setActiveScreen
   } = useSimulation();
+  const h = useEvalHeadline();
 
   if (!isWelcomeOpen) return null;
 
-  const handleExploreOnMyOwn = () => {
+  const dismiss = () => {
     setIsWelcomeOpen(false);
     localStorage.setItem('rp_onboarded_v1', 'true');
   };
 
-  const handleRoleSelect = (role: UserRole) => {
+  const jumpTo = (role: UserRole, screen: string) => {
     setUserRole(role);
-    if (role === 'student') {
-      setActiveScreen('student');
-    } else if (role === 'operator') {
-      setActiveScreen('map');
-    } else {
-      setActiveScreen('scenarios');
-    }
+    setActiveScreen(screen);
+    dismiss();
   };
+
+  const proof = [
+    {
+      value: `−${whole(h.s0.left_behind_reduction_pct)}%`,
+      label: 'students left at the stop',
+      note: `${h.s0.left_behind_b0} → ${h.s0.left_behind_rp} per peak`
+    },
+    {
+      value: `−${whole(h.s0.wait_reduction_pct)}%`,
+      label: 'average wait',
+      note: `${h.s0.wait_b0} → ${h.s0.wait_rp} min`
+    },
+    {
+      value: `−${whole(h.eta.reduction_pct)}%`,
+      label: 'arrival-time error',
+      note: `${h.eta.coverage_80}% of arrivals land in the shown window`
+    },
+    {
+      value: `${h.hard_violations}`,
+      label: 'rule violations',
+      note: `across ${h.runs} simulated runs`
+    }
+  ];
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="welcome-title"
       style={{
         position: 'fixed',
         inset: 0,
-        backgroundColor: 'rgba(8, 7, 6, 0.88)',
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
+        backgroundColor: 'rgba(8, 7, 6, 0.6)',
+        backdropFilter: 'blur(3px)',
+        WebkitBackdropFilter: 'blur(3px)',
         zIndex: 200,
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 20
+        padding: 20,
+        overflowY: 'auto'
       }}
     >
       <div
         style={{
           width: '100%',
-          maxWidth: '560px',
+          maxWidth: 760,
+          margin: 'auto', // centres when it fits, scrolls from the top when it doesn't
           background: 'var(--bg-surface)',
-          border: '1px solid var(--border-color)',
-          borderRadius: 'var(--radius-lg)',
+          border: '1px solid var(--border-strong)',
+          borderRadius: 'var(--radius-xl)',
           boxShadow: 'var(--shadow-lg)',
-          padding: '32px 36px',
+          padding: 'clamp(24px, 5vw, 40px)',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
-          textAlign: 'center',
-          position: 'relative'
+          gap: 24
         }}
       >
-        {/* Animated Signature Pulse Line */}
-        <div style={{ marginBottom: 12 }}>
-          <PulseLine width={160} height={36} />
+        {/* Brand + context */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true">
+              <rect width="24" height="24" rx="6" fill="var(--accent)" />
+              <path
+                d="M3.5 12.5h4l2.2-5.5 3.6 11 2.4-5.5h4.8"
+                fill="none"
+                stroke="var(--accent-contrast)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span className="font-display" style={{ fontSize: '1.25rem', fontWeight: 700, letterSpacing: '-0.02em' }}>
+              RoutePulse
+            </span>
+            <PulseLine width={72} height={22} />
+          </div>
+          <span
+            style={{
+              fontSize: '0.8125rem',
+              color: 'var(--text-secondary)',
+              border: '1px solid var(--border-color)',
+              borderRadius: 'var(--radius-full)',
+              padding: '4px 12px'
+            }}
+          >
+            Problem PS 02 · Campus transit under real constraints
+          </span>
         </div>
 
-        {/* Logo Lockup */}
-        <h1
-          className="font-display"
-          style={{ fontSize: '2rem', fontWeight: 700, letterSpacing: '-0.03em', color: 'var(--text-primary)', marginBottom: 4 }}
-        >
-          RoutePulse
-        </h1>
-        <p
-          style={{
-            fontSize: '0.92rem',
-            color: 'var(--text-secondary)',
-            fontWeight: 500,
-            marginBottom: 20
-          }}
-        >
-          Plan the campus. Don't just watch it.
-        </p>
+        {/* Promise */}
+        <div>
+          <h1
+            id="welcome-title"
+            className="font-display"
+            style={{ fontSize: 'clamp(1.9rem, 5vw, 2.75rem)', fontWeight: 700, letterSpacing: '-0.035em', lineHeight: 1.08 }}
+          >
+            Fewer students left at the stop.
+          </h1>
+          <p style={{ fontSize: '1.0625rem', color: 'var(--text-secondary)', lineHeight: 1.55, marginTop: 12, maxWidth: 600 }}>
+            RoutePulse predicts when campus buses arrive and where crowds will form, then suggests timetable changes. Every
+            suggestion is checked against 12 hard safety rules before an operator can accept it.
+          </p>
+        </div>
 
-        {/* Role Selector Tabs */}
-        <div style={{ width: '100%', marginBottom: 24 }}>
-          <span style={{ fontSize: '0.72rem', fontWeight: 600, color: 'var(--text-tertiary)', textTransform: 'uppercase', display: 'block', marginBottom: 8 }}>
-            Select Your Role
-          </span>
+        {/* Proof: measured, not claimed */}
+        <div>
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: 8,
-              background: 'var(--bg-surface-elevated)',
-              padding: 4,
-              borderRadius: 'var(--radius-sm)',
-              border: '1px solid var(--border-color)'
+              gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+              gap: 1,
+              background: 'var(--border-color)',
+              border: '1px solid var(--border-color)',
+              borderRadius: 'var(--radius-lg)',
+              overflow: 'hidden'
             }}
           >
-            {[
-              { id: 'operator' as UserRole, label: 'Operator', icon: <User size={14} /> },
-              { id: 'student' as UserRole, label: 'Student', icon: <GraduationCap size={14} /> },
-              { id: 'reviewer' as UserRole, label: 'Judge / Reviewer', icon: <ShieldCheck size={14} /> }
-            ].map(r => (
-              <button
-                key={r.id}
-                onClick={() => handleRoleSelect(r.id)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 6,
-                  padding: '7px 8px',
-                  borderRadius: 'var(--radius-xs)',
-                  border: 'none',
-                  fontSize: '0.78rem',
-                  fontWeight: 600,
-                  cursor: 'pointer',
-                  background: userRole === r.id ? 'var(--accent)' : 'transparent',
-                  color: userRole === r.id ? 'var(--accent-contrast)' : 'var(--text-secondary)',
-                  transition: 'var(--transition-fast)'
-                }}
-              >
-                {r.icon}
-                <span>{r.label}</span>
-              </button>
+            {proof.map(p => (
+              <div key={p.label} style={{ background: 'var(--bg-surface-elevated)', padding: '16px 16px 14px' }}>
+                <div
+                  className="font-display tabular-nums"
+                  style={{ fontSize: '2rem', fontWeight: 700, letterSpacing: '-0.03em', color: 'var(--load-teal)', lineHeight: 1 }}
+                >
+                  {p.value}
+                </div>
+                <div style={{ fontSize: '0.9rem', fontWeight: 600, marginTop: 6 }}>{p.label}</div>
+                <div style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)', marginTop: 2 }}>{p.note}</div>
+              </div>
             ))}
           </div>
+          <p style={{ fontSize: '0.8125rem', color: 'var(--text-tertiary)', marginTop: 8 }}>
+            Versus the fixed timetable, normal morning peak. Simulated campus data, {h.replications} seeded runs per scenario.
+            Method and all scenarios: results/summary.md.
+          </p>
         </div>
 
-        {/* Three Big Choices (No long text) */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 10, width: '100%' }}>
-          {/* Choice 1: 90s Guided Tour */}
-          <button
-            className="btn btn-primary"
-            onClick={startTour}
-            style={{
-              padding: '12px 18px',
-              fontSize: '0.92rem',
-              fontWeight: 600,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8
-            }}
-          >
-            <Sparkles size={18} style={{ color: 'var(--load-amber)' }} />
-            <span>Take the 90-second tour</span>
-          </button>
+        {/* Next step */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            <button
+              className="btn btn-primary"
+              autoFocus
+              onClick={startAutoDemo}
+              style={{ padding: '13px 22px', fontSize: '1rem', gap: 10, flex: '1 1 260px' }}
+            >
+              <Play size={18} />
+              <span>Watch the 90-second demo</span>
+              <ArrowRight size={16} />
+            </button>
+            <button className="btn" onClick={startTour} style={{ padding: '13px 20px', fontSize: '0.9375rem', gap: 8 }}>
+              <Sparkles size={16} />
+              <span>Take the guided tour</span>
+            </button>
+          </div>
 
-          {/* Choice 2: Watch Auto-Demo */}
-          <button
-            className="btn"
-            onClick={startAutoDemo}
-            style={{
-              padding: '11px 18px',
-              fontSize: '0.88rem',
-              fontWeight: 600,
-              background: 'var(--bg-surface-elevated)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8
-            }}
-          >
-            <Play size={16} />
-            <span>Watch the hands-free auto-demo</span>
-          </button>
-
-          {/* Choice 3: Explore on my own */}
-          <button
-            className="btn btn-outline"
-            onClick={handleExploreOnMyOwn}
-            style={{
-              padding: '9px 18px',
-              fontSize: '0.82rem',
-              color: 'var(--text-secondary)',
-              border: '1px solid transparent'
-            }}
-          >
-            <span>Explore on my own</span>
-          </button>
-        </div>
-
-        <div style={{ marginTop: 18, fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>
-          Tip: Press <kbd style={{ padding: '2px 5px', borderRadius: 3, background: 'var(--bg-hover)', border: '1px solid var(--border-color)', fontFamily: 'var(--font-mono)' }}>?</kbd> anytime to open the Help Centre & Glossary.
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
+            <span>Or jump straight to</span>
+            <button className="link-btn" style={{ fontSize: '0.875rem' }} onClick={() => jumpTo('operator', 'map')}>
+              the live map
+            </button>
+            <span aria-hidden="true">·</span>
+            <button className="link-btn" style={{ fontSize: '0.875rem' }} onClick={() => jumpTo('student', 'student')}>
+              the student app
+            </button>
+            <span aria-hidden="true">·</span>
+            <button className="link-btn" style={{ fontSize: '0.875rem' }} onClick={() => jumpTo('reviewer', 'scenarios')}>
+              the results lab
+            </button>
+            <span style={{ marginLeft: 'auto', color: 'var(--text-tertiary)' }}>
+              Press <kbd style={{ padding: '1px 6px', borderRadius: 4, background: 'var(--bg-hover)', border: '1px solid var(--border-color)' }}>?</kbd> for help
+            </span>
+          </div>
         </div>
       </div>
     </div>

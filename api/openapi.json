@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "RoutePulse API",
-    "description": "Campus Transport Optimization API \u2014 Sense, Estimate, Detect, Decide, Verify, Explain.",
+    "description": "Campus Transport Optimization API — Sense, Estimate, Detect, Decide, Verify, Explain.",
     "version": "0.1.0"
   },
   "paths": {
@@ -1393,6 +1393,18 @@
           "timestamp": {
             "type": "string",
             "title": "Timestamp"
+          },
+          "headline": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Headline"
           }
         },
         "type": "object",

@@ -164,6 +164,78 @@ def generate_sensitivity_data(
     return sensitivity_rows
 
 
+def _pct_range(paired: Dict[str, Any], metric: str, vs: str = "rp_vs_b0") -> tuple[float, float]:
+    """Min and max measured % improvement of `metric` across all scenarios."""
+    vals = [
+        sc.get(vs, {}).get(metric, {}).get("percent_improvement")
+        for sc in paired.values()
+    ]
+    vals = [v for v in vals if v is not None]
+    return (min(vals), max(vals)) if vals else (0.0, 0.0)
+
+
+def _fmt_range(lo: float, hi: float) -> str:
+    return f"{lo:.1f}% to {hi:.1f}%"
+
+
+def _kpi_mean(detailed: Dict[str, Any], scenario: str, system: str, metric: str) -> float | None:
+    v = detailed.get(scenario, {}).get(system, {}).get(metric)
+    if isinstance(v, dict):
+        return v.get("mean")
+    return float(v) if isinstance(v, (int, float)) else None
+
+
+def compute_headline(results: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Headline numbers shown in the UI landing page, the before/after slider and summary.md.
+    Everything is derived from the measured results (paired per-seed comparisons); nothing is typed in.
+    """
+    paired = results.get("paired_differences", {}) or {}
+    summary_table = results.get("summary_table", []) or []
+    eta_m = results.get("eta_metrics", {}) or {}
+    replications = int(results.get("replications", 20) or 20)
+
+    w_lo, w_hi = _pct_range(paired, "p1_mean_wait_min")
+    lb_lo, lb_hi = _pct_range(paired, "p2_left_behind_pax")
+    mc_lo, mc_hi = _pct_range(paired, "p3_missed_connections_count")
+
+    def _s0(metric: str) -> Dict[str, float]:
+        d = (paired.get("S0", {}).get("rp_vs_b0", {}) or {}).get(metric, {}) or {}
+        return {
+            "b0": round(d.get("baseline_mean", 0.0), 1),
+            "rp": round(d.get("system_mean", 0.0), 1),
+            "pct": round(d.get("percent_improvement", 0.0), 1),
+        }
+
+    wait, lb, mc = _s0("p1_mean_wait_min"), _s0("p2_left_behind_pax"), _s0("p3_missed_connections_count")
+
+    rp_eta = eta_m.get("routepulse", {}) or {}
+    b0_eta = eta_m.get("baseline-0", {}) or {}
+    eta_pct = 0.0
+    if rp_eta.get("mae_overall") and b0_eta.get("mae_overall"):
+        eta_pct = round((1 - rp_eta["mae_overall"] / b0_eta["mae_overall"]) * 100, 1)
+
+    return {
+        "replications": replications,
+        "runs": len(summary_table) * replications,
+        "hard_violations": sum(int(r.get("hard_violations", 0)) for r in summary_table),
+        "wait_reduction_pct": [round(w_lo, 1), round(w_hi, 1)],
+        "left_behind_reduction_pct": [round(lb_lo, 1), round(lb_hi, 1)],
+        "missed_conn_reduction_pct": [round(mc_lo, 1), round(mc_hi, 1)],
+        "s0": {
+            "wait_b0": wait["b0"], "wait_rp": wait["rp"], "wait_reduction_pct": wait["pct"],
+            "left_behind_b0": lb["b0"], "left_behind_rp": lb["rp"], "left_behind_reduction_pct": lb["pct"],
+            "missed_b0": mc["b0"], "missed_rp": mc["rp"], "missed_reduction_pct": mc["pct"],
+        },
+        "eta": {
+            "mae_rp": rp_eta.get("mae_overall", 0.0),
+            "mae_b0": b0_eta.get("mae_overall", 0.0),
+            "reduction_pct": eta_pct,
+            "coverage_80": rp_eta.get("coverage_80", 0.0),
+        },
+    }
+
+
 def generate_summary_markdown(results: Dict[str, Any]) -> str:
     """
     Renders publication-ready GitHub-flavored Markdown evaluation summary.
@@ -192,17 +264,34 @@ def generate_summary_markdown(results: Dict[str, Any]) -> str:
     md.append(f"> **Evaluation Run Timestamp:** `{ts}`  ")
     md.append(f"> **Master Replications:** `20 stochastic seeds (seeds 1..20)`  ")
     md.append(f"> **Test Split Protocol:** `Locked Days 26..30 (Asserted in code; zero leakage)`  ")
-    md.append(f"> **Hard Constraint Gate (P8):** **PASSED (0 violations across all 100% of RoutePulse and Baseline runs)**")
+    detailed = results.get("detailed_kpis", {})
+    total_violations = sum(int(r.get("hard_violations", 0)) for r in summary_table)
+    n_runs = len(summary_table) * int(replications)
+    gate = "PASSED" if total_violations == 0 else f"FAILED ({total_violations} violations)"
+    md.append(f"> **Hard Constraint Gate (P8):** **{gate}** ({total_violations} violations across {n_runs} evaluated runs)")
     md.append("")
+
+    w_lo, w_hi = _pct_range(paired, "p1_mean_wait_min")
+    lb_lo, lb_hi = _pct_range(paired, "p2_left_behind_pax")
+    mc_lo, mc_hi = _pct_range(paired, "p3_missed_connections_count")
+    rp_eta_ = eta_m.get("routepulse", {})
+    b0_eta_ = eta_m.get("baseline-0", {})
+    b1_eta_ = eta_m.get("baseline-1", {})
+    eta_vs_b0 = (1 - rp_eta_["mae_overall"] / b0_eta_["mae_overall"]) * 100 if rp_eta_ and b0_eta_ else 0.0
+    eta_vs_b1 = (1 - rp_eta_["mae_overall"] / b1_eta_["mae_overall"]) * 100 if rp_eta_ and b1_eta_ else 0.0
+    s0_wait = _kpi_mean(detailed, "S0", "routepulse", "p1_mean_wait_min")
+    s0_wait_txt = f" (down to {s0_wait:.1f} min in the normal peak)" if s0_wait is not None else ""
+    cov = rp_eta_.get("coverage_80", 0.0)
+    cov_ok = 78.0 <= cov <= 82.0
 
     md.append("## 1. Executive Summary")
     md.append("")
-    md.append("RoutePulse demonstrates statistically significant, robust superiority over both **Baseline-0 (Static Timetable)** and **Baseline-1 (Reactive Reserve Dispatch)** across normal operations and major disruption shocks.")
-    md.append("- **P1 Mean Passenger Wait:** Reduced by **26.1% to 30.4%** across scenarios (down to 5.1 min normal peak).")
-    md.append("- **P2 Left-Behind Unmet Demand:** Slashed by **69.6% to 76.5%** via proactive reserve pre-staging and headway smoothing.")
-    md.append("- **P3 Missed Connections at Hub S03:** Reduced by **56.5% to 59.2%** via timetable transfer-window synchronization.")
-    md.append("- **P7 ETA Accuracy:** RoutePulse Conformal Quantile ETA achieves **1.42 min MAE** (vs 3.48 min timetable baseline, a **59.2% error reduction**) with **80.4% empirical coverage** within the declared 78–82% target.")
-    md.append("- **P8 Hard-Constraint Safety Gate:** **0 violations** in all 240 evaluated runs.")
+    md.append("All figures below are computed from `results/results.json` (paired per-seed comparisons, simulated data, test split only).")
+    md.append(f"- **P1 Mean Passenger Wait:** Reduced by **{_fmt_range(w_lo, w_hi)}** vs Baseline-0 across scenarios{s0_wait_txt}.")
+    md.append(f"- **P2 Left-Behind Unmet Demand:** Reduced by **{_fmt_range(lb_lo, lb_hi)}** vs Baseline-0.")
+    md.append(f"- **P3 Missed Connections at Hub S03:** Reduced by **{_fmt_range(mc_lo, mc_hi)}** vs Baseline-0.")
+    md.append(f"- **P7 ETA Accuracy:** Conformal ETA achieves **{rp_eta_.get('mae_overall', 0)} min MAE** vs {b0_eta_.get('mae_overall', 0)} min for the timetable (**{eta_vs_b0:.1f}% lower error**) and {b1_eta_.get('mae_overall', 0)} min for last-delay carry-forward (**{eta_vs_b1:.1f}% lower**), with **{cov}% empirical coverage** of the 80% window.")
+    md.append(f"- **P8 Hard-Constraint Safety Gate:** **{total_violations} violations** in all {n_runs} evaluated runs.")
     md.append("")
 
     md.append("---")
@@ -248,12 +337,24 @@ def generate_summary_markdown(results: Dict[str, Any]) -> str:
     md.append("")
     md.append("| Metric | Baseline-0 | Baseline-1 (Reactive) | RoutePulse (Optimized) | Delta vs Baseline-0 |")
     md.append("|---|---|---|---|---|")
-    md.append("| **P4: Overcrowded Trips (>85% cap)** | 12.0 trips | 8.2 trips | **2.1 trips** | **-82.5%** |")
-    md.append("| **P4: Capacity Violations (>100% cap)** | 9.0 trips | 5.1 trips | **0.0 trips** | **-100.0%** |")
-    md.append("| **P5: P95 Passenger Wait (tail)** | 20.0 min (balk threshold) | 16.4 min | **10.8 min** | **-46.0%** |")
-    md.append("| **P6: Fleet Utilization Ratio** | 27.8% | 31.4% | **38.9%** | **+11.1 pp** |")
-    md.append("| **P6: Vehicle-km (morning peak)** | 156.8 km | 171.0 km | **185.2 km** | +28.4 km (+18.1%) |")
-    md.append("| **P10: Plan Churn (# changed trips)** | 0 (static) | 2 (reactive) | **4 trips** | Within minimal churn bound |")
+    def _row(label: str, metric: str, fmt: str) -> str:
+        vals = [_kpi_mean(detailed, "S0", sysname, metric) for sysname in ("baseline-0", "baseline-1", "routepulse")]
+        if any(v is None for v in vals):
+            return ""
+        b0v, b1v, rpv = vals
+        delta_txt = f"{(rpv - b0v) / b0v * 100.0:+.1f}%" if b0v else "n/a"
+        return f"| **{label}** | {fmt.format(b0v)} | {fmt.format(b1v)} | **{fmt.format(rpv)}** | **{delta_txt}** |"
+
+    for row in (
+        _row("P4: Overcrowded Trips (>85% cap)", "p4_overcrowded_gt_85", "{:.1f} trips"),
+        _row("P5: P95 Passenger Wait (tail)", "p5_p95_wait_min", "{:.1f} min"),
+        _row("P6: Fleet Utilization Ratio", "p6_fleet_utilization", "{:.1%}"),
+        _row("P10: Plan Churn (# changed trips)", "p10_plan_churn", "{:.0f} trips"),
+    ):
+        if row:
+            md.append(row)
+    md.append("")
+    md.append("*Scenario S0 (Normal Peak), mean over all replications. Utilization rises because RoutePulse deliberately adds reserve capacity; extra vehicle-km are the cost of the improvement.*")
     md.append("")
 
     md.append("---")
@@ -269,7 +370,7 @@ def generate_summary_markdown(results: Dict[str, Any]) -> str:
     md.append(f"| **Baseline-1 (Last-Delay Carry-Forward)** | {b1_eta.get('mae_overall', 2.34)} min | {b1_eta.get('mae_horizon_1', 1.15)} min | {b1_eta.get('mae_horizon_3', 2.45)} min | {b1_eta.get('mae_horizon_5plus', 3.78)} min | {b1_eta.get('coverage_80', 62.4)}% | {b1_eta.get('mean_window_width', 4.0)} min |")
     md.append(f"| **RoutePulse (Conformal Quantile)** | **{rp_eta.get('mae_overall', 1.42)} min** | **{rp_eta.get('mae_horizon_1', 0.65)} min** | **{rp_eta.get('mae_horizon_3', 1.48)} min** | **{rp_eta.get('mae_horizon_5plus', 2.15)} min** | **{rp_eta.get('coverage_80', 80.4)}%** | **{rp_eta.get('mean_window_width', 3.8)} min** |")
     md.append("")
-    md.append("> **Section 8.3 Conformal Verification:** Empirical coverage of **80.4%** perfectly satisfies the predeclared 78–82% target interval with narrow, informative prediction windows.")
+    md.append(f"> **Conformal verification:** empirical coverage of **{cov}%** {'is within' if cov_ok else 'is OUTSIDE'} the predeclared 78–82% target interval (mean window width {rp_eta_.get('mean_window_width', 0)} min).")
     md.append("")
 
     md.append("---")
@@ -284,7 +385,9 @@ def generate_summary_markdown(results: Dict[str, Any]) -> str:
 
     md.append("---")
     md.append("")
-    md.append("## 7. Architectural Ablation Study")
+    md.append("## 7. Architectural Ablation Study (design-time estimates, not re-run)")
+    md.append("")
+    md.append("> **Caveat:** the ablation rows are estimates defined in `eval/report.py::generate_ablation_data`; each variant was **not** re-simulated. Treat them as illustrative of expected component impact, not as measured results.")
     md.append("")
     md.append("| Model Variant | Mean Wait | Left-Behind | Missed Conn | ETA MAE | Demand WAPE | Impact of Ablation |")
     md.append("|---|---|---|---|---|---|---|")
@@ -308,14 +411,17 @@ def generate_summary_markdown(results: Dict[str, Any]) -> str:
     md.append("")
     md.append("| Target Metric | Predeclared Target | RoutePulse Actual | Target Achieved? |")
     md.append("|---|---|---|---|")
-    md.append("| **Passenger Wait Reduction** | -20% | **-26.1% to -30.4%** | **YES (Exceeded)** |")
-    md.append("| **Left-Behind Pax Reduction** | -50% | **-69.6% to -76.5%** | **YES (Exceeded)** |")
-    md.append("| **Missed Connections Reduction** | -40% | **-56.5% to -59.2%** | **YES (Exceeded)** |")
-    md.append("| **ETA MAE vs Timetable** | -30% | **-59.2%** | **YES (Exceeded)** |")
-    md.append("| **ETA MAE vs Carry-Forward** | -10% | **-39.3%** | **YES (Exceeded)** |")
-    md.append("| **80% Window Coverage** | 78% – 82% | **80.4%** | **YES (Target Met)** |")
-    md.append("| **Hard Constraint Violations** | 0 | **0 (100% of runs)** | **YES (Gate Passed)** |")
-    md.append("| **Optimizer Solve Time** | < 10 s | **< 1.5 s** | **YES (Exceeded)** |")
+    def _verdict(ok: bool) -> str:
+        return "**YES**" if ok else "**NO**"
+
+    md.append(f"| **Passenger Wait Reduction** | -20% | **-{w_lo:.1f}% to -{w_hi:.1f}%** | {_verdict(w_lo >= 20)} |")
+    md.append(f"| **Left-Behind Pax Reduction** | -50% | **-{lb_lo:.1f}% to -{lb_hi:.1f}%** | {_verdict(lb_lo >= 50)} |")
+    md.append(f"| **Missed Connections Reduction** | -40% | **-{mc_lo:.1f}% to -{mc_hi:.1f}%** | {_verdict(mc_lo >= 40)} |")
+    md.append(f"| **ETA MAE vs Timetable** | -30% | **-{eta_vs_b0:.1f}%** | {_verdict(eta_vs_b0 >= 30)} |")
+    md.append(f"| **ETA MAE vs Carry-Forward** | -10% | **-{eta_vs_b1:.1f}%** | {_verdict(eta_vs_b1 >= 10)} |")
+    md.append(f"| **80% Window Coverage** | 78% – 82% | **{cov}%** | {_verdict(cov_ok)} |")
+    md.append(f"| **Hard Constraint Violations** | 0 | **{total_violations}** | {_verdict(total_violations == 0)} |")
+    md.append("| **Optimizer Solve Time** | < 10 s | asserted in `tests/test_optimizer.py` | see test |")
     md.append("")
 
     md.append("---")

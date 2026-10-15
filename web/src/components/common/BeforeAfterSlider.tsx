@@ -1,9 +1,11 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { useSimulation } from '../../context/SimulationContext';
+import { useEvalHeadline } from '../../utils/evalStats';
 import { ShieldCheck, ArrowLeftRight, TrendingDown } from 'lucide-react';
 
 export const BeforeAfterSlider: React.FC = () => {
   const [sliderPos, setSliderPos] = useState<number>(50); // percentage 0 to 100
+  const { s0, hard_violations, replications } = useEvalHeadline();
+  const diff = (a: number, b: number) => (a - b).toFixed(1);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -88,17 +90,16 @@ export const BeforeAfterSlider: React.FC = () => {
             />
             {/* Passenger Overcrowding Clusters */}
             <circle cx="160" cy="120" r="14" fill="var(--load-coral)" opacity="0.8" />
-            <text x="160" y="124" textAnchor="middle" fill="var(--on-route)" fontSize="10" fontWeight="700">62</text>
-            <text x="160" y="146" textAnchor="middle" fill="var(--load-coral)" fontSize="10" fontWeight="700">Left Behind</text>
+            <text x="160" y="124" textAnchor="middle" fill="var(--on-route)" fontSize="10" fontWeight="700">{Math.round(s0.left_behind_b0)}</text>
+            <text x="160" y="146" textAnchor="middle" fill="var(--load-coral)" fontSize="10" fontWeight="700">left behind</text>
 
             <circle cx="260" cy="120" r="10" fill="var(--load-coral)" opacity="0.6" />
-            <text x="260" y="124" textAnchor="middle" fill="var(--on-route)" fontSize="9" fontWeight="700">134%</text>
-            <text x="260" y="144" textAnchor="middle" fill="var(--load-coral)" fontSize="9" fontWeight="600">Overload</text>
+            <text x="260" y="144" textAnchor="middle" fill="var(--load-coral)" fontSize="9" fontWeight="600">overloaded</text>
           </svg>
 
           <div style={{ display: 'flex', gap: 12 }}>
             <span style={{ fontSize: '0.78rem', color: 'var(--load-coral)', fontWeight: 600 }}>
-              ⚠ Severe passenger bunching on R3 • 62 riders left behind • Health: 58 (Coral)
+              ⚠ {s0.left_behind_b0} riders left behind • {s0.missed_b0} missed connections (per peak, S0)
             </span>
           </div>
         </div>
@@ -147,17 +148,16 @@ export const BeforeAfterSlider: React.FC = () => {
             />
             {/* Smooth flow */}
             <circle cx="160" cy="120" r="10" fill="var(--load-teal)" opacity="0.8" />
-            <text x="160" y="124" textAnchor="middle" fill="var(--on-route)" fontSize="9" fontWeight="700">21</text>
-            <text x="160" y="144" textAnchor="middle" fill="var(--load-teal)" fontSize="9" fontWeight="700">-41 Pax</text>
+            <text x="160" y="124" textAnchor="middle" fill="var(--on-route)" fontSize="9" fontWeight="700">{Math.round(s0.left_behind_rp)}</text>
+            <text x="160" y="144" textAnchor="middle" fill="var(--load-teal)" fontSize="9" fontWeight="700">left behind</text>
 
             <circle cx="260" cy="120" r="10" fill="var(--load-teal)" opacity="0.8" />
-            <text x="260" y="124" textAnchor="middle" fill="var(--on-route)" fontSize="9" fontWeight="700">82%</text>
-            <text x="260" y="144" textAnchor="middle" fill="var(--load-teal)" fontSize="9" fontWeight="600">Optimal</text>
+            <text x="260" y="144" textAnchor="middle" fill="var(--load-teal)" fontSize="9" fontWeight="600">balanced</text>
           </svg>
 
           <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12 }}>
             <span style={{ fontSize: '0.78rem', color: 'var(--load-teal)', fontWeight: 600 }}>
-              ✓ Smooth headway • 0 hard violations • Health: 94 (Teal)
+              ✓ {s0.left_behind_rp} riders left behind • {s0.missed_rp} missed connections • {hard_violations} hard violations
             </span>
           </div>
         </div>
@@ -214,14 +214,14 @@ export const BeforeAfterSlider: React.FC = () => {
           </span>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginTop: 4 }}>
             <span className="tabular-nums font-display" style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--load-teal)' }}>
-              5.4 min
+              {s0.wait_rp} min
             </span>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', textDecoration: 'line-through' }}>
-              7.2m
+              {s0.wait_b0}m
             </span>
           </div>
           <span style={{ fontSize: '0.72rem', color: 'var(--load-teal)', fontWeight: 600 }}>
-            -1.8 min (-25%)
+            -{diff(s0.wait_b0, s0.wait_rp)} min (-{s0.wait_reduction_pct}%)
           </span>
         </div>
 
@@ -231,14 +231,14 @@ export const BeforeAfterSlider: React.FC = () => {
           </span>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginTop: 4 }}>
             <span className="tabular-nums font-display" style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--load-teal)' }}>
-              21 pax
+              {s0.left_behind_rp} pax
             </span>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', textDecoration: 'line-through' }}>
-              62p
+              {s0.left_behind_b0}p
             </span>
           </div>
           <span style={{ fontSize: '0.72rem', color: 'var(--load-teal)', fontWeight: 600 }}>
-            -41 pax (-66%)
+            -{diff(s0.left_behind_b0, s0.left_behind_rp)} pax (-{s0.left_behind_reduction_pct}%)
           </span>
         </div>
 
@@ -248,14 +248,14 @@ export const BeforeAfterSlider: React.FC = () => {
           </span>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginTop: 4 }}>
             <span className="tabular-nums font-display" style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--load-teal)' }}>
-              11 pax
+              {s0.missed_rp} pax
             </span>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)', textDecoration: 'line-through' }}>
-              28p
+              {s0.missed_b0}p
             </span>
           </div>
           <span style={{ fontSize: '0.72rem', color: 'var(--load-teal)', fontWeight: 600 }}>
-            -17 pax (-61%)
+            -{diff(s0.missed_b0, s0.missed_rp)} pax (-{s0.missed_reduction_pct}%)
           </span>
         </div>
 
@@ -265,7 +265,7 @@ export const BeforeAfterSlider: React.FC = () => {
           </span>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginTop: 4 }}>
             <span className="tabular-nums font-display" style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--load-teal)' }}>
-              0
+              {hard_violations}
             </span>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
               (H1–H12 Passed)
@@ -276,6 +276,11 @@ export const BeforeAfterSlider: React.FC = () => {
           </span>
         </div>
       </div>
+
+      <p style={{ fontSize: '0.8125rem', color: 'var(--text-tertiary)', margin: 0 }}>
+        Scenario S0 (normal morning peak) vs the fixed timetable. Mean of {replications} seeded simulation runs on synthetic
+        campus data (see results/summary.md).
+      </p>
     </div>
   );
 };

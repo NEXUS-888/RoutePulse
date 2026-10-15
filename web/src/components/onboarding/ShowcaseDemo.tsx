@@ -2,11 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSimulation } from '../../context/SimulationContext';
 import { RotateCcw, Sparkles } from 'lucide-react';
 import { SpotlightRing, useCornerPlacement, useTargetBox } from './spotlight';
+import { useEvalHeadline } from '../../utils/evalStats';
+import type { EvalHeadline } from '../../types';
 
 interface DemoPhase {
   id: number;
   durationMs: number;
-  caption: string;
+  /** Static text, or computed from the measured evaluation results so the demo never quotes invented numbers. */
+  caption: string | ((h: EvalHeadline) => string);
   /** Selectors for the UI element this phase is about; it is outlined while the caption plays. */
   target: string[];
   /** Clock runs only where motion is the point (map). Reading screens hold still so numbers don't drift under the caption. */
@@ -20,7 +23,7 @@ const DEMO_PHASES: DemoPhase[] = [
     clockRunning: true,
     target: ['[data-tour="vehicle-B3"]', '.map-svg'],
     durationMs: 14000,
-    caption: '1/6: Morning Peak Overload. Regional commuters arrive at Metro S13; Route R3 spikes over 130% capacity under the static baseline schedule.',
+    caption: '1/6: Morning Peak Overload. Regional commuters arrive at Metro S13; Route R3 runs over capacity under the static baseline schedule.',
     setup: sim => {
       sim.setActiveScreen('map');
       sim.setScenario('S0');
@@ -76,7 +79,8 @@ const DEMO_PHASES: DemoPhase[] = [
     clockRunning: false,
     target: ['[data-tour="kpi-compare"]', '[data-tour="before-after"]'],
     durationMs: 16000,
-    caption: '6/6: Baseline vs RoutePulse Comparison. 25% lower passenger wait time, 66% fewer left behind, and 0 hard constraint violations.',
+    caption: h =>
+      `6/6: Baseline vs RoutePulse (normal peak, mean of ${h.replications} seeded simulation runs). ${h.s0.wait_reduction_pct}% lower wait, ${h.s0.left_behind_reduction_pct}% fewer left behind, ${h.hard_violations} hard-rule violations.`,
     setup: sim => {
       sim.setActiveScreen('scenarios');
     }
@@ -90,6 +94,7 @@ export const ShowcaseDemo: React.FC = () => {
   const [phaseIndex, setPhaseIndex] = useState(0);
   const [phaseProgress, setPhaseProgress] = useState(0); // 0 to 100
   const cardRef = useRef<HTMLDivElement | null>(null);
+  const headline = useEvalHeadline();
 
   useEffect(() => {
     if (!isAutoDemoActive) return;
@@ -201,7 +206,7 @@ export const ShowcaseDemo: React.FC = () => {
       </div>
 
       <span style={{ fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-primary)', lineHeight: 1.5 }}>
-        {currentPhase.caption}
+        {typeof currentPhase.caption === 'function' ? currentPhase.caption(headline) : currentPhase.caption}
       </span>
 
       {/* Segmented Progress Bar */}

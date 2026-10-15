@@ -314,6 +314,7 @@ class EvalResultsResponse(BaseModel):
     scenarios: dict[str, Any]
     chart_paths: list[str]
     timestamp: str
+    headline: dict[str, Any] | None = None  # derived from measured results (eval.report.compute_headline)
 
 
 class IngestGpsRequest(BaseModel):

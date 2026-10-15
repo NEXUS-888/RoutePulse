@@ -20,11 +20,11 @@ It is built for two groups. First, transit operators who run daily campus bus fl
 | 2. Jump to peak time: Click "Jump to peak" on the bottom bar.                 |
 |    Watch Route R3 turn coral under heavy morning student demand.              |
 | 3. Read the alert: Open Crowding from the left rail.                          |
-|    See 62 riders at risk of being left behind at Metro Gateway S13.           |
+|    See which stops overflow first, such as Metro Gateway S13.                  |
 | 4. Fix it with one click: Go to Suggestions. Click "Accept"                   |
 |    on rec-0007 to dispatch spare bus B5.                                      |
 | 5. See the gain: Open What-if. Drag the Before/After slider                   |
-|    to see left-behind student lines drop by 66%.                              |
+|    to see left-behind students drop by about 71% (47 to 13 per peak).         |
 +-------------------------------------------------------------------------------+
 ```
 
@@ -39,7 +39,7 @@ You run the bus fleet each day. Start on the **Command Centre** map during morni
 You want to get to class on time. Switch to the **Student View** (mobile 390×844 frame). Pick your start stop (Metro Gateway S13) and your end stop (Library S04). RoutePulse shows a wide arrival window (`08:27–08:33 AM`) instead of one fragile minute. If the next bus is crowded (88% full), RoutePulse recommends a later bus 8 minutes later with open seats. If you use a wheelchair, turn on the ramp toggle to see only accessible buses.
 
 ### Path C: For the Hackathon Judge or Reviewer
-You want to test system reliability. Open **Scenario Lab**. Drag the **Before / After reveal slider** across the schematic map. Compare the fixed Baseline-0 plan with RoutePulse. Check the KPI table below. Notice 25% lower average wait times, 66% fewer left-behind riders, and strictly **0 rule violations** across all 20 test seeds. Click scenario **S2** to test how the solver recovers from a sudden bus breakdown.
+You want to test system reliability. Open **Scenario Lab**. Drag the **Before / After reveal slider** across the schematic map. Compare the fixed Baseline-0 plan with RoutePulse. Check the KPI table below. Notice about 30% lower average wait (7.3 to 5.2 min), about 71% fewer left-behind riders (47 to 13), and **0 rule violations** across all simulated runs. These come straight from `results/results.json`. Click scenario **S2** to test how the solver recovers from a sudden bus breakdown.
 
 ---
 

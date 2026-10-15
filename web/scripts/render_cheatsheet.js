@@ -329,7 +329,7 @@ const htmlContent = `<!DOCTYPE html>
       </div>
       <div class="step-card">
         <div class="step-header"><span>STEP 5: REVEAL GAIN</span><span>08:30</span></div>
-        <div class="step-desc">Open What-if. Drag Before/After slider to confirm 66% left-behind drop.</div>
+        <div class="step-desc">Open What-if. Drag Before/After slider to confirm ~71% left-behind drop.</div>
       </div>
 
       <div style="font-size: 11px; font-weight: 700; color: #3DD68C; margin-top: 4px;">STUDENT WORKFLOW (CATCH A BUS)</div>

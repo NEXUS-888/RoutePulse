@@ -86,7 +86,7 @@ async function runCapture() {
 
   // 2. Test Guided Tour Walkthrough
   console.log('Testing Spotlight Tour...');
-  const takeTourBtn = page.locator('text=Take the 90-second tour');
+  const takeTourBtn = page.locator('text=Take the guided tour');
   if (await takeTourBtn.isVisible()) {
     await takeTourBtn.click();
     await page.waitForTimeout(500);

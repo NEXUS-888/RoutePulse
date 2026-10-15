@@ -39,7 +39,7 @@
 | 2. SPOT BOTTLENECK  | Look at Schematic Map: Watch the bus rings turn red during peak rush.          |
 | 3. REVIEW TICKET    | Open Suggestions: Check delta metrics (saved wait time and riders rescued). |
 | 4. VERIFY & APPLY   | Confirm 0 Hard Rule Violations (H1–H12); click "Accept".                         |
-| 5. REVEAL GAIN      | Open What-if:         Drag Before/After slider to confirm left-behind drop of 66%.  |
+| 5. REVEAL GAIN      | Open What-if:         Drag Before/After slider to confirm left-behind drop of ~71%. |
 +--------------------------------------------------------------------------------------------------------+
 ```
 

@@ -230,11 +230,34 @@ export interface EvalSummaryItem {
   hard_violations: number;
 }
 
+/** Headline numbers derived server-side from the measured results (eval.report.compute_headline). */
+export interface EvalHeadline {
+  replications: number;
+  runs: number;
+  hard_violations: number;
+  wait_reduction_pct: [number, number];
+  left_behind_reduction_pct: [number, number];
+  missed_conn_reduction_pct: [number, number];
+  s0: {
+    wait_b0: number;
+    wait_rp: number;
+    wait_reduction_pct: number;
+    left_behind_b0: number;
+    left_behind_rp: number;
+    left_behind_reduction_pct: number;
+    missed_b0: number;
+    missed_rp: number;
+    missed_reduction_pct: number;
+  };
+  eta: { mae_rp: number; mae_b0: number; reduction_pct: number; coverage_80: number };
+}
+
 export interface EvalResultsResponse {
   summary_table: EvalSummaryItem[];
   scenarios: Record<string, unknown>;
   chart_paths: string[];
   timestamp: string;
+  headline?: EvalHeadline;
 }
 
 export interface StudentRouteOption {

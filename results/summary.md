@@ -3,15 +3,15 @@
 > **Evaluation Run Timestamp:** `2026-10-14T08:00:18.250502+00:00`  
 > **Master Replications:** `20 stochastic seeds (seeds 1..20)`  
 > **Test Split Protocol:** `Locked Days 26..30 (Asserted in code; zero leakage)`  
-> **Hard Constraint Gate (P8):** **PASSED (0 violations across all 100% of RoutePulse and Baseline runs)**
+> **Hard Constraint Gate (P8):** **PASSED** (0 violations across 240 evaluated runs)
 
 ## 1. Executive Summary
 
-RoutePulse demonstrates statistically significant, robust superiority over both **Baseline-0 (Static Timetable)** and **Baseline-1 (Reactive Reserve Dispatch)** across normal operations and major disruption shocks.
-- **P1 Mean Passenger Wait:** Reduced by **26.1% to 30.4%** across scenarios (down to 5.1 min normal peak).
-- **P2 Left-Behind Unmet Demand:** Slashed by **69.6% to 76.5%** via proactive reserve pre-staging and headway smoothing.
-- **P3 Missed Connections at Hub S03:** Reduced by **56.5% to 59.2%** via timetable transfer-window synchronization.
-- **P7 ETA Accuracy:** RoutePulse Conformal Quantile ETA achieves **1.42 min MAE** (vs 3.48 min timetable baseline, a **59.2% error reduction**) with **80.4% empirical coverage** within the declared 78–82% target.
+All figures below are computed from `results/results.json` (paired per-seed comparisons, simulated data, test split only).
+- **P1 Mean Passenger Wait:** Reduced by **26.1% to 31.5%** vs Baseline-0 across scenarios (down to 5.2 min in the normal peak).
+- **P2 Left-Behind Unmet Demand:** Reduced by **67.7% to 77.2%** vs Baseline-0.
+- **P3 Missed Connections at Hub S03:** Reduced by **55.2% to 60.1%** vs Baseline-0.
+- **P7 ETA Accuracy:** Conformal ETA achieves **0.8 min MAE** vs 3.19 min for the timetable (**74.9% lower error**) and 3.14 min for last-delay carry-forward (**74.5% lower**), with **79.7% empirical coverage** of the 80% window.
 - **P8 Hard-Constraint Safety Gate:** **0 violations** in all 240 evaluated runs.
 
 ---
@@ -56,12 +56,12 @@ All metrics evaluated pairwise per seed ($N=20$) using two-sided Student's paire
 
 | Metric | Baseline-0 | Baseline-1 (Reactive) | RoutePulse (Optimized) | Delta vs Baseline-0 |
 |---|---|---|---|---|
-| **P4: Overcrowded Trips (>85% cap)** | 12.0 trips | 8.2 trips | **2.1 trips** | **-82.5%** |
-| **P4: Capacity Violations (>100% cap)** | 9.0 trips | 5.1 trips | **0.0 trips** | **-100.0%** |
-| **P5: P95 Passenger Wait (tail)** | 20.0 min (balk threshold) | 16.4 min | **10.8 min** | **-46.0%** |
-| **P6: Fleet Utilization Ratio** | 27.8% | 31.4% | **38.9%** | **+11.1 pp** |
-| **P6: Vehicle-km (morning peak)** | 156.8 km | 171.0 km | **185.2 km** | +28.4 km (+18.1%) |
-| **P10: Plan Churn (# changed trips)** | 0 (static) | 2 (reactive) | **4 trips** | Within minimal churn bound |
+| **P4: Overcrowded Trips (>85% cap)** | 8.2 trips | 4.8 trips | **2.0 trips** | **-76.0%** |
+| **P5: P95 Passenger Wait (tail)** | 14.6 min | 12.7 min | **10.4 min** | **-29.0%** |
+| **P6: Fleet Utilization Ratio** | 78.6% | 79.9% | **82.7%** | **+5.2%** |
+| **P10: Plan Churn (# changed trips)** | 0 trips | 2 trips | **7 trips** | **n/a** |
+
+*Scenario S0 (Normal Peak), mean over all replications. Utilization rises because RoutePulse deliberately adds reserve capacity; extra vehicle-km are the cost of the improvement.*
 
 ---
 
@@ -73,7 +73,7 @@ All metrics evaluated pairwise per seed ($N=20$) using two-sided Student's paire
 | **Baseline-1 (Last-Delay Carry-Forward)** | 3.14 min | 1.01 min | 3.09 min | 9.69 min | 49.5% | 4.0 min |
 | **RoutePulse (Conformal Quantile)** | **0.8 min** | **0.69 min** | **0.84 min** | **1.05 min** | **79.7%** | **2.56 min** |
 
-> **Section 8.3 Conformal Verification:** Empirical coverage of **80.4%** perfectly satisfies the predeclared 78–82% target interval with narrow, informative prediction windows.
+> **Conformal verification:** empirical coverage of **79.7%** is within the predeclared 78–82% target interval (mean window width 2.56 min).
 
 ---
 
@@ -86,7 +86,9 @@ All metrics evaluated pairwise per seed ($N=20$) using two-sided Student's paire
 
 ---
 
-## 7. Architectural Ablation Study
+## 7. Architectural Ablation Study (design-time estimates, not re-run)
+
+> **Caveat:** the ablation rows are estimates defined in `eval/report.py::generate_ablation_data`; each variant was **not** re-simulated. Treat them as illustrative of expected component impact, not as measured results.
 
 | Model Variant | Mean Wait | Left-Behind | Missed Conn | ETA MAE | Demand WAPE | Impact of Ablation |
 |---|---|---|---|---|---|---|
@@ -112,14 +114,14 @@ All metrics evaluated pairwise per seed ($N=20$) using two-sided Student's paire
 
 | Target Metric | Predeclared Target | RoutePulse Actual | Target Achieved? |
 |---|---|---|---|
-| **Passenger Wait Reduction** | -20% | **-26.1% to -30.4%** | **YES (Exceeded)** |
-| **Left-Behind Pax Reduction** | -50% | **-69.6% to -76.5%** | **YES (Exceeded)** |
-| **Missed Connections Reduction** | -40% | **-56.5% to -59.2%** | **YES (Exceeded)** |
-| **ETA MAE vs Timetable** | -30% | **-59.2%** | **YES (Exceeded)** |
-| **ETA MAE vs Carry-Forward** | -10% | **-39.3%** | **YES (Exceeded)** |
-| **80% Window Coverage** | 78% – 82% | **80.4%** | **YES (Target Met)** |
-| **Hard Constraint Violations** | 0 | **0 (100% of runs)** | **YES (Gate Passed)** |
-| **Optimizer Solve Time** | < 10 s | **< 1.5 s** | **YES (Exceeded)** |
+| **Passenger Wait Reduction** | -20% | **-26.1% to -31.5%** | **YES** |
+| **Left-Behind Pax Reduction** | -50% | **-67.7% to -77.2%** | **YES** |
+| **Missed Connections Reduction** | -40% | **-55.2% to -60.1%** | **YES** |
+| **ETA MAE vs Timetable** | -30% | **-74.9%** | **YES** |
+| **ETA MAE vs Carry-Forward** | -10% | **-74.5%** | **YES** |
+| **80% Window Coverage** | 78% – 82% | **79.7%** | **YES** |
+| **Hard Constraint Violations** | 0 | **0** | **YES** |
+| **Optimizer Solve Time** | < 10 s | asserted in `tests/test_optimizer.py` | see test |
 
 ---
 *Generated by RoutePulse Evaluation Engine (`eval/run_eval.py`). All artifacts committed under reproducible master seeds.*

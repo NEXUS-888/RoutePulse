@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Sun, Moon, HelpCircle, RotateCcw, Sparkles, ShieldCheck, Search, MoreHorizontal } from 'lucide-react';
+import { Sun, Moon, HelpCircle, RotateCcw, Sparkles, ShieldCheck, Search, MoreHorizontal, Info } from 'lucide-react';
 import { useSimulation } from '../../context/SimulationContext';
 import { NetworkHealthScore } from './NetworkHealthScore';
 import type { ScenarioId } from '../../types';
@@ -13,7 +13,7 @@ const SCENARIOS: { id: ScenarioId; label: string }[] = [
 
 /** Small overflow menu so rarely used actions don't compete with the primary header controls. */
 const MoreMenu: React.FC = () => {
-  const { startTour, resetToBaseline } = useSimulation();
+  const { startTour, resetToBaseline, setIsWelcomeOpen } = useSimulation();
   const [open, setOpen] = useState(false);
   const wrapRef = useRef<HTMLDivElement | null>(null);
 
@@ -52,6 +52,10 @@ const MoreMenu: React.FC = () => {
       </button>
       {open && (
         <div className="menu-panel" role="menu">
+          <button className="menu-item" role="menuitem" onClick={run(() => setIsWelcomeOpen(true))}>
+            <Info size={15} />
+            <span>About RoutePulse</span>
+          </button>
           <button className="menu-item" role="menuitem" onClick={run(startTour)}>
             <Sparkles size={15} />
             <span>Take the guided tour</span>
@@ -138,11 +142,11 @@ export const StatusRibbon: React.FC = () => {
           title={
             isLiveApi
               ? 'Connected to the live FastAPI backend'
-              : 'Running 100% offline with bundled models & fixtures'
+              : 'No backend connected: showing the bundled demo data (measured evaluation results + replayed scenario). Start the API for live models.'
           }
         >
           <span className="pulse-dot" />
-          <span>{isLiveApi ? 'Live' : 'Offline'}</span>
+          <span>{isLiveApi ? 'Live' : 'Demo data'}</span>
         </div>
 
         <span className="ribbon-divider" aria-hidden="true" />

@@ -1,3 +1,4 @@
+import { useEvalHeadline } from '../../utils/evalStats';
 import React, { useState, useEffect } from 'react';
 import { useSimulation } from '../../context/SimulationContext';
 import { api } from '../../api/client';
@@ -21,6 +22,7 @@ import {
 export const Screen5Disruptions: React.FC = () => {
   const { scenario, triggerScenario } = useSimulation();
   const [evalResults, setEvalResults] = useState<EvalResultsResponse | null>(null);
+  const headline = useEvalHeadline();
   const [activeTabScenario, setActiveTabScenario] = useState<ScenarioId>(scenario);
   const [isInjecting, setIsInjecting] = useState<boolean>(false);
 
@@ -89,7 +91,7 @@ export const Screen5Disruptions: React.FC = () => {
 
           <div className="validation-seal" style={{ padding: '6px 12px' }}>
             <ShieldCheck size={16} />
-            <span>0 rule violations across 20 test runs</span>
+            <span>{headline.hard_violations} rule violations across {headline.runs} simulated runs</span>
           </div>
         </div>
 

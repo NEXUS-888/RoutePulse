@@ -8,6 +8,7 @@ from pathlib import Path
 from fastapi import APIRouter
 
 from core.schemas import EvalResultsResponse
+from eval.report import compute_headline
 
 router = APIRouter(tags=["Evaluation"])
 FIXTURES_DIR = Path(__file__).resolve().parent.parent / "fixtures"
@@ -23,6 +24,7 @@ def get_eval_results() -> EvalResultsResponse:
         try:
             with open(results_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
+            data["headline"] = compute_headline(data)
             return EvalResultsResponse(**data)
         except Exception:
             pass

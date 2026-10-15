@@ -2,7 +2,7 @@
 
 [![Evaluation Gate](https://img.shields.io/badge/Hard--Constraint%20Gate-0%20Violations%20(100%25)-brightgreen.svg)](#predeclared-benchmark-results)
 [![Conformal ETA](https://img.shields.io/badge/Conformal%20ETA%20Coverage-79.7%25%20(Target%2080%25)-blue.svg)](#eta-accuracy-and-uncertainty-calibration)
-[![Optimizer Solve Time](https://img.shields.io/badge/CP--SAT%20Solve%20Time-%3C1.5s-purple.svg)](#cp-sat-two-stage-optimization--explainability)
+[![Optimizer Solve Time](https://img.shields.io/badge/Optimizer%20Time-%3C10s%20bound-purple.svg)](#cp-sat-two-stage-optimization--explainability)
 [![Offline First](https://img.shields.io/badge/Architecture-Offline--First%20%7C%20Zero--External--Tiles-orange.svg)](#interactive-offline-operator-dashboard--fastapi-gateway)
 [![License](https://img.shields.io/badge/License-MIT-lightgrey.svg)](LICENSE)
 
@@ -70,8 +70,7 @@ All metrics reported below stem from our locked out-of-sample evaluation protoco
 | **P7: Downstream ETA Error (MAE)** | 3.19 min | 3.14 min | **0.80 min** | **-74.9% error reduction** | Split-conformal calibrated |
 | **P7: 80% Conformal Window Coverage** | 42.0% | 49.5% | **79.7%** | **Target 78%–82% met** | Sharpness: 2.56 min |
 | **P8: Hard-Constraint Violations** | 0 violations | 0 violations | **0 violations** | **100% Certified Safe (240/240 runs)** | Pure Functional Gate |
-| **P4: Capacity Violations (>100% cap)** | 9.0 trips | 5.1 trips | **0.0 trips** | **-100.0% eliminated** | Bound by H12 |
-| **Optimizer Execution Time** | N/A (Static) | Instant rule | **< 1.5 seconds** | Predeclared bound < 10.0 s | Warm-start CP-SAT |
+| **Optimizer Execution Time** | N/A (Static) | Instant rule | **~8 s (CP-SAT, anytime, 8 s limit); ~1.5 s greedy fallback** | Predeclared bound < 10.0 s met | Measured in `tests/test_optimizer.py` |
 
 > [!IMPORTANT]
 > **The Zero-Violation Guarantee (P8 Gate):** RoutePulse separates the optimizer from the validator. The optimizer *never* certifies its own output. Every proposed operational adjustment passes through an independent, pure functional validator ([`validate/validator.py`](file:///C:/Projects/hackathon%20project/validate/validator.py)) enforcing 12 non-negotiable physical, labour, accessibility, and capacity constraints (H1–H12). If a recommendation triggers even one hard violation, it is rejected before an operator ever sees it.

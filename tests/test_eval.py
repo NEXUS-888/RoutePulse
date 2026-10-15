@@ -393,3 +393,53 @@ def test_results_json_schema_conformity():
         assert len(resp.summary_table) == 12
         assert "results/wait_by_scenario.png" in resp.chart_paths
         assert "S0" in resp.scenarios
+
+
+def test_headline_is_computed_from_measured_results():
+    """The headline shown in the UI/report must be derived from results.json, never typed in."""
+    import json
+    from pathlib import Path
+    from eval.report import compute_headline
+
+    results_path = Path("results/results.json")
+    if not results_path.exists():
+        return
+    data = json.loads(results_path.read_text(encoding="utf-8"))
+    h = compute_headline(data)
+
+    paired = data["paired_differences"]
+    s0 = paired["S0"]["rp_vs_b0"]
+    assert h["s0"]["left_behind_rp"] == round(s0["p2_left_behind_pax"]["system_mean"], 1)
+    assert h["s0"]["left_behind_b0"] == round(s0["p2_left_behind_pax"]["baseline_mean"], 1)
+    assert h["s0"]["left_behind_reduction_pct"] == round(s0["p2_left_behind_pax"]["percent_improvement"], 1)
+
+    lo, hi = h["left_behind_reduction_pct"]
+    per_scenario = [paired[k]["rp_vs_b0"]["p2_left_behind_pax"]["percent_improvement"] for k in paired]
+    assert lo == round(min(per_scenario), 1) and hi == round(max(per_scenario), 1)
+
+    assert h["hard_violations"] == sum(int(r["hard_violations"]) for r in data["summary_table"])
+    assert h["runs"] == len(data["summary_table"]) * data["replications"]
+    assert h["eta"]["mae_rp"] == data["eta_metrics"]["routepulse"]["mae_overall"]
+
+
+def test_headline_is_empty_safe_for_partial_results():
+    from eval.report import compute_headline
+
+    h = compute_headline({"summary_table": [], "paired_differences": {}, "eta_metrics": {}})
+    assert h["hard_violations"] == 0
+    assert h["wait_reduction_pct"] == [0.0, 0.0]
+
+
+def test_bundled_fixtures_match_measured_results():
+    """Offline fixtures (API + web) must carry the same headline as results/results.json."""
+    import json
+    from pathlib import Path
+    from eval.report import compute_headline
+
+    results_path = Path("results/results.json")
+    if not results_path.exists():
+        return
+    expected = compute_headline(json.loads(results_path.read_text(encoding="utf-8")))
+    for fixture in ("api/fixtures/eval_results.json", "web/src/fixtures/eval_results.json"):
+        got = json.loads(Path(fixture).read_text(encoding="utf-8"))["headline"]
+        assert got == expected, f"{fixture} is stale: re-run the fixture export after `make eval`"

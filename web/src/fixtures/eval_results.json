@@ -3,73 +3,97 @@
     {
       "system": "Baseline-0",
       "scenario": "S0 (Normal)",
-      "wait_min": "6.9 \u00b1 0.4",
-      "left_behind": "47.2 \u00b1 3.1",
-      "missed_conn": "15.1 \u00b1 1.2",
+      "wait_min": "7.3 ± 0.3",
+      "left_behind": "47.0 ± 2.7",
+      "missed_conn": "13.7 ± 1.2",
       "hard_violations": 0
     },
     {
       "system": "Baseline-1",
       "scenario": "S0 (Normal)",
-      "wait_min": "6.1 \u00b1 0.3",
-      "left_behind": "32.0 \u00b1 2.8",
-      "missed_conn": "11.4 \u00b1 1.0",
+      "wait_min": "6.1 ± 0.2",
+      "left_behind": "33.5 ± 2.1",
+      "missed_conn": "11.9 ± 1.2",
       "hard_violations": 0
     },
     {
       "system": "RoutePulse",
       "scenario": "S0 (Normal)",
-      "wait_min": "5.1 \u00b1 0.2",
-      "left_behind": "12.4 \u00b1 1.5",
-      "missed_conn": "6.2 \u00b1 0.7",
+      "wait_min": "5.2 ± 0.1",
+      "left_behind": "13.4 ± 0.7",
+      "missed_conn": "6.2 ± 0.7",
       "hard_violations": 0
     },
     {
       "system": "Baseline-0",
       "scenario": "S1 (Traffic)",
-      "wait_min": "9.4 \u00b1 0.6",
-      "left_behind": "84.1 \u00b1 5.2",
-      "missed_conn": "29.3 \u00b1 2.1",
+      "wait_min": "9.3 ± 0.4",
+      "left_behind": "89.2 ± 4.5",
+      "missed_conn": "28.8 ± 1.8",
+      "hard_violations": 0
+    },
+    {
+      "system": "Baseline-1",
+      "scenario": "S1 (Traffic)",
+      "wait_min": "8.2 ± 0.4",
+      "left_behind": "59.7 ± 4.1",
+      "missed_conn": "21.2 ± 1.3",
       "hard_violations": 0
     },
     {
       "system": "RoutePulse",
       "scenario": "S1 (Traffic)",
-      "wait_min": "6.8 \u00b1 0.3",
-      "left_behind": "28.5 \u00b1 2.6",
-      "missed_conn": "13.0 \u00b1 1.1",
+      "wait_min": "6.8 ± 0.2",
+      "left_behind": "28.9 ± 2.6",
+      "missed_conn": "12.9 ± 0.9",
       "hard_violations": 0
     },
     {
       "system": "Baseline-0",
       "scenario": "S2 (Vehicle Out)",
-      "wait_min": "10.2 \u00b1 0.7",
-      "left_behind": "112.0 \u00b1 7.0",
-      "missed_conn": "34.5 \u00b1 2.4",
+      "wait_min": "10.4 ± 0.7",
+      "left_behind": "110.0 ± 6.7",
+      "missed_conn": "36.3 ± 2.2",
+      "hard_violations": 0
+    },
+    {
+      "system": "Baseline-1",
+      "scenario": "S2 (Vehicle Out)",
+      "wait_min": "8.7 ± 0.7",
+      "left_behind": "66.6 ± 5.9",
+      "missed_conn": "23.5 ± 1.9",
       "hard_violations": 0
     },
     {
       "system": "RoutePulse",
       "scenario": "S2 (Vehicle Out)",
-      "wait_min": "7.1 \u00b1 0.4",
-      "left_behind": "34.1 \u00b1 3.0",
-      "missed_conn": "14.2 \u00b1 1.2",
+      "wait_min": "7.1 ± 0.4",
+      "left_behind": "34.0 ± 3.3",
+      "missed_conn": "14.5 ± 0.9",
       "hard_violations": 0
     },
     {
       "system": "Baseline-0",
       "scenario": "S3 (Demand Surge)",
-      "wait_min": "8.8 \u00b1 0.5",
-      "left_behind": "96.4 \u00b1 6.1",
-      "missed_conn": "24.0 \u00b1 1.8",
+      "wait_min": "8.7 ± 0.5",
+      "left_behind": "97.1 ± 5.6",
+      "missed_conn": "23.8 ± 1.5",
+      "hard_violations": 0
+    },
+    {
+      "system": "Baseline-1",
+      "scenario": "S3 (Demand Surge)",
+      "wait_min": "7.7 ± 0.3",
+      "left_behind": "59.9 ± 4.6",
+      "missed_conn": "17.8 ± 1.1",
       "hard_violations": 0
     },
     {
       "system": "RoutePulse",
       "scenario": "S3 (Demand Surge)",
-      "wait_min": "6.0 \u00b1 0.3",
-      "left_behind": "22.6 \u00b1 2.1",
-      "missed_conn": "9.8 \u00b1 0.9",
+      "wait_min": "6.1 ± 0.3",
+      "left_behind": "22.2 ± 2.1",
+      "missed_conn": "9.9 ± 0.7",
       "hard_violations": 0
     }
   ],
@@ -85,5 +109,39 @@
     "results/eta_error_by_horizon.png",
     "results/coverage.png"
   ],
-  "timestamp": "2026-10-14T12:00:00Z"
+  "timestamp": "2026-10-14T08:00:18.250502+00:00",
+  "headline": {
+    "replications": 20,
+    "runs": 240,
+    "hard_violations": 0,
+    "wait_reduction_pct": [
+      26.1,
+      31.5
+    ],
+    "left_behind_reduction_pct": [
+      67.7,
+      77.2
+    ],
+    "missed_conn_reduction_pct": [
+      55.2,
+      60.1
+    ],
+    "s0": {
+      "wait_b0": 7.3,
+      "wait_rp": 5.2,
+      "wait_reduction_pct": 29.6,
+      "left_behind_b0": 47.0,
+      "left_behind_rp": 13.4,
+      "left_behind_reduction_pct": 71.5,
+      "missed_b0": 13.7,
+      "missed_rp": 6.2,
+      "missed_reduction_pct": 55.2
+    },
+    "eta": {
+      "mae_rp": 0.8,
+      "mae_b0": 3.19,
+      "reduction_pct": 74.9,
+      "coverage_80": 79.7
+    }
+  }
 }

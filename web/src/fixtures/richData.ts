@@ -1,4 +1,5 @@
 import type { Alert, Recommendation, DemandResponse, EvalResultsResponse } from '../types';
+import evalFixture from './eval_results.json';
 
 export const ALL_ALERTS: Alert[] = [
   {
@@ -225,118 +226,8 @@ export const ALL_RECOMMENDATIONS: Recommendation[] = [
   }
 ];
 
-export const MOCK_EVAL_RESULTS: EvalResultsResponse = {
-  summary_table: [
-    {
-      system: "Baseline-0 (Static Timetable)",
-      scenario: "S0 (Normal Peak)",
-      wait_min: "6.9 ± 0.4",
-      left_behind: "47.2 ± 3.1",
-      missed_conn: "15.1 ± 1.2",
-      hard_violations: 0
-    },
-    {
-      system: "Baseline-1 (Reactive Rule)",
-      scenario: "S0 (Normal Peak)",
-      wait_min: "6.1 ± 0.3",
-      left_behind: "32.0 ± 2.8",
-      missed_conn: "11.4 ± 1.0",
-      hard_violations: 0
-    },
-    {
-      system: "RoutePulse (Optimized + Conformal)",
-      scenario: "S0 (Normal Peak)",
-      wait_min: "4.7 ± 0.2",
-      left_behind: "6.3 ± 1.1",
-      missed_conn: "2.1 ± 0.5",
-      hard_violations: 0
-    },
-    {
-      system: "Baseline-0 (Static Timetable)",
-      scenario: "S1 (Traffic Delay)",
-      wait_min: "9.8 ± 0.6",
-      left_behind: "78.4 ± 4.5",
-      missed_conn: "29.3 ± 2.1",
-      hard_violations: 0
-    },
-    {
-      system: "Baseline-1 (Reactive Rule)",
-      scenario: "S1 (Traffic Delay)",
-      wait_min: "8.2 ± 0.5",
-      left_behind: "54.1 ± 3.8",
-      missed_conn: "21.0 ± 1.6",
-      hard_violations: 0
-    },
-    {
-      system: "RoutePulse (Optimized + Conformal)",
-      scenario: "S1 (Traffic Delay)",
-      wait_min: "5.6 ± 0.3",
-      left_behind: "14.2 ± 1.9",
-      missed_conn: "4.8 ± 0.8",
-      hard_violations: 0
-    },
-    {
-      system: "Baseline-0 (Static Timetable)",
-      scenario: "S2 (Vehicle Breakdown)",
-      wait_min: "11.2 ± 0.8",
-      left_behind: "92.6 ± 5.2",
-      missed_conn: "34.5 ± 2.4",
-      hard_violations: 0
-    },
-    {
-      system: "Baseline-1 (Reactive Rule)",
-      scenario: "S2 (Vehicle Breakdown)",
-      wait_min: "8.9 ± 0.6",
-      left_behind: "61.3 ± 4.1",
-      missed_conn: "23.7 ± 1.8",
-      hard_violations: 0
-    },
-    {
-      system: "RoutePulse (Optimized + Conformal)",
-      scenario: "S2 (Vehicle Breakdown)",
-      wait_min: "5.9 ± 0.4",
-      left_behind: "18.0 ± 2.2",
-      missed_conn: "6.1 ± 0.9",
-      hard_violations: 0
-    },
-    {
-      system: "Baseline-0 (Static Timetable)",
-      scenario: "S3 (Symposium Surge)",
-      wait_min: "10.5 ± 0.7",
-      left_behind: "110.8 ± 6.0",
-      missed_conn: "28.0 ± 2.0",
-      hard_violations: 0
-    },
-    {
-      system: "Baseline-1 (Reactive Rule)",
-      scenario: "S3 (Symposium Surge)",
-      wait_min: "8.4 ± 0.5",
-      left_behind: "72.4 ± 4.8",
-      missed_conn: "19.5 ± 1.5",
-      hard_violations: 0
-    },
-    {
-      system: "RoutePulse (Optimized + Conformal)",
-      scenario: "S3 (Symposium Surge)",
-      wait_min: "5.8 ± 0.3",
-      left_behind: "22.5 ± 2.5",
-      missed_conn: "5.2 ± 0.8",
-      hard_violations: 0
-    }
-  ],
-  scenarios: {
-    S0: "Normal morning peak operations with standard passenger flow",
-    S1: "Corridor traffic delay along Outer Ring / Metro link (+8 min)",
-    S2: "Mechanical failure of bus B3 at 08:05 midway through service",
-    S3: "Campus Auditorium Symposium surge with +120 arriving visitors"
-  },
-  chart_paths: [
-    "results/fig1_eta_calibration_conformal.png",
-    "results/fig2_kpi_comparison_scenarios.png",
-    "results/fig3_tradeoff_pareto_curve.png"
-  ],
-  timestamp: "2026-10-14T08:00:00Z"
-};
+// Measured results (copied from results/results.json by `eval.report.compute_headline`).
+export const MOCK_EVAL_RESULTS: EvalResultsResponse = evalFixture as unknown as EvalResultsResponse;
 
 // Generate full stop demand matrix for Screen 3 heatmap
 export function generateStopDemandHeatmap(stops: { stop_id: string; name: string }[]): Record<string, DemandResponse> {

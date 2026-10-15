@@ -130,7 +130,7 @@ flowchart TB
 
     subgraph STAGE4["4. DECIDE (Two-Stage Optimization)"]
         ALERTS --> STAGE_A["Stage A: Service-Level Sizing"]
-        STAGE_A --> STAGE_B["Stage B: CP-SAT Vehicle Blocking (optimize/cpsat_model.py)<br/>Solves in <1.5s with Warm Start"]
+        STAGE_A --> STAGE_B["Stage B: CP-SAT Vehicle Blocking (optimize/cpsat_model.py)<br/>Anytime solve within an 8 s limit, warm-started"]
     end
 
     subgraph STAGE5["5. VERIFY (Zero-Violation Safety Gate)"]
@@ -194,7 +194,7 @@ flowchart TB
   - Transfer-protection indicators $y_{t,s} \in \{0,1\}$ at Central Hub S03 ($t_{\text{arr}} + 4\text{m} \le t_{\text{dep}}$).
   - Multi-objective minimization:
     $$\min \quad 10 \sum \text{Unmet} + 6 \sum (1 - y) \cdot \text{Pax} + 1.0 \sum \text{Wait} + 0.3 \cdot \text{Km} + 0.5 \sum |\Delta t| + 1.5 \cdot \text{Changes}$$
-- **Solve Time:** **< 1.5 seconds** (warm-started from baseline). Deterministic greedy fallback ensures recommendations are never empty.
+- **Solve Time:** CP-SAT runs within an 8 s time limit (warm-started from baseline; inside the predeclared 10 s bound); the greedy fallback returns in about 1.5 s. Deterministic greedy fallback ensures recommendations are never empty.
 
 #### 2. The 12 Non-Negotiable Hard Constraints (H1–H12) ([`validate/constraints.py`](file:///C:/Projects/hackathon%20project/validate/constraints.py))
 
